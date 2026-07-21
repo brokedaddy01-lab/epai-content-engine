@@ -1,3 +1,5 @@
+import json
+
 from content_engine.agents.writer_agent import (
     WriterAgent
 )
@@ -27,11 +29,9 @@ def clean_output(text):
 
     replacements = {
 
-        "Here's the post:": "",
-
         "Here is the final post:": "",
 
-        "Here is the final Protocol X message:": "",
+        "Here's the post:": "",
 
         '"': ""
     }
@@ -64,6 +64,19 @@ def generate_post(
         response
     )
 
+    if review["score"] < 80:
+
+        response = writer.regenerate(
+
+            row,
+            brand,
+            review["issues"]
+        )
+
+        review = reviewer.review(
+            response
+        )
+
     formatted = formatter.format(
 
         response,
@@ -83,6 +96,5 @@ def generate_post(
 
         "review": review,
 
-        "image_prompt":
-            image_prompt
+        "image_prompt": image_prompt
     }

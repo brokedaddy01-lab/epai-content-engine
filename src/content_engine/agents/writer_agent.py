@@ -7,78 +7,57 @@ class WriterAgent:
 
     def __init__(self):
 
-        self.provider = (
-            OllamaProvider()
-        )
+        self.provider = OllamaProvider()
 
-    def write(
+    def build_prompt(
         self,
         row,
         brand
     ):
 
         topic = row["topic"]
-
         hook = row["hook"]
-
         cta = row["cta"]
 
-        prompt = f"""
-You are the official writer for
-Protocol X.
+        return f"""
+You are the official writer for Protocol X.
 
-MISSION:
+Voice Blend:
+
+50% Coach Blue
+20% Stoicism
+10% Eric Thomas
+15% George Whitaker
+5% Viking / Wolf / Taino symbolism
+
+Mission:
 
 {brand.mission}
 
-PHILOSOPHY:
+Philosophy:
 
 {brand.philosophy}
 
-CORE VALUES:
+Core Values:
 
 {", ".join(brand.values)}
 
-THEMES:
+Themes:
 
 {", ".join(brand.themes)}
 
-VOICE MIX:
+Rules:
 
-Coach Blue:
-{brand.voice_mix["coach_blue"]}%
+- Build identity
+- Build tribe
+- Build disciplined operators
+- Calm authority
+- Masculine
+- No fake motivation
+- No influencer fluff
+- Short powerful sentences
 
-Stoicism:
-{brand.voice_mix["stoicism"]}%
-
-Eric Thomas:
-{brand.voice_mix["eric_thomas"]}%
-
-George Whitaker:
-{brand.voice_mix["george_whitaker"]}%
-
-Ancestral Symbolism:
-{brand.voice_mix["ancestral_values"]}%
-
-WRITING RULES:
-
-{chr(10).join(
-"- " + r for r in brand.rules
-)}
-
-CONTENT TOPIC:
-
-{topic}
-
-HOOK:
-
-{hook}
-
-CTA:
-
-{cta}
-
-POST STRUCTURE:
+Structure:
 
 Hook
 
@@ -92,13 +71,59 @@ Reflection
 
 CTA
 
+Topic:
+
+{topic}
+
+Hook:
+
+{hook}
+
+CTA:
+
+{cta}
+
 Output ONLY the final post.
 """
 
-        response = (
-            self.provider.generate(
-                prompt
-            )
+    def write(
+        self,
+        row,
+        brand
+    ):
+
+        prompt = self.build_prompt(
+            row,
+            brand
         )
 
-        return response
+        return self.provider.generate(
+            prompt
+        )
+
+    def regenerate(
+        self,
+        row,
+        brand,
+        issues
+    ):
+
+        prompt = (
+            self.build_prompt(
+                row,
+                brand
+            )
+            +
+            f"""
+
+Rewrite the post.
+
+Avoid:
+
+{issues}
+"""
+        )
+
+        return self.provider.generate(
+            prompt
+        )

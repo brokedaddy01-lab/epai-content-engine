@@ -6,9 +6,7 @@ class FormatterAgent:
         platform
     ):
 
-        platform = (
-            platform.lower()
-        )
+        platform = platform.lower()
 
         if platform == "linkedin":
 
@@ -18,25 +16,44 @@ class FormatterAgent:
 
             return (
                 text
-                + "\n\n"
-                + "What standard are "
-                  "you enforcing today?"
+                +
+                "\n\nWhat standard are "
+                "you enforcing today?"
             )
 
         if platform == "instagram":
 
             return (
                 text
-                + "\n\n"
-                + "#protocolx "
-                + "#discipline "
-                + "#operator "
-                + "#selfmastery "
-                + "#masculinity"
+                +
+                "\n\n"
+                "#protocolx "
+                "#discipline "
+                "#operator "
+                "#selfmastery"
             )
 
         if platform == "x":
 
             return text[:280]
+
+        if platform == "tiktok":
+
+            return (
+                text
+                +
+                "\n\n"
+                "Follow @ProtocolX "
+                "for daily standards."
+            )
+
+        if platform == "youtube":
+
+            return (
+                text
+                +
+                "\n\nSubscribe for "
+                "more Protocol X content."
+            )
 
         return text

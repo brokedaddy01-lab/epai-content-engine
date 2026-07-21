@@ -1,3 +1,5 @@
+import json
+
 from pathlib import Path
 
 from content_engine.calendar_reader import (
@@ -38,63 +40,67 @@ def main():
             brand
         )
 
-        filename = (
+        base = (
             f"{row['date']}"
-            f"_{row['platform']}.txt"
+            f"_{row['platform']}"
         )
 
-        filepath = (
+        post_file = (
             output_dir
-            / filename
+            / f"{base}.txt"
+        )
+
+        review_file = (
+            output_dir
+            / f"{base}_review.json"
+        )
+
+        image_file = (
+            output_dir
+            /
+            f"{base}_image_prompt.txt"
         )
 
         with open(
-
-            filepath,
-
+            post_file,
             "w",
-
             encoding="utf-8"
-
         ) as f:
 
             f.write(
                 result["post"]
             )
 
-        image_file = (
+        with open(
+            review_file,
+            "w",
+            encoding="utf-8"
+        ) as f:
 
-            output_dir
-            /
-            f"{row['date']}"
-            f"_{row['platform']}"
-            "_image_prompt.txt"
-        )
+            json.dump(
+
+                result["review"],
+
+                f,
+
+                indent=4
+            )
 
         with open(
-
             image_file,
-
             "w",
-
             encoding="utf-8"
-
         ) as f:
 
             f.write(
-                result[
-                    "image_prompt"
-                ]
+                result["image_prompt"]
             )
 
         print(
-            f"Created: {filepath}"
-        )
-
-        print(
-            result["review"]
+            f"Created: {post_file}"
         )
 
 
 if __name__ == "__main__":
+
     main()
