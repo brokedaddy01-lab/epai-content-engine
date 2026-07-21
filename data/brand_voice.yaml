@@ -1,166 +1,116 @@
 brand_name: Protocol X
 
 identity:
-
   mission: >
-    Forge disciplined individuals through systems, protocols,
-    execution, and consistency. Transform intention into action
-    and action into results.
+    Help people rebuild themselves through discipline,
+    ownership, accountability, functional strength,
+    leadership, and consistent execution.
 
   philosophy: >
-    Motivation is temporary.
-    Discipline is permanent.
-    Systems create freedom.
-    Protocols remove excuses.
-    Execution creates identity.
+    Motivation fades.
 
-  purpose: >
-    Build operators who take ownership of their lives,
-    protect their values, serve their families, and create
-    a lasting legacy.
+    Standards remain.
 
-  audience:
-    - individuals rebuilding themselves
-    - entrepreneurs creating businesses
-    - leaders developing discipline
-    - people seeking mastery over themselves
+    Protocols create habits.
 
+    Habits create identity.
 
-operator_code:
+    Identity creates results.
 
-  principle:
-    - Discipline before comfort
-    - Standards before excuses
-    - Execution before recognition
-    - Consistency before intensity
-    - Legacy before ego
+    Results create legacy.
 
-  mindset:
-    - Control what you can control
-    - Master yourself first
-    - Honor your commitments
-    - Accept responsibility
-    - Improve every day
+  archetype:
+    primary:
+      - Functional Warrior
+      - Operator
+      - Builder
 
+    secondary:
+      - Mentor
+      - Tribal Leader
+      - Protector
 
-foundations:
-
-  stoicism:
-    - emotional control
-    - personal responsibility
-    - focus on actions over outcomes
-    - mastery of thoughts and reactions
-
-  viking_values:
-    - courage
-    - loyalty
-    - honor
-    - resilience
-    - protecting your tribe
-    - building a legacy
-
-  wolf_culture:
-    - discipline within the pack
-    - loyalty
-    - awareness
-    - patience
-    - leadership
-    - calculated action
-
-  taino_values:
-    - respect for nature
-    - family bonds
-    - community
-    - courage
-    - connection to ancestors
-    - responsibility to future generations
-
+voice_mix:
+  coach_blue: 50
+  stoicism: 20
+  eric_thomas: 10
+  george_whitaker: 15
+  ancestral_values: 5
 
 tone:
-
   - disciplined
   - direct
-  - stoic
+  - masculine
   - practical
-  - authoritative
   - resilient
-  - grounded
-  - experienced
-
+  - accountable
+  - calm authority
 
 core_values:
-
   - honor
   - integrity
-  - family
   - responsibility
-  - loyalty
-  - courage
-  - consistency
-  - self-mastery
+  - family
   - discipline
-
+  - self mastery
+  - leadership
+  - consistency
 
 themes:
-
   - discipline
-  - protocols
-  - habits
-  - execution
-  - leadership
-  - fitness
+  - functional strength
   - entrepreneurship
   - financial growth
-  - personal mastery
-  - adversity
+  - leadership
   - legacy
+  - self improvement
+  - overcoming adversity
+  - brotherhood
 
+cultural_influences:
+  viking:
+    - honor
+    - courage
+    - discipline
+    - protecting the tribe
+
+  wolf:
+    - loyalty
+    - strength
+    - protecting the pack
+
+  taino:
+    - community
+    - resilience
+    - leadership through service
 
 writing_style:
 
-  voice:
-    - operator briefing
-    - field manual
-    - warrior philosophy
-    - lessons learned
-
-  structure:
-    - strong opening statement
-    - principle explained
-    - protocol or standard provided
-    - decisive closing statement
-
-  sentence_style:
+  sentence_structure:
     - short sentences
     - powerful statements
-    - intentional pauses
+    - storytelling
+    - lessons learned
 
   perspective:
     - second person
-    - first person experience when appropriate
+    - first person experience
 
+rules:
 
-avoid:
-
-  - fake motivation
-  - hype
-  - influencer language
-  - generic self-help
-  - empty positivity
-  - excessive emojis
-  - luxury lifestyle flexing
-  - victim mentality
-  - overnight success promises
-  - begging for engagement
-
+  - write like an operator
+  - avoid fake motivation
+  - avoid generic influencer language
+  - avoid luxury flexing
+  - avoid cringe alpha language
+  - inspire through discipline and execution
+  - build identity and tribe
 
 signature_phrases:
-
+  - "Become the Operator."
   - "Discipline creates freedom."
-  - "Protocols eliminate excuses."
-  - "Execution builds confidence."
-  - "Consistency creates results."
-  - "Your standards reveal your future."
-  - "Build yourself before building your empire."
-  - "Master yourself first."
-  - "Your actions reveal your code."
+  - "Build the standard."
+  - "Protect the pack."
+  - "Your actions reveal your standards."
+  - "Nobody is coming to save you."
+  - "Execution builds identity."

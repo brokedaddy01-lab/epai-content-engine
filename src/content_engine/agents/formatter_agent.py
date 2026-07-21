@@ -1,4 +1,4 @@
-class PlatformFormatter:
+class FormatterAgent:
 
     def format(
         self,
@@ -6,7 +6,9 @@ class PlatformFormatter:
         platform
     ):
 
-        platform = platform.lower()
+        platform = (
+            platform.lower()
+        )
 
         if platform == "linkedin":
 
@@ -14,9 +16,11 @@ class PlatformFormatter:
 
         if platform == "facebook":
 
-            return text + (
-                "\n\nWhat standards "
-                "are you enforcing today?"
+            return (
+                text
+                + "\n\n"
+                + "What standard are "
+                  "you enforcing today?"
             )
 
         if platform == "instagram":
@@ -24,10 +28,11 @@ class PlatformFormatter:
             return (
                 text
                 + "\n\n"
+                + "#protocolx "
                 + "#discipline "
-                "#protocolx "
-                "#operator "
-                "#selfmastery"
+                + "#operator "
+                + "#selfmastery "
+                + "#masculinity"
             )
 
         if platform == "x":

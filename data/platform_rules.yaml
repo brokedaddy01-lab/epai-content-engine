@@ -1,0 +1,15 @@
+linkedin:
+  style: authority
+  cta: reflection
+
+facebook:
+  style: storytelling
+  cta: engagement
+
+instagram:
+  style: emotional
+  cta: save_and_share
+
+x:
+  style: short
+  cta: debate
