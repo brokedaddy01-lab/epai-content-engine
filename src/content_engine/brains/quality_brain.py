@@ -2,6 +2,10 @@ from content_engine.agents.quality_services.hook_quality_agent import (
     HookQualityAgent
 )
 
+from content_engine.agents.quality_services.hook_similarity_agent import (
+    HookSimilarityAgent
+)
+
 from content_engine.agents.quality_services.memory_filter_agent import (
     MemoryFilterAgent
 )
@@ -14,6 +18,10 @@ from content_engine.agents.quality_services.virality_agent import (
     ViralityAgent
 )
 
+from content_engine.agents.quality_services.virality_prediction_agent import (
+    ViralityPredictionAgent
+)
+
 
 class QualityBrain:
 
@@ -22,11 +30,15 @@ class QualityBrain:
 
         self.hook_quality = HookQualityAgent()
 
+        self.hook_similarity = HookSimilarityAgent()
+
         self.memory_filter = MemoryFilterAgent()
 
         self.performance = PerformanceScoringAgent()
 
         self.virality = ViralityAgent()
+
+        self.virality_prediction = ViralityPredictionAgent()
 
 
 
@@ -46,7 +58,67 @@ class QualityBrain:
 
             self.hook_quality
             .score(
+
                 hook
+
+            )
+
+        )
+
+
+
+    ##################################################
+    # HOOK SIMILARITY
+    ##################################################
+
+    def compare_hooks(
+
+        self,
+
+        first,
+
+        second
+
+    ):
+
+        return (
+
+            self.hook_similarity
+            .similarity(
+
+                first,
+
+                second
+
+            )
+
+        )
+
+
+
+    def is_duplicate_hook(
+
+        self,
+
+        new_hook,
+
+        existing_hook,
+
+        threshold=55
+
+    ):
+
+        return (
+
+            self.hook_similarity
+            .is_similar(
+
+                new_hook,
+
+                existing_hook,
+
+                threshold
+
             )
 
         )
@@ -69,7 +141,9 @@ class QualityBrain:
 
             self.memory_filter
             .clean_hook(
+
                 hook
+
             )
 
         )
@@ -88,7 +162,9 @@ class QualityBrain:
 
             self.memory_filter
             .clean_topic(
+
                 topic
+
             )
 
         )
@@ -107,7 +183,9 @@ class QualityBrain:
 
             self.memory_filter
             .clean_cta(
+
                 cta
+
             )
 
         )
@@ -130,7 +208,9 @@ class QualityBrain:
 
             self.performance
             .score(
+
                 content
+
             )
 
         )
@@ -138,7 +218,7 @@ class QualityBrain:
 
 
     ##################################################
-    # VIRALITY
+    # VIRALITY OPTIMIZATION
     ##################################################
 
     def optimize_virality(
@@ -163,4 +243,36 @@ class QualityBrain:
             )
 
         )
-    
+
+
+
+    ##################################################
+    # VIRALITY PREDICTION
+    ##################################################
+
+    def predict_virality(
+
+        self,
+
+        review,
+
+        viral,
+
+        platform
+
+    ):
+
+        return (
+
+            self.virality_prediction
+            .predict(
+
+                review,
+
+                viral,
+
+                platform
+
+            )
+
+        )

@@ -7,7 +7,6 @@ from content_engine.agents.intelligence.content_memory_manager import (
 )
 
 
-
 class PromptArchitectAgent:
 
     """
@@ -15,11 +14,12 @@ class PromptArchitectAgent:
     content generation agents.
 
     The Prompt Architect owns:
+
     - prompt construction
     - memory injection
     - brand context
+    - story framework injection
     """
-
 
 
     def __init__(self):
@@ -37,8 +37,12 @@ class PromptArchitectAgent:
     def build_copywriter_prompt(
 
         self,
+
         row,
-        brand
+
+        brand,
+
+        story_framework
 
     ):
 
@@ -52,12 +56,14 @@ class PromptArchitectAgent:
         )
 
 
+
         memory_context = (
 
             self.memory
             .get_prompt_context()
 
         )
+
 
 
         memory_block = f"""
@@ -90,6 +96,39 @@ Create something original.
 """
 
 
+
+        story_block = f"""
+
+━━━━━━━━━━━━━━━━━━
+
+STORY FRAMEWORK
+
+Topic:
+
+{story_framework["topic"]}
+
+
+Audience:
+
+{story_framework["audience"]}
+
+
+Platform:
+
+{story_framework["platform"]}
+
+
+Instructions:
+
+{story_framework["instruction"]}
+
+
+━━━━━━━━━━━━━━━━━━
+
+"""
+
+
+
         return (
 
             base_prompt
@@ -97,5 +136,9 @@ Create something original.
             +
 
             memory_block
+
+            +
+
+            story_block
 
         )

@@ -1,3 +1,7 @@
+from content_engine.agents.creation.story_engine_agent import (
+    StoryEngineAgent
+)
+
 from content_engine.agents.creation.prompt_architect_agent import (
     PromptArchitectAgent
 )
@@ -16,6 +20,8 @@ class CreationBrain:
 
     def __init__(self):
 
+        self.story_engine = StoryEngineAgent()
+
         self.prompt_architect = PromptArchitectAgent()
 
         self.copywriter = CopywriterAgent()
@@ -25,16 +31,66 @@ class CreationBrain:
 
 
     ##################################################
-    # CREATE CONTENT WITH QUALITY LOOP
+    # CREATE CONTENT WITH STORY + QUALITY LOOP
     ##################################################
 
     def create(
 
         self,
+
         row,
+
         brand
 
     ):
+
+
+        topic = (
+
+            row.get(
+                "topic",
+                ""
+            )
+
+        )
+
+
+        platform = (
+
+            row.get(
+                "platform",
+                "social"
+            )
+
+        )
+
+
+        audience = (
+
+            row.get(
+                "audience",
+                "target audience"
+            )
+
+        )
+
+
+
+        story = (
+
+            self.story_engine
+            .build_story(
+
+                topic,
+
+                audience,
+
+                platform
+
+            )
+
+        )
+
 
 
         prompt = (
@@ -44,11 +100,14 @@ class CreationBrain:
 
                 row,
 
-                brand
+                brand,
+
+                story
 
             )
 
         )
+
 
 
         response = (
@@ -63,6 +122,7 @@ class CreationBrain:
         )
 
 
+
         review = (
 
             self.reviewer
@@ -75,7 +135,9 @@ class CreationBrain:
         )
 
 
+
         attempts = 1
+
 
 
         while (
@@ -121,10 +183,24 @@ class CreationBrain:
 
         return {
 
-            "content": response,
 
-            "review": review,
+            "content":
 
-            "attempts": attempts
+                response,
+
+
+            "review":
+
+                review,
+
+
+            "attempts":
+
+                attempts,
+
+
+            "story":
+
+                story
 
         }

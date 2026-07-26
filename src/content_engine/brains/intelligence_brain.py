@@ -18,6 +18,18 @@ from content_engine.agents.intelligence.feedback_agent import (
     FeedbackAgent
 )
 
+from content_engine.agents.intelligence.knowledge_agent import (
+    KnowledgeAgent
+)
+
+from content_engine.agents.intelligence.memory_agent import (
+    MemoryAgent
+)
+
+from content_engine.agents.intelligence.feedback_loop_agent import (
+    FeedbackLoopAgent
+)
+
 from content_engine.agents.strategy.topic_cluster_agent import (
     TopicClusterAgent
 )
@@ -32,13 +44,17 @@ class IntelligenceBrain:
 
         self.performance = PerformanceAgent()
 
-        self.performance_learning = (
-            PerformanceLearningAgent()
-        )
+        self.performance_learning = PerformanceLearningAgent()
 
         self.memory = ContentMemoryManager()
 
+        self.memory_agent = MemoryAgent()
+
         self.feedback = FeedbackAgent()
+
+        self.feedback_loop = FeedbackLoopAgent()
+
+        self.knowledge = KnowledgeAgent()
 
         self.clusters = TopicClusterAgent()
 
@@ -154,7 +170,9 @@ class IntelligenceBrain:
 
             self.performance_learning
             .learn(
+
                 memory_data
+
             )
 
         )
@@ -168,6 +186,36 @@ class IntelligenceBrain:
     def feedback_agent(self):
 
         return self.feedback
+
+
+
+    ##################################################
+    # KNOWLEDGE
+    ##################################################
+
+    def knowledge_agent(self):
+
+        return self.knowledge
+
+
+
+    ##################################################
+    # MEMORY AGENT
+    ##################################################
+
+    def memory_agent_service(self):
+
+        return self.memory_agent
+
+
+
+    ##################################################
+    # FEEDBACK LOOP
+    ##################################################
+
+    def feedback_loop_agent(self):
+
+        return self.feedback_loop
 
 
 
