@@ -4,134 +4,108 @@ from pathlib import Path
 
 class MemoryAgent:
 
+    def __init__(
+        self,
+        memory_file="data/content_memory.json"
+    ):
 
-    def __init__(self):
+        self.memory_file = Path(
+            memory_file
+        )
 
-        self.file = Path(
-            "data/content_memory.json"
+        self.memory = self._load()
+
+
+    def _load(self):
+
+        if not self.memory_file.exists():
+
+            return []
+
+        try:
+
+            with open(
+                self.memory_file,
+                "r",
+                encoding="utf-8"
+            ) as f:
+
+                data = json.load(f)
+
+                if isinstance(data, list):
+
+                    return data
+
+                if isinstance(data, dict):
+
+                    return data.get(
+                        "memories",
+                        []
+                    )
+
+        except Exception:
+
+            pass
+
+
+        return []
+
+
+    def retrieve(self):
+
+        return self.memory
+
+
+    def add(
+        self,
+        memory
+    ):
+
+        self.memory.append(
+            memory
+        )
+
+        self._save()
+
+
+    def store(
+        self,
+        memory
+    ):
+
+        self.add(
+            memory
         )
 
 
-    def load(self):
+    def _save(self):
 
-        if not self.file.exists():
-
-            return self.default_memory()
-
-
-        with open(
-            self.file,
-            "r",
-            encoding="utf-8"
-        ) as f:
-
-            return json.load(f)
-
-
-
-    def default_memory(self):
-
-        return {
-
-            "successful_hooks": [],
-
-            "failed_hooks": [],
-
-            "successful_topics": [],
-
-            "failed_topics": [],
-
-            "successful_hashtags": {},
-
-            "failed_hashtags": [],
-
-            "successful_ctas": {},
-
-            "failed_ctas": [],
-
-            "rejected_phrases": [],
-
-            "high_performing_posts": [],
-
-            "low_performing_posts": [],
-
-            "platform_performance": {}
-
-        }
-
-
-
-    def save(
-        self,
-        data
-    ):
-
-        self.file.parent.mkdir(
-            parents=True,
+        self.memory_file.parent.mkdir(
             exist_ok=True
         )
 
-
         with open(
-            self.file,
+            self.memory_file,
             "w",
             encoding="utf-8"
         ) as f:
 
             json.dump(
-                data,
+                self.memory,
                 f,
                 indent=4
             )
 
 
-
-    ##################################################
-    # FILTER MEMORY
-    ##################################################
-
-    def valid_memory(
+    def search(
         self,
-        text
+        query
     ):
 
+        query = query.lower()
 
-        if not text:
-
-            return False
-
-
-        banned = [
-
-            "here is",
-
-            "here's",
-
-            "final post",
-
-            "video script",
-
-            "content:",
-
-            "i cannot",
-
-            "i understand",
-
-            "assistant",
-
-            "ai"
-
+        return [
+            item
+            for item in self.memory
+            if query in str(item).lower()
         ]
-
-
-        lower = text.lower()
-
-
-        for phrase in banned:
-
-            if phrase in lower:
-
-                return False
-
-
-        return True
