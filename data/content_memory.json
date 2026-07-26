@@ -12,8 +12,8 @@
         },
         {
             "text": "Stoic Leadership: Why Your Actions Reveal Your Standards",
-            "uses": 4,
-            "avg_score": 97.0
+            "uses": 5,
+            "avg_score": 98.5
         },
         {
             "text": "Most people struggle with personal growth because they lack clear standards.",
@@ -37,8 +37,8 @@
         },
         {
             "text": "The Unbeatable Consistency Habit",
-            "uses": 1,
-            "avg_score": 99
+            "uses": 2,
+            "avg_score": 98.0
         },
         {
             "text": "Follow and save this for later.",
@@ -82,10 +82,10 @@
     ],
     "failed_topics": [],
     "successful_hashtags": {
-        "#ProtocolX": 11,
-        "#PersonalGrowth": 7,
-        "#Discipline": 20,
-        "#Stoicism": 7,
+        "#ProtocolX": 12,
+        "#PersonalGrowth": 8,
+        "#Discipline": 22,
+        "#Stoicism": 8,
         "#Leadership": 5,
         "#SelfImprovement": 6,
         "#Mindset": 5,
@@ -97,7 +97,7 @@
     },
     "failed_hashtags": [],
     "successful_ctas": {
-        "Join the Protocol X tribe and share your thoughts below.": 7,
+        "Join the Protocol X tribe and share your thoughts below.": 8,
         "Subscribe for weekly Protocol X teachings.": 2,
         "Follow Protocol X for disciplined execution and leadership lessons.": 2,
         "Follow for more operator protocols.": 2,
@@ -129,6 +129,9 @@
             },
             {
                 "score": 91
+            },
+            {
+                "score": 97
             }
         ],
         "x": [
@@ -149,6 +152,9 @@
             },
             {
                 "score": 94
+            },
+            {
+                "score": 100
             }
         ],
         "youtube": [

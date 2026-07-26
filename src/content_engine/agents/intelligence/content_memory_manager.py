@@ -1,11 +1,10 @@
-from content_engine.agents.memory_agent import (
+from content_engine.agents.intelligence.memory_agent import (
     MemoryAgent
 )
 
 from content_engine.agents.hook_similarity_agent import (
     HookSimilarityAgent
 )
-
 
 
 class ContentMemoryManager:
@@ -143,10 +142,6 @@ class ContentMemoryManager:
 
 
 
-        #
-        # HOOK MEMORY
-        #
-
         if hook:
 
 
@@ -162,7 +157,6 @@ class ContentMemoryManager:
             existing = None
 
 
-
             for item in data[
 
                 "successful_hooks"
@@ -173,7 +167,6 @@ class ContentMemoryManager:
                 existing_text = ""
 
 
-
                 if isinstance(
 
                     item,
@@ -181,7 +174,6 @@ class ContentMemoryManager:
                     dict
 
                 ):
-
 
                     existing_text = item.get(
 
@@ -193,7 +185,6 @@ class ContentMemoryManager:
 
 
                 else:
-
 
                     existing_text = item
 
@@ -243,7 +234,6 @@ class ContentMemoryManager:
                     )
 
 
-
                     if score:
 
 
@@ -277,7 +267,6 @@ class ContentMemoryManager:
                         )
 
 
-
             else:
 
 
@@ -300,10 +289,6 @@ class ContentMemoryManager:
                 )
 
 
-
-        #
-        # TOPIC MEMORY
-        #
 
         if topic:
 
@@ -335,10 +320,6 @@ class ContentMemoryManager:
                 )
 
 
-
-        #
-        # HASHTAG MEMORY
-        #
 
         if hashtags:
 
@@ -377,7 +358,6 @@ class ContentMemoryManager:
                     "successful_hashtags"
 
                 ] = {}
-
 
 
                 for tag in old:
@@ -438,10 +418,6 @@ class ContentMemoryManager:
 
 
 
-        #
-        # CTA MEMORY
-        #
-
         if cta:
 
 
@@ -481,7 +457,6 @@ class ContentMemoryManager:
                 ] = {}
 
 
-
                 for item in old:
 
 
@@ -514,7 +489,6 @@ class ContentMemoryManager:
             cta = cta.strip()
 
 
-
             data[
 
                 "successful_ctas"
@@ -540,10 +514,6 @@ class ContentMemoryManager:
             )
 
 
-
-        #
-        # PLATFORM PERFORMANCE
-        #
 
         if platform and score:
 

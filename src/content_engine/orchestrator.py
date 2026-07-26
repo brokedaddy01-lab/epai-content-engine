@@ -1,56 +1,33 @@
 import datetime
 import re
 
-from content_engine.agents.hook_quality_agent import (
-    HookQualityAgent
+
+from content_engine.brains.strategy_brain import (
+    StrategyBrain
 )
 
-from content_engine.agents.copywriter_agent import (
-    CopywriterAgent
+from content_engine.brains.creation_brain import (
+    CreationBrain
 )
 
-from content_engine.agents.prompt_architect_agent import (
-    PromptArchitectAgent
+from content_engine.brains.intelligence_brain import (
+    IntelligenceBrain
 )
 
-from content_engine.agents.content_memory_manager import (
-    ContentMemoryManager
+from content_engine.brains.quality_brain import (
+    QualityBrain
 )
 
-from content_engine.agents.memory_filter_agent import (
-    MemoryFilterAgent
+from content_engine.brains.optimization_brain import (
+    OptimizationBrain
 )
 
-from content_engine.agents.reviewer_agent import (
-    ReviewerAgent
+from content_engine.brains.production_brain import (
+    ProductionBrain
 )
 
-from content_engine.agents.virality_agent import (
-    ViralityAgent
-)
-
-from content_engine.agents.growth_agent import (
-    GrowthAgent
-)
-
-from content_engine.agents.formatter_agent import (
-    FormatterAgent
-)
-
-from content_engine.agents.image_agent import (
-    ImageAgent
-)
-
-from content_engine.agents.newsletter_agent import (
-    NewsletterAgent
-)
-
-from content_engine.agents.video_script_agent import (
-    VideoScriptAgent
-)
-
-from content_engine.agents.carousel_agent import (
-    CarouselAgent
+from content_engine.brains.publishing_brain import (
+    PublishingBrain
 )
 
 
@@ -60,41 +37,32 @@ class ContentOrchestrator:
 
     def __init__(self):
 
-        self.hook_quality = HookQualityAgent()
-        
-        self.copywriter = CopywriterAgent()
+        self.strategy = StrategyBrain()
 
-        self.prompt_architect = PromptArchitectAgent()
+        self.creation = CreationBrain()
 
-        self.memory = ContentMemoryManager()
+        self.intelligence = IntelligenceBrain()
 
-        self.memory_filter = MemoryFilterAgent()
+        self.quality = QualityBrain()
 
-        self.reviewer = ReviewerAgent()
+        self.optimization = OptimizationBrain()
 
-        self.virality = ViralityAgent()
+        self.production = ProductionBrain()
 
-        self.growth = GrowthAgent()
-
-        self.formatter = FormatterAgent()
-
-        self.image = ImageAgent()
-
-        self.newsletter = NewsletterAgent()
-
-        self.video = VideoScriptAgent()
-
-        self.carousel = CarouselAgent()
+        self.publishing = PublishingBrain()
 
 
 
-    ####################################################
+    ##################################################
     # CLEAN AI OUTPUT
-    ####################################################
+    ##################################################
 
     def clean_output(
+
         self,
+
         text
+
     ):
 
         remove_phrases = [
@@ -127,8 +95,11 @@ class ContentOrchestrator:
         for phrase in remove_phrases:
 
             text = text.replace(
+
                 phrase,
+
                 ""
+
             )
 
 
@@ -150,15 +121,22 @@ class ContentOrchestrator:
         for phrase in banned_phrases:
 
             text = text.replace(
+
                 phrase,
+
                 ""
+
             )
 
 
         text = re.sub(
+
             r"\n{3,}",
+
             "\n\n",
+
             text
+
         )
 
 
@@ -166,13 +144,16 @@ class ContentOrchestrator:
 
 
 
-    ####################################################
+    ##################################################
     # CTA CLEANER
-    ####################################################
+    ##################################################
 
     def clean_cta(
+
         self,
+
         text
+
     ):
 
         lines = text.splitlines()
@@ -193,31 +174,33 @@ class ContentOrchestrator:
                 seen = True
 
 
-            cleaned.append(
-                line
-            )
+            cleaned.append(line)
 
 
         return "\n".join(
+
             cleaned
+
         ).strip()
 
 
 
-    ####################################################
-    # SAVE MEMORY
-    ####################################################
-
-       ####################################################
-    # SAVE MEMORY
-    ####################################################
+    ##################################################
+    # MEMORY SAVE
+    ##################################################
 
     def save_memory(
+
         self,
+
         row,
+
         text,
-        growth,
+
+        optimization,
+
         review
+
     ):
 
         if review["score"] < 90:
@@ -236,58 +219,6 @@ class ContentOrchestrator:
             cleaned = line.strip()
 
 
-            if not cleaned:
-
-                continue
-
-
-            lower = cleaned.lower()
-
-
-            blocked = [
-
-                "here is",
-
-                "here's",
-
-                "final",
-
-                "content:",
-
-                "post:",
-
-                "script:",
-
-                "video:",
-
-                "i cannot",
-
-                "i can't",
-
-                "as an",
-
-                "i am",
-
-                "i'm",
-
-                "follow protocol",
-
-                "#"
-
-            ]
-
-
-            if any(
-
-                phrase in lower
-
-                for phrase in blocked
-
-            ):
-
-                continue
-
-
             if len(cleaned) < 30:
 
                 continue
@@ -299,13 +230,17 @@ class ContentOrchestrator:
 
 
 
-        hook = self.memory_filter.clean_hook(
+        hook = self.quality.clean_hook(
+
             hook
+
         )
 
 
-        hook_score = self.hook_quality.score(
+        hook_score = self.quality.score_hook(
+
             hook
+
         )
 
 
@@ -315,26 +250,15 @@ class ContentOrchestrator:
 
 
 
-        topic = self.memory_filter.clean_topic(
-            row["topic"]
-        )
-
-
-        cta = self.memory_filter.clean_cta(
-            growth["follow_cta"]
-        )
-
-
-
-        self.memory.remember_success(
+        self.intelligence.remember_content(
 
             hook=hook,
 
-            topic=topic,
+            topic=row["topic"],
 
-            hashtags=growth["hashtags"],
+            hashtags=optimization["hashtags"],
 
-            cta=cta,
+            cta=optimization["follow_cta"],
 
             platform=row["platform"],
 
@@ -342,123 +266,66 @@ class ContentOrchestrator:
 
         )
 
-    ####################################################
-    # QUALITY LOOP
-    ####################################################
 
-    def generate_with_quality_gate(
+
+    ##################################################
+    # MAIN PIPELINE
+    ##################################################
+
+    def run(
+
         self,
+
         row,
+
         brand
+
     ):
 
 
-        attempts = 0
+        ##################################################
+        # CREATION
+        ##################################################
 
-        max_attempts = 3
+        result = self.creation.create(
 
-
-        prompt = self.prompt_architect.build_copywriter_prompt(
             row,
+
             brand
-        )
 
-
-        response = self.copywriter.write(
-            prompt
         )
 
 
         response = self.clean_output(
-            response
-        )
 
-
-        review = self.reviewer.review(
-            response
-        )
-
-
-        attempts += 1
-
-
-
-        while (
-
-            review["score"] < 90
-
-            and
-
-            attempts < max_attempts
-
-        ):
-
-
-            response = self.copywriter.regenerate(
-
-                prompt,
-
-                review["issues"]
-
-            )
-
-
-            response = self.clean_output(
-                response
-            )
-
-
-            review = self.reviewer.review(
-                response
-            )
-
-
-            attempts += 1
-
-
-
-        return response, review, attempts
-
-
-
-    ####################################################
-    # MAIN PIPELINE
-    ####################################################
-
-    def run(
-        self,
-        row,
-        brand
-    ):
-
-
-        response, review, attempts = self.generate_with_quality_gate(
-
-            row,
-
-            brand
+            result["content"]
 
         )
 
 
+        review = result["review"]
 
-        viral = self.virality.optimize(
+
+
+        ##################################################
+        # OPTIMIZATION
+        ##################################################
+
+        optimization = self.optimization.optimize(
 
             response,
 
-            row["platform"]
+            row["platform"],
+
+            row.get(
+
+                "topic",
+
+                ""
+
+            )
 
         )
-
-
-        growth = self.growth.optimize(
-
-            response,
-
-            row["platform"]
-
-        )
-
 
 
         response += (
@@ -467,7 +334,7 @@ class ContentOrchestrator:
 
             +
 
-            growth["follow_cta"]
+            optimization["follow_cta"]
 
         )
 
@@ -479,7 +346,9 @@ class ContentOrchestrator:
             +
 
             " ".join(
-                growth["hashtags"]
+
+                optimization["hashtags"]
+
             )
 
         )
@@ -487,15 +356,23 @@ class ContentOrchestrator:
 
 
         response = self.clean_output(
+
             response
+
         )
 
 
         response = self.clean_cta(
+
             response
+
         )
 
 
+
+        ##################################################
+        # INTELLIGENCE
+        ##################################################
 
         self.save_memory(
 
@@ -503,7 +380,7 @@ class ContentOrchestrator:
 
             response,
 
-            growth,
+            optimization,
 
             review
 
@@ -511,80 +388,83 @@ class ContentOrchestrator:
 
 
 
-        formatted = self.formatter.format(
+        ##################################################
+        # PRODUCTION
+        ##################################################
+
+        assets = self.production.generate_assets(
 
             response,
 
-            row["platform"]
+            row["platform"],
+
+            row["topic"]
 
         )
 
 
 
+        ##################################################
+        # CAMPAIGN
+        ##################################################
+
         campaign = {
 
             "brand":
+
                 brand["brand_name"],
 
+
             "platform":
+
                 row["platform"],
 
+
             "topic":
+
                 row["topic"],
 
-            "keyword":
-                row.get(
-                    "keyword",
-                    ""
-                ),
 
             "created":
+
                 str(
+
                     datetime.datetime.now()
+
                 ),
 
-            "review_score":
-                review["score"],
 
-            "quality_attempts":
-                attempts
+            "review_score":
+
+                review["score"]
 
         }
 
 
 
+        ##################################################
+        # RETURN
+        ##################################################
+
         return {
 
             "post":
-                formatted,
+
+                assets["formatted"],
+
 
             "review":
+
                 review,
 
-            "virality":
-                viral,
 
             "campaign":
+
                 campaign,
 
-            "image_prompt":
-                self.image.generate_prompt(
-                    formatted
-                ),
 
-            "video_script":
-                self.video.generate(
-                    formatted
-                ),
+            "assets":
 
-            "newsletter":
-                self.newsletter.generate(
-                    formatted
-                ),
-
-            "carousel":
-                self.carousel.generate(
-                    row["topic"]
-                )
+                assets
 
         }
