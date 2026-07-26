@@ -69,6 +69,11 @@
             "text": "Execution: The Key to Unlocking Your Potential",
             "uses": 1,
             "avg_score": 100
+        },
+        {
+            "text": "The Strongest Operators Build Systems Before They Chase Results",
+            "uses": 2,
+            "avg_score": 100.0
         }
     ],
     "failed_hooks": [],
@@ -82,18 +87,26 @@
     ],
     "failed_topics": [],
     "successful_hashtags": {
-        "#ProtocolX": 12,
+        "#ProtocolX": 14,
         "#PersonalGrowth": 8,
-        "#Discipline": 22,
+        "#Discipline": 24,
         "#Stoicism": 8,
-        "#Leadership": 5,
-        "#SelfImprovement": 6,
+        "#Leadership": 7,
+        "#SelfImprovement": 8,
         "#Mindset": 5,
         "#Masculinity": 2,
-        "#Motivation": 2,
+        "#Motivation": 3,
         "#SelfMastery": 1,
         "#Success": 1,
-        "#Entrepreneur": 1
+        "#Entrepreneur": 1,
+        "#OperatorMindset": 2,
+        "#DisciplineOverMotivation": 2,
+        "#PersonalDevelopment": 2,
+        "#MentalToughness": 2,
+        "#SuccessMindset": 2,
+        "#MensMentalHealth": 1,
+        "#GrowthMindset": 1,
+        "#HighPerformance": 1
     },
     "failed_hashtags": [],
     "successful_ctas": {
@@ -101,7 +114,9 @@
         "Subscribe for weekly Protocol X teachings.": 2,
         "Follow Protocol X for disciplined execution and leadership lessons.": 2,
         "Follow for more operator protocols.": 2,
-        "Follow and save this for later.": 1
+        "Follow and save this for later.": 1,
+        "Comment 'PROTOCOL' if this resonated with you.": 1,
+        "Save this and follow for more.": 1
     },
     "failed_ctas": [],
     "rejected_phrases": [],
@@ -132,6 +147,9 @@
             },
             {
                 "score": 97
+            },
+            {
+                "score": 100
             }
         ],
         "x": [
@@ -184,6 +202,9 @@
         "instagram": [
             {
                 "score": 97
+            },
+            {
+                "score": 100
             }
         ]
     }
