@@ -26,6 +26,18 @@ from content_engine.agents.asset_production.repurpose_agent import (
     RepurposeAgent
 )
 
+from content_engine.agents.asset_production.podcast_agent import (
+    PodcastAgent
+)
+
+from content_engine.agents.asset_production.youtube_title_agent import (
+    YouTubeTitleAgent
+)
+
+from content_engine.agents.asset_production.youtube_description_agent import (
+    YouTubeDescriptionAgent
+)
+
 
 class ProductionBrain:
 
@@ -46,11 +58,13 @@ class ProductionBrain:
 
         self.repurpose = RepurposeAgent()
 
+        self.podcast = PodcastAgent()
+
+        self.youtube_title = YouTubeTitleAgent()
+
+        self.youtube_description = YouTubeDescriptionAgent()
 
 
-    ##################################################
-    # FORMAT CONTENT
-    ##################################################
 
     def format(
 
@@ -62,24 +76,12 @@ class ProductionBrain:
 
     ):
 
-        return (
-
-            self.formatter
-            .format(
-
-                content,
-
-                platform
-
-            )
-
+        return self.formatter.format(
+            content,
+            platform
         )
 
 
-
-    ##################################################
-    # IMAGE PROMPT
-    ##################################################
 
     def image_prompt(
 
@@ -89,22 +91,11 @@ class ProductionBrain:
 
     ):
 
-        return (
-
-            self.image
-            .generate_prompt(
-
-                content
-
-            )
-
+        return self.image.generate_prompt(
+            content
         )
 
 
-
-    ##################################################
-    # VIDEO SCRIPT
-    ##################################################
 
     def video_script(
 
@@ -114,22 +105,11 @@ class ProductionBrain:
 
     ):
 
-        return (
-
-            self.video
-            .generate(
-
-                content
-
-            )
-
+        return self.video.generate(
+            content
         )
 
 
-
-    ##################################################
-    # CAROUSEL
-    ##################################################
 
     def carousel_content(
 
@@ -139,22 +119,11 @@ class ProductionBrain:
 
     ):
 
-        return (
-
-            self.carousel
-            .generate(
-
-                topic
-
-            )
-
+        return self.carousel.generate(
+            topic
         )
 
 
-
-    ##################################################
-    # NEWSLETTER
-    ##################################################
 
     def newsletter_content(
 
@@ -164,22 +133,11 @@ class ProductionBrain:
 
     ):
 
-        return (
-
-            self.newsletter
-            .generate(
-
-                content
-
-            )
-
+        return self.newsletter.generate(
+            content
         )
 
 
-
-    ##################################################
-    # THUMBNAIL
-    ##################################################
 
     def thumbnail_content(
 
@@ -189,22 +147,11 @@ class ProductionBrain:
 
     ):
 
-        return (
-
-            self.thumbnail
-            .generate(
-
-                content
-
-            )
-
+        return self.thumbnail.generate(
+            content
         )
 
 
-
-    ##################################################
-    # REPURPOSE
-    ##################################################
 
     def repurpose_content(
 
@@ -214,22 +161,53 @@ class ProductionBrain:
 
     ):
 
-        return (
-
-            self.repurpose
-            .generate(
-
-                content
-
-            )
-
+        return self.repurpose.generate(
+            content
         )
 
 
 
-    ##################################################
-    # COMPLETE ASSET PACKAGE
-    ##################################################
+    def podcast_content(
+
+        self,
+
+        content
+
+    ):
+
+        return self.podcast.generate(
+            content
+        )
+
+
+
+    def youtube_title_content(
+
+        self,
+
+        content
+
+    ):
+
+        return self.youtube_title.generate(
+            content
+        )
+
+
+
+    def youtube_description_content(
+
+        self,
+
+        content
+
+    ):
+
+        return self.youtube_description.generate(
+            content
+        )
+
+
 
     def generate_assets(
 
@@ -245,69 +223,74 @@ class ProductionBrain:
 
         return {
 
-
             "formatted":
 
                 self.format(
-
                     content,
-
                     platform
-
                 ),
 
 
             "image_prompt":
 
                 self.image_prompt(
-
                     content
-
                 ),
 
 
             "video_script":
 
                 self.video_script(
-
                     content
-
                 ),
 
 
             "newsletter":
 
                 self.newsletter_content(
-
                     content
-
                 ),
 
 
             "carousel":
 
                 self.carousel_content(
-
                     topic
-
                 ),
 
 
             "thumbnail":
 
                 self.thumbnail_content(
-
                     content
-
                 ),
 
 
             "repurposed":
 
                 self.repurpose_content(
-
                     content
+                ),
 
+
+            "podcast":
+
+                self.podcast_content(
+                    content
+                ),
+
+
+            "youtube_title":
+
+                self.youtube_title_content(
+                    content
+                ),
+
+
+            "youtube_description":
+
+                self.youtube_description_content(
+                    content
                 )
 
         }
