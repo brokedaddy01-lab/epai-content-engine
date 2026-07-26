@@ -1,4 +1,4 @@
-from content_engine.agents.memory_agent import (
+from content_engine.agents.intelligence.memory_agent import (
     MemoryAgent
 )
 

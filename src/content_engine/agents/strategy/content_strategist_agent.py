@@ -1,14 +1,14 @@
 import random
 
-from content_engine.agents.memory_agent import (
+from content_engine.agents.intelligence.memory_agent import (
     MemoryAgent
 )
 
-from content_engine.agents.trend_agent import (
+from content_engine.agents.strategy.trend_agent import (
     TrendAgent
 )
 
-from content_engine.agents.hook_agent import (
+from content_engine.agents.strategy.hook_agent import (
     HookAgent
 )
 

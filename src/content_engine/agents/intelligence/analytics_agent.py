@@ -1,4 +1,4 @@
-from content_engine.agents.performance_learning_agent import (
+from content_engine.agents.intelligence.performance_learning_agent import (
     PerformanceLearningAgent
 )
 

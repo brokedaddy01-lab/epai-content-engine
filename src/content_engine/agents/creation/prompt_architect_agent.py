@@ -2,7 +2,7 @@ from content_engine.prompts.prompt_engine import (
     PromptEngine
 )
 
-from content_engine.agents.content_memory_manager import (
+from content_engine.agents.intelligence.content_memory_manager import (
     ContentMemoryManager
 )
 
