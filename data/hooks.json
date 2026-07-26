@@ -1,0 +1,30 @@
+{
+    "truth_hooks": [
+
+        "Nobody wants to hear this...",
+        "Most people fail because...",
+        "The uncomfortable truth is...",
+        "You are not lacking motivation...",
+        "Your habits are exposing you...",
+        "This is why most men stay stuck...",
+        "Read this twice...",
+        "Your standards are too low...",
+        "The truth nobody talks about..."
+    ],
+
+    "question_hooks": [
+
+        "What if your problem isn't motivation?",
+        "What standard are you refusing to enforce?",
+        "Who would you become if you stayed disciplined for a year?",
+        "What is your current life revealing about your habits?"
+    ],
+
+    "identity_hooks": [
+
+        "Operators move differently.",
+        "Disciplined people think differently.",
+        "Strong men build standards.",
+        "Leaders do this daily."
+    ]
+}

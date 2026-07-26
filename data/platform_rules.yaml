@@ -1,15 +1,34 @@
 linkedin:
+  hashtags: 3
+  cta: follow
+  max_length: 3000
   style: authority
-  cta: reflection
 
 facebook:
+  hashtags: 5
+  cta: comment
+  max_length: 5000
   style: storytelling
-  cta: engagement
 
 instagram:
-  style: emotional
-  cta: save_and_share
+  hashtags: 12
+  cta: save
+  max_length: 2200
+  style: tribe
 
 x:
-  style: short
-  cta: debate
+  hashtags: 2
+  cta: repost
+  max_length: 280
+  style: punchy
+
+tiktok:
+  hashtags: 6
+  cta: follow
+  style: emotional
+  hook_window: 2
+
+youtube:
+  hashtags: 5
+  cta: subscribe
+  style: educational

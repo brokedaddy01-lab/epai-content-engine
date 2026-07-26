@@ -1,5 +1,4 @@
 import json
-
 from pathlib import Path
 
 from content_engine.calendar_reader import (
@@ -7,11 +6,11 @@ from content_engine.calendar_reader import (
 )
 
 from content_engine.brand_manager import (
-    load_brand_voice
+    load_brand
 )
 
-from content_engine.generator import (
-    generate_post
+from content_engine.orchestrator import (
+    ContentOrchestrator
 )
 
 
@@ -21,8 +20,8 @@ def main():
         "data/content_calendar.csv"
     )
 
-    brand = load_brand_voice(
-        "data/brand_voice.yaml"
+    orchestrator = (
+        ContentOrchestrator()
     )
 
     output_dir = Path(
@@ -35,7 +34,16 @@ def main():
 
     for _, row in calendar.iterrows():
 
-        result = generate_post(
+        brand_name = row.get(
+            "brand",
+            "protocol_x"
+        )
+
+        brand = load_brand(
+            brand_name
+        )
+
+        result = orchestrator.run(
             row,
             brand
         )
@@ -45,62 +53,63 @@ def main():
             f"_{row['platform']}"
         )
 
-        post_file = (
-            output_dir
-            / f"{base}.txt"
-        )
+        files = {
 
-        review_file = (
-            output_dir
-            / f"{base}_review.json"
-        )
+            f"{base}.txt":
+                result["post"],
 
-        image_file = (
-            output_dir
-            /
-            f"{base}_image_prompt.txt"
-        )
+            f"{base}_image_prompt.txt":
+                result["image_prompt"],
 
-        with open(
-            post_file,
-            "w",
-            encoding="utf-8"
-        ) as f:
+            f"{base}_video.txt":
+                result["video_script"],
 
-            f.write(
-                result["post"]
-            )
+            f"{base}_newsletter.txt":
+                result["newsletter"]
+        }
 
-        with open(
-            review_file,
-            "w",
-            encoding="utf-8"
-        ) as f:
+        for name, content in files.items():
 
-            json.dump(
+            with open(
+                output_dir / name,
+                "w",
+                encoding="utf-8"
+            ) as f:
 
+                f.write(
+                    str(content)
+                )
+
+        json_files = {
+
+            f"{base}_review.json":
                 result["review"],
 
-                f,
+            f"{base}_campaign.json":
+                result["campaign"],
 
-                indent=4
-            )
+            f"{base}_carousel.json":
+                result["carousel"]
+        }
 
-        with open(
-            image_file,
-            "w",
-            encoding="utf-8"
-        ) as f:
+        for name, content in json_files.items():
 
-            f.write(
-                result["image_prompt"]
-            )
+            with open(
+                output_dir / name,
+                "w",
+                encoding="utf-8"
+            ) as f:
+
+                json.dump(
+                    content,
+                    f,
+                    indent=4
+                )
 
         print(
-            f"Created: {post_file}"
+            f"Created: {base}"
         )
 
 
 if __name__ == "__main__":
-
     main()

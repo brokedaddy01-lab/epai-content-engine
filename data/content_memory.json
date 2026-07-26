@@ -1,5 +1,184 @@
 {
-    "topics_used": [],
-    "hooks_used": [],
-    "signature_phrases_used": []
+    "successful_hooks": [
+        {
+            "text": "Consistency: The Key to Unlocking Your Future",
+            "uses": 3,
+            "avg_score": 99.0
+        },
+        {
+            "text": "Your Standards Determine Your Future",
+            "uses": 2,
+            "avg_score": 95.5
+        },
+        {
+            "text": "Stoic Leadership: Why Your Actions Reveal Your Standards",
+            "uses": 4,
+            "avg_score": 97.0
+        },
+        {
+            "text": "Most people struggle with personal growth because they lack clear standards.",
+            "uses": 1,
+            "avg_score": 98
+        },
+        {
+            "text": "Standards Determine Your Future",
+            "uses": 1,
+            "avg_score": 100
+        },
+        {
+            "text": "Self-Discipline: The Foundation for Achieving Your Goals",
+            "uses": 1,
+            "avg_score": 100
+        },
+        {
+            "text": "Execution is the Fuel for Your Discipline",
+            "uses": 1,
+            "avg_score": 100
+        },
+        {
+            "text": "The Unbeatable Consistency Habit",
+            "uses": 1,
+            "avg_score": 99
+        },
+        {
+            "text": "Follow and save this for later.",
+            "uses": 1,
+            "avg_score": 97
+        },
+        {
+            "text": "Your Actions Reveal Your Standards: The Stoic Path to Effective Leadership",
+            "uses": 1,
+            "avg_score": 93
+        },
+        {
+            "text": "Your Actions Reveal Your Standards",
+            "uses": 1,
+            "avg_score": 100
+        },
+        {
+            "text": "From Stuck to Unstoppable: How Clear Standards Unlock Personal Growth",
+            "uses": 1,
+            "avg_score": 100
+        },
+        {
+            "text": "The Self-Discipline Trap That's Holding You Back",
+            "uses": 1,
+            "avg_score": 94
+        },
+        {
+            "text": "Execution: The Key to Unlocking Your Potential",
+            "uses": 1,
+            "avg_score": 100
+        }
+    ],
+    "failed_hooks": [],
+    "successful_topics": [
+        "consistency",
+        "leadership",
+        "personal growth",
+        "discipline",
+        "execution",
+        "self mastery"
+    ],
+    "failed_topics": [],
+    "successful_hashtags": {
+        "#ProtocolX": 11,
+        "#PersonalGrowth": 7,
+        "#Discipline": 20,
+        "#Stoicism": 7,
+        "#Leadership": 5,
+        "#SelfImprovement": 6,
+        "#Mindset": 5,
+        "#Masculinity": 2,
+        "#Motivation": 2,
+        "#SelfMastery": 1,
+        "#Success": 1,
+        "#Entrepreneur": 1
+    },
+    "failed_hashtags": [],
+    "successful_ctas": {
+        "Join the Protocol X tribe and share your thoughts below.": 7,
+        "Subscribe for weekly Protocol X teachings.": 2,
+        "Follow Protocol X for disciplined execution and leadership lessons.": 2,
+        "Follow for more operator protocols.": 2,
+        "Follow and save this for later.": 1
+    },
+    "failed_ctas": [],
+    "rejected_phrases": [],
+    "high_performing_posts": [],
+    "low_performing_posts": [],
+    "platform_performance": {
+        "facebook": [
+            {
+                "score": 100
+            },
+            {
+                "score": 100
+            },
+            {
+                "score": 100
+            },
+            {
+                "score": 96
+            },
+            {
+                "score": 99
+            },
+            {
+                "score": 100
+            },
+            {
+                "score": 91
+            }
+        ],
+        "x": [
+            {
+                "score": 100
+            },
+            {
+                "score": 100
+            },
+            {
+                "score": 100
+            },
+            {
+                "score": 93
+            },
+            {
+                "score": 100
+            },
+            {
+                "score": 94
+            }
+        ],
+        "youtube": [
+            {
+                "score": 98
+            },
+            {
+                "score": 100
+            }
+        ],
+        "linkedin": [
+            {
+                "score": 100
+            },
+            {
+                "score": 94
+            }
+        ],
+        "tiktok": [
+            {
+                "score": 100
+            },
+            {
+                "score": 100
+            }
+        ],
+        "instagram": [
+            {
+                "score": 97
+            }
+        ]
+    }
 }

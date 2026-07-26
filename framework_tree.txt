@@ -1,0 +1,138 @@
+Folder PATH listing for volume Storage
+Volume serial number is 000001BE B0A3:F806
+D:\PROJECTS\GITHUB\EPAI-CONTENT-ENGINE\SRC\CONTENT_ENGINE
+¦   brand_manager.py
+¦   calendar_reader.py
+¦   formatter.py
+¦   generator.py
+¦   main.py
+¦   orchestrator.py
+¦   quality_reviewer.py
+¦   __init__.py
+¦   
++---agents
+¦   ¦   analytics_agent.py
+¦   ¦   audience_agent.py
+¦   ¦   campaign_agent.py
+¦   ¦   carousel_agent.py
+¦   ¦   content_memory_manager.py
+¦   ¦   content_planner_agent.py
+¦   ¦   content_strategist.py
+¦   ¦   content_strategist_agent.py
+¦   ¦   copywriter_agent.py
+¦   ¦   cta_agent.py
+¦   ¦   feedback_agent.py
+¦   ¦   feedback_loop_agent.py
+¦   ¦   formatter_agent.py
+¦   ¦   growth_agent.py
+¦   ¦   hashtag_agent.py
+¦   ¦   hook_agent.py
+¦   ¦   hook_quality_agent.py
+¦   ¦   hook_similarity_agent.py
+¦   ¦   image_agent.py
+¦   ¦   knowledge_agent.py
+¦   ¦   learning_agent.py
+¦   ¦   memory_agent.py
+¦   ¦   memory_filter_agent.py
+¦   ¦   newsletter_agent.py
+¦   ¦   performance_agent.py
+¦   ¦   performance_learning_agent.py
+¦   ¦   performance_scoring_agent.py
+¦   ¦   podcast_agent.py
+¦   ¦   prompt_architect_agent.py
+¦   ¦   protocolx_content_director.py
+¦   ¦   publishing_agent.py
+¦   ¦   repurpose_agent.py
+¦   ¦   reviewer_agent.py
+¦   ¦   scheduler_agent.py
+¦   ¦   seo_agent.py
+¦   ¦   short_script_agent.py
+¦   ¦   story_engine_agent.py
+¦   ¦   thumbnail_agent.py
+¦   ¦   topic_cluster_agent.py
+¦   ¦   trend_agent.py
+¦   ¦   trend_scraper_agent.py
+¦   ¦   video_script_agent.py
+¦   ¦   virality_agent.py
+¦   ¦   virality_prediction_agent.py
+¦   ¦   youtube_description_agent.py
+¦   ¦   youtube_title_agent.py
+¦   ¦   __init__.py
+¦   ¦   
+¦   +---__pycache__
+¦           carousel_agent.cpython-314.pyc
+¦           content_memory_manager.cpython-314.pyc
+¦           copywriter_agent.cpython-314.pyc
+¦           formatter_agent.cpython-314.pyc
+¦           growth_agent.cpython-314.pyc
+¦           hook_quality_agent.cpython-314.pyc
+¦           hook_similarity_agent.cpython-314.pyc
+¦           image_agent.cpython-314.pyc
+¦           memory_agent.cpython-314.pyc
+¦           memory_filter_agent.cpython-314.pyc
+¦           newsletter_agent.cpython-314.pyc
+¦           performance_learning_agent.cpython-314.pyc
+¦           prompt_architect_agent.cpython-314.pyc
+¦           reviewer_agent.cpython-314.pyc
+¦           video_script_agent.cpython-314.pyc
+¦           virality_agent.cpython-314.pyc
+¦           writer_agent.cpython-314.pyc
+¦           __init__.cpython-314.pyc
+¦           
++---brain
+¦       protocol_x_brain.py
+¦       
++---employees
+¦       protocol_x_content_director.py
+¦       
++---images
++---models
+¦   ¦   brand_context.py
+¦   ¦   
+¦   +---__pycache__
+¦           brand_context.cpython-314.pyc
+¦           
++---prompts
+¦   ¦   ai.md
+¦   ¦   cybersecurity.md
+¦   ¦   discipline.md
+¦   ¦   entrepreneurship.md
+¦   ¦   facebook_prompt.txt
+¦   ¦   fitness.md
+¦   ¦   instagram_prompt.txt
+¦   ¦   leadership.md
+¦   ¦   linkedin_prompt.txt
+¦   ¦   mindset.md
+¦   ¦   prompt_engine.py
+¦   ¦   prompt_library.py
+¦   ¦   system_prompt.md
+¦   ¦   tiktok_prompt.txt
+¦   ¦   x_prompt.txt
+¦   ¦   youtube_prompts.txt
+¦   ¦   __init__.py
+¦   ¦   
+¦   +---__pycache__
+¦           prompt_engine.cpython-314.pyc
+¦           prompt_library.cpython-314.pyc
+¦           __init__.cpython-314.pyc
+¦           
++---providers
+¦   ¦   anthropic_provider.py
+¦   ¦   base.py
+¦   ¦   ollama_provider.py
+¦   ¦   openai_provider.py
+¦   ¦   __init__.py
+¦   ¦   
+¦   +---__pycache__
+¦           base.cpython-314.pyc
+¦           ollama_provider.cpython-314.pyc
+¦           __init__.cpython-314.pyc
+¦           
++---__pycache__
+        brand_manager.cpython-314.pyc
+        calendar_reader.cpython-314.pyc
+        generator.cpython-314.pyc
+        main.cpython-314.pyc
+        orchestrator.cpython-314.pyc
+        __init__.cpython-314.pyc
+        

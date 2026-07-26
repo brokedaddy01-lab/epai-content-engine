@@ -1,0 +1,112 @@
+{
+    "successful_hooks": [
+        {
+            "text": "Consistency: The Key to Unlocking Your Future",
+            "uses": 2,
+            "avg_score": 98.0
+        },
+        {
+            "text": "Your Standards Determine Your Future",
+            "uses": 1,
+            "avg_score": 100
+        },
+        {
+            "text": "Stoic Leadership: Why Your Actions Reveal Your Standards",
+            "uses": 3,
+            "avg_score": 100.0
+        },
+        {
+            "text": "Most people struggle with personal growth because they lack clear standards.",
+            "uses": 1,
+            "avg_score": 98
+        },
+        {
+            "text": "Standards Determine Your Future",
+            "uses": 1,
+            "avg_score": 100
+        },
+        {
+            "text": "Self-Discipline: The Foundation for Achieving Your Goals",
+            "uses": 1,
+            "avg_score": 100
+        },
+        {
+            "text": "Execution is the Fuel for Your Discipline",
+            "uses": 1,
+            "avg_score": 100
+        }
+    ],
+    "failed_hooks": [],
+    "successful_topics": [
+        "consistency",
+        "leadership",
+        "personal growth",
+        "discipline",
+        "execution"
+    ],
+    "failed_topics": [],
+    "successful_hashtags": {
+        "#ProtocolX": 6,
+        "#PersonalGrowth": 4,
+        "#Discipline": 10,
+        "#Stoicism": 3,
+        "#Leadership": 2,
+        "#SelfImprovement": 3,
+        "#Mindset": 2,
+        "#Masculinity": 1,
+        "#Motivation": 1
+    },
+    "failed_hashtags": [],
+    "successful_ctas": {
+        "Join the Protocol X tribe and share your thoughts below.": 4,
+        "Subscribe for weekly Protocol X teachings.": 1,
+        "Follow Protocol X for disciplined execution and leadership lessons.": 1,
+        "Follow for more operator protocols.": 1
+    },
+    "failed_ctas": [],
+    "rejected_phrases": [],
+    "high_performing_posts": [],
+    "low_performing_posts": [],
+    "platform_performance": {
+        "facebook": [
+            {
+                "score": 100
+            },
+            {
+                "score": 100
+            },
+            {
+                "score": 100
+            },
+            {
+                "score": 96
+            }
+        ],
+        "x": [
+            {
+                "score": 100
+            },
+            {
+                "score": 100
+            },
+            {
+                "score": 100
+            }
+        ],
+        "youtube": [
+            {
+                "score": 98
+            }
+        ],
+        "linkedin": [
+            {
+                "score": 100
+            }
+        ],
+        "tiktok": [
+            {
+                "score": 100
+            }
+        ]
+    }
+}

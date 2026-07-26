@@ -1,37 +1,158 @@
+from content_engine.agents.performance_learning_agent import (
+    PerformanceLearningAgent
+)
+
+
 class AnalyticsAgent:
 
-    def score(
+    """
+    Central analytics layer.
+
+    Responsible for:
+
+    - Performance scoring
+    - Platform summaries
+    - Future trend analysis
+    - Strategy recommendations
+
+    The orchestrator should only call this class.
+    """
+
+    def __init__(self):
+
+        self.performance = PerformanceLearningAgent()
+
+    ####################################################
+    # CONTENT PERFORMANCE SCORE
+    ####################################################
+
+    def analyze(
         self,
-        text
+        metrics
     ):
 
-        score = {
+        score = (
 
-            "discipline": 0,
+            metrics.get(
+                "likes",
+                0
+            )
 
-            "masculinity": 0,
+            +
 
-            "tribe": 0,
+            metrics.get(
+                "comments",
+                0
+            ) * 2
 
-            "virality": 0
+            +
+
+            metrics.get(
+                "shares",
+                0
+            ) * 4
+
+            +
+
+            metrics.get(
+                "follows",
+                0
+            ) * 8
+
+        )
+
+        return {
+
+            "performance": score
+
         }
 
-        words = text.lower()
+    ####################################################
+    # MEMORY ANALYTICS
+    ####################################################
 
-        if "discipline" in words:
+    def summarize_memory(
+        self,
+        memory_data
+    ):
 
-            score["discipline"] += 25
+        return self.performance.learn(
+            memory_data
+        )
 
-        if "standards" in words:
+    ####################################################
+    # PLATFORM LOOKUP
+    ####################################################
 
-            score["discipline"] += 25
+    def platform_summary(
+        self,
+        memory_data,
+        platform
+    ):
 
-        if "brotherhood" in words:
+        summary = self.summarize_memory(
+            memory_data
+        )
 
-            score["tribe"] += 25
+        return summary.get(
+            platform,
+            {}
+        )
 
-        if "family" in words:
+    ####################################################
+    # GLOBAL SUMMARY
+    ####################################################
 
-            score["tribe"] += 25
+    def overall_summary(
+        self,
+        memory_data
+    ):
 
-        return score
+        summary = self.summarize_memory(
+            memory_data
+        )
+
+        if not summary:
+
+            return {}
+
+        averages = [
+
+            item["average_score"]
+
+            for item in summary.values()
+
+        ]
+
+        return {
+
+            "platforms":
+
+                len(summary),
+
+            "overall_average":
+
+                round(
+
+                    sum(averages)
+
+                    /
+
+                    len(averages),
+
+                    2
+
+                ),
+
+            "best_platform":
+
+                max(
+
+                    summary,
+
+                    key=lambda x:
+                    summary[x]["average_score"]
+
+                )
+
+        }
