@@ -216,7 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Generated content
 generated_posts/
-generated_posts/
+
+# Python cache
 __pycache__/
+*.py[cod]
 *.pyc
