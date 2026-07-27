@@ -5,31 +5,18 @@ from content_engine.agents.intelligence.performance_learning_agent import (
 
 class AnalyticsAgent:
 
-    """
-    Central analytics layer.
-
-    Responsible for:
-
-    - Performance scoring
-    - Platform summaries
-    - Future trend analysis
-    - Strategy recommendations
-
-    The orchestrator should only call this class.
-    """
 
     def __init__(self):
 
         self.performance = PerformanceLearningAgent()
 
-    ####################################################
-    # CONTENT PERFORMANCE SCORE
-    ####################################################
+
 
     def analyze(
         self,
         metrics
     ):
+
 
         score = (
 
@@ -43,33 +30,40 @@ class AnalyticsAgent:
             metrics.get(
                 "comments",
                 0
-            ) * 2
+            )
+            *
+            2
 
             +
 
             metrics.get(
                 "shares",
                 0
-            ) * 4
+            )
+            *
+            4
 
             +
 
             metrics.get(
                 "follows",
                 0
-            ) * 8
+            )
+            *
+            8
 
         )
 
+
         return {
 
-            "performance": score
+            "performance_score":
+
+                score
 
         }
 
-    ####################################################
-    # MEMORY ANALYTICS
-    ####################################################
+
 
     def summarize_memory(
         self,
@@ -80,9 +74,7 @@ class AnalyticsAgent:
             memory_data
         )
 
-    ####################################################
-    # PLATFORM LOOKUP
-    ####################################################
+
 
     def platform_summary(
         self,
@@ -94,41 +86,50 @@ class AnalyticsAgent:
             memory_data
         )
 
+
         return summary.get(
             platform,
             {}
         )
 
-    ####################################################
-    # GLOBAL SUMMARY
-    ####################################################
+
 
     def overall_summary(
         self,
         memory_data
     ):
 
+
         summary = self.summarize_memory(
             memory_data
         )
+
 
         if not summary:
 
             return {}
 
+
+
         averages = [
 
-            item["average_score"]
+            item.get(
+                "average_score",
+                0
+            )
 
             for item in summary.values()
 
         ]
 
+
         return {
+
 
             "platforms":
 
                 len(summary),
+
 
             "overall_average":
 
@@ -144,6 +145,7 @@ class AnalyticsAgent:
 
                 ),
 
+
             "best_platform":
 
                 max(
@@ -151,7 +153,11 @@ class AnalyticsAgent:
                     summary,
 
                     key=lambda x:
-                    summary[x]["average_score"]
+
+                    summary[x].get(
+                        "average_score",
+                        0
+                    )
 
                 )
 

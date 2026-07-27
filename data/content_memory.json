@@ -78,5 +78,23 @@
         "cta": "Save this and follow for more.",
         "platform": "instagram",
         "score": 100
+    },
+    {
+        "hook": "Leadership: The Strongest Operators Build Systems Before They Chase Results",
+        "topic": "leadership",
+        "hashtags": [
+            "#ProtocolX",
+            "#OperatorMindset",
+            "#DisciplineOverMotivation",
+            "#Discipline",
+            "#SelfImprovement",
+            "#Leadership",
+            "#PersonalDevelopment",
+            "#MentalToughness",
+            "#SuccessMindset"
+        ],
+        "cta": "Follow Protocol X for practical lessons on discipline and execution.",
+        "platform": "linkedin",
+        "score": 100
     }
 ]

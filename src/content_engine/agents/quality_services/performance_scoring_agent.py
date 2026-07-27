@@ -1,38 +1,76 @@
 class PerformanceScoringAgent:
+    """
+    Calculates content quality score before publishing.
+
+    This does NOT measure real-world engagement.
+    Real performance learning belongs to IntelligenceBrain.
+    """
 
     def score(
-
         self,
-        metrics
+        content
     ):
 
-        score = (
+        score = 0
 
-            metrics.get(
-                "likes",
-                0
-            )
 
-            +
-
-            metrics.get(
-                "comments",
-                0
-            ) * 3
-
-            +
-
-            metrics.get(
-                "shares",
-                0
-            ) * 5
-
-            +
-
-            metrics.get(
-                "follows",
-                0
-            ) * 10
+        text = str(
+            content
         )
 
-        return score
+
+        # Length quality
+
+        if len(text) >= 100:
+
+            score += 20
+
+
+        if len(text) >= 500:
+
+            score += 10
+
+
+        # Structure indicators
+
+        if "?" in text:
+
+            score += 10
+
+
+        if "\n" in text:
+
+            score += 10
+
+
+        # Hook indicators
+
+        strong_hooks = [
+
+            "Most people",
+
+            "Nobody",
+
+            "The truth",
+
+            "Stop",
+
+            "Why"
+
+        ]
+
+
+        for phrase in strong_hooks:
+
+            if phrase.lower() in text.lower():
+
+                score += 10
+
+                break
+
+
+
+        return min(
+            score,
+            100
+        )

@@ -15,11 +15,14 @@ class PerformanceLearningAgent:
         summary = {}
 
 
+
         for platform, scores in platform_data.items():
+
 
             if not scores:
 
                 continue
+
 
 
             values = [
@@ -34,43 +37,50 @@ class PerformanceLearningAgent:
             ]
 
 
-            average = round(
 
-                sum(values)
+            if not values:
 
-                /
+                continue
 
-                len(values),
-
-                2
-
-            )
-
-
-            highest = max(values)
-
-            lowest = min(values)
 
 
             summary[platform] = {
+
 
                 "posts":
 
                     len(values),
 
+
+
                 "average_score":
 
-                    average,
+                    round(
+
+                        sum(values)
+
+                        /
+
+                        len(values),
+
+                        2
+
+                    ),
+
+
 
                 "best_score":
 
-                    highest,
+                    max(values),
+
+
 
                 "worst_score":
 
-                    lowest
+                    min(values)
 
             }
+
 
 
         return summary
