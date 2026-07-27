@@ -56,17 +56,12 @@ class StrategyBrain:
 
 
     ##################################################
-    # MONTHLY CONTENT PLAN
+    # MONTHLY PLAN
     ##################################################
 
     def create_plan(self):
 
-        return (
-
-            self.planner
-            .monthly_plan()
-
-        )
+        return self.planner.monthly_plan()
 
 
 
@@ -77,61 +72,61 @@ class StrategyBrain:
     def generate_hook(
 
         self,
+
         topic
 
     ):
 
-        return (
-
-            self.hooks
-            .generate(
-
-                topic
-
-            )
-
+        return self.hooks.generate(
+            topic
         )
 
 
 
     ##################################################
-    # SEO OPTIMIZATION
+    # SEO
     ##################################################
 
     def optimize_content(
 
         self,
+
         content,
+
         keyword
 
     ):
 
-        return (
+        return self.seo.optimize(
 
-            self.seo
-            .optimize(
+            content,
 
-                content,
-
-                keyword
-
-            )
+            keyword
 
         )
 
 
 
     ##################################################
-    # TREND DISCOVERY
+    # TREND INTELLIGENCE
     ##################################################
 
     def discover_trends(self):
 
-        return (
+        scraped = self.trend_scraper.fetch()
 
-            self.trend_scraper
-            .fetch()
+        return self.trends.analyze(
+            scraped
+        )
 
+
+
+    def trend_summary(self):
+
+        scraped = self.trend_scraper.fetch()
+
+        return self.trends.prioritize(
+            scraped
         )
 
 
