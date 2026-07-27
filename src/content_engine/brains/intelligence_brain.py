@@ -22,10 +22,6 @@ from content_engine.agents.intelligence.knowledge_agent import (
     KnowledgeAgent
 )
 
-from content_engine.agents.intelligence.memory_agent import (
-    MemoryAgent
-)
-
 from content_engine.agents.intelligence.feedback_loop_agent import (
     FeedbackLoopAgent
 )
@@ -33,6 +29,7 @@ from content_engine.agents.intelligence.feedback_loop_agent import (
 from content_engine.agents.strategy.topic_cluster_agent import (
     TopicClusterAgent
 )
+
 
 
 class IntelligenceBrain:
@@ -44,11 +41,11 @@ class IntelligenceBrain:
 
         self.performance = PerformanceAgent()
 
-        self.performance_learning = PerformanceLearningAgent()
+        self.performance_learning = (
+            PerformanceLearningAgent()
+        )
 
         self.memory = ContentMemoryManager()
-
-        self.memory_agent = MemoryAgent()
 
         self.feedback = FeedbackAgent()
 
@@ -61,7 +58,7 @@ class IntelligenceBrain:
 
 
     ##################################################
-    # MEMORY
+    # MEMORY CONTEXT
     ##################################################
 
     def memory_context(self):
@@ -78,21 +75,13 @@ class IntelligenceBrain:
     ##################################################
 
     def remember_content(
-
         self,
-
         hook,
-
         topic,
-
         hashtags,
-
         cta,
-
         platform,
-
         score
-
     ):
 
         self.memory.remember_success(
@@ -118,15 +107,10 @@ class IntelligenceBrain:
     ##################################################
 
     def remember(
-
         self,
-
         topic,
-
         score,
-
         platform
-
     ):
 
         self.learning.learn(
@@ -155,26 +139,19 @@ class IntelligenceBrain:
 
 
     ##################################################
-    # PERFORMANCE LEARNING
+    # PERFORMANCE ANALYSIS
     ##################################################
 
     def analyze_performance(
-
         self,
-
         memory_data
-
     ):
 
         return (
-
             self.performance_learning
             .learn(
-
                 memory_data
-
             )
-
         )
 
 
@@ -196,16 +173,6 @@ class IntelligenceBrain:
     def knowledge_agent(self):
 
         return self.knowledge
-
-
-
-    ##################################################
-    # MEMORY AGENT
-    ##################################################
-
-    def memory_agent_service(self):
-
-        return self.memory_agent
 
 
 
