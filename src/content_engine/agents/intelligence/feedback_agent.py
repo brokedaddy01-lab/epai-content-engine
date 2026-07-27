@@ -1,15 +1,20 @@
-from content_engine.agents.intelligence.memory_agent import (
-    MemoryAgent
+from content_engine.agents.intelligence.content_memory_manager import (
+    ContentMemoryManager
 )
 
 
 class FeedbackAgent:
 
+
     def __init__(self):
 
-        self.memory = (
-            MemoryAgent()
-        )
+        self.memory = ContentMemoryManager()
+
+
+
+    ##################################################
+    # LEARN FROM CONTENT REVIEW
+    ##################################################
 
     def learn(
 
@@ -18,29 +23,93 @@ class FeedbackAgent:
         review,
 
         row
+
     ):
 
-        if review.get(
-            "score",
-            100
-        ) < 80:
+
+        score = (
+
+            review.get(
+
+                "score",
+
+                100
+
+            )
+
+        )
+
+
+        hook = (
+
+            row.get(
+
+                "hook",
+
+                ""
+
+            )
+
+        )
+
+
+        topic = (
+
+            row.get(
+
+                "topic",
+
+                ""
+
+            )
+
+        )
+
+
+
+        if score < 80:
+
 
             self.memory.remember_failure(
 
-                row[
-                    "hook"
-                ]
+                hook
+
             )
+
 
         else:
 
+
             self.memory.remember_success(
 
-                hook=row[
-                    "hook"
-                ],
+                hook=hook,
 
-                topic=row[
-                    "topic"
-                ]
+                topic=topic,
+
+                hashtags=row.get(
+
+                    "hashtags",
+
+                    []
+
+                ),
+
+                cta=row.get(
+
+                    "cta",
+
+                    ""
+
+                ),
+
+                platform=row.get(
+
+                    "platform",
+
+                    ""
+
+                ),
+
+                score=score
+
             )
