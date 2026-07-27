@@ -1,127 +1,69 @@
 class GrowthAgent:
 
+
     def optimize(
 
         self,
 
-        text,
+        content,
 
         platform
+
     ):
 
-        follow_cta = {
 
-            "linkedin":
+        recommendations = []
 
-                "\n\nFollow Protocol X for disciplined execution and leadership lessons.",
 
-            "facebook":
+        length = len(
+            content.split()
+        )
 
-                "\n\nJoin the Protocol X tribe and share your thoughts below.",
 
-            "instagram":
+        if length < 100:
 
-                "\n\nFollow and save this for later.",
+            recommendations.append(
+                "Increase content depth and storytelling."
+            )
 
-            "x":
 
-                "\n\nRepost if this resonates.",
+        if length > 600:
 
-            "tiktok":
+            recommendations.append(
+                "Consider shortening for higher retention."
+            )
 
-                "\n\nFollow for more operator protocols.",
 
-            "youtube":
+        if "?" not in content:
 
-                "\n\nSubscribe for weekly Protocol X teachings."
-        }
+            recommendations.append(
+                "Add a question to encourage comments."
+            )
 
-        hashtags = {
-
-            "linkedin": [
-
-                "#Discipline",
-
-                "#Leadership",
-
-                "#SelfImprovement"
-            ],
-
-            "facebook": [
-
-                "#ProtocolX",
-
-                "#PersonalGrowth",
-
-                "#Discipline"
-            ],
-
-            "instagram": [
-
-                "#Discipline",
-
-                "#Mindset",
-
-                "#Stoicism",
-
-                "#SelfMastery",
-
-                "#Leadership",
-
-                "#Success",
-
-                "#Entrepreneur"
-            ],
-
-            "x": [
-
-                "#Discipline",
-
-                "#Stoicism"
-            ],
-
-            "tiktok": [
-
-                "#Mindset",
-
-                "#Discipline",
-
-                "#SelfImprovement",
-
-                "#Masculinity",
-
-                "#Motivation",
-
-                "#ProtocolX"
-            ],
-
-            "youtube": [
-
-                "#Discipline",
-
-                "#Leadership",
-
-                "#SelfImprovement",
-
-                "#Mindset",
-
-                "#ProtocolX"
-            ]
-        }
 
         return {
 
-            "follow_cta":
 
-                follow_cta.get(
-                    platform,
-                    ""
-                ),
+            "platform":
 
-            "hashtags":
+                platform,
 
-                hashtags.get(
-                    platform,
-                    []
+
+            "recommendations":
+
+                recommendations,
+
+
+            "growth_score":
+
+                max(
+
+                    100 -
+
+                    len(recommendations) * 10,
+
+                    0
+
                 )
+
         }
