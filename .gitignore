@@ -224,3 +224,5 @@ generated_posts/
 __pycache__/
 *.py[cod]
 *.pyc
+# Runtime AI memory
+data/content_memory.json
