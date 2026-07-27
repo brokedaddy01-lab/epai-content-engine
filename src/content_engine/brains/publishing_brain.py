@@ -40,7 +40,7 @@ class PublishingBrain:
         return (
 
             self.campaign
-            .create(
+            .create_campaign(
 
                 data
 
@@ -51,7 +51,7 @@ class PublishingBrain:
 
 
     ##################################################
-    # PUBLISH CONTENT
+    # PREPARE PUBLISHING
     ##################################################
 
     def publish(
@@ -105,6 +105,31 @@ class PublishingBrain:
                 platform,
 
                 date
+
+            )
+
+        )
+
+
+
+    ##################################################
+    # BEST PUBLISH TIME
+    ##################################################
+
+    def best_time(
+
+        self,
+
+        platform
+
+    ):
+
+        return (
+
+            self.scheduler
+            .best_times(
+
+                platform
 
             )
 

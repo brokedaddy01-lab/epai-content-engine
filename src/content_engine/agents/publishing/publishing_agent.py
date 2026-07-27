@@ -1,19 +1,31 @@
 class PublishingAgent:
 
+
     def publish(
 
         self,
+
         content,
+
         platform
+
     ):
 
         return {
 
+
             "status":
 
-                "scheduled",
+                "ready",
+
 
             "platform":
 
-                platform
+                platform,
+
+
+            "content":
+
+                content
+
         }
