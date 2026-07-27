@@ -1,5 +1,14 @@
 class StoryEngineAgent:
+    """
+    Creates strategic storytelling frameworks
+    for content generation.
 
+    Responsible for:
+    - narrative direction
+    - emotional positioning
+    - storytelling structure
+    - brand voice alignment
+    """
 
     def framework(self):
 
@@ -8,18 +17,18 @@ class StoryEngineAgent:
             "structure": [
 
                 "HOOK",
-
-                "PROBLEM",
-
-                "PERSONAL LESSON",
-
+                "CONFLICT",
+                "INSIGHT",
+                "TRANSFORMATION",
                 "PROTOCOL",
-
-                "ACTION",
-
+                "CHALLENGE",
                 "CTA"
 
-            ]
+            ],
+
+            "purpose":
+
+                "Transform awareness into disciplined action."
 
         }
 
@@ -41,34 +50,98 @@ class StoryEngineAgent:
 
             "topic": topic,
 
+
             "audience": audience,
+
 
             "platform": platform,
 
-            "framework": self.framework(),
+
+            "narrative_type":
+
+                "operator_debrief",
+
+
+            "hook_style":
+
+                "hard_truth",
+
+
+            "emotional_angle":
+
+                "frustration_to_control",
+
+
+            "conflict":
+
+                "People waiting for motivation instead of building systems.",
+
+
+            "lesson":
+
+                "Discipline removes negotiation and creates identity.",
+
+
+            "framework":
+
+                [
+
+                    "Define non-negotiable standards.",
+
+                    "Build systems that reduce decision fatigue.",
+
+                    "Repeat actions until discipline becomes identity."
+
+                ],
+
+
+            "cta_style":
+
+                "challenge",
+
+
+            "restrictions":
+
+                [
+
+                    "Never invent personal experiences.",
+
+                    "Never claim the writer personally did something unless provided.",
+
+                    "Never repeat brand beliefs word-for-word.",
+
+                    "Avoid generic motivational language."
+
+                ],
+
 
             "instruction":
 
-                """
-Create content using this story structure:
+"""
+Write this as a Protocol X field report.
 
-1. Hook:
-Capture attention immediately.
+The tone should be:
 
-2. Problem:
-Identify the pain, struggle, or mistake.
+- disciplined
+- practical
+- experienced
+- Stoic
+- direct
 
-3. Personal Lesson:
-Explain the realization or transformation.
+Avoid:
 
-4. Protocol:
-Provide the system, method, or framework.
+- influencer language
+- empty motivation
+- generic advice
 
-5. Action:
-Give the audience a clear next step.
+Use:
 
-6. CTA:
-Create engagement and continuation.
+- strong observations
+- specific examples
+- memorable metaphors
+- practical systems
+
+The reader should feel they received a principle from an operator, not a motivational speaker.
 """
 
         }

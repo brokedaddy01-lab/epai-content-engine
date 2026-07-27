@@ -32,6 +32,13 @@ def main():
         exist_ok=True
     )
 
+    # Remove old generated files
+    for file in output_dir.iterdir():
+
+        if file.is_file():
+
+            file.unlink()
+
     for _, row in calendar.iterrows():
 
         brand_name = row.get(
@@ -48,27 +55,29 @@ def main():
             brand
         )
 
+        assets = result["assets"]
+
         base = (
             f"{row['date']}"
             f"_{row['platform']}"
         )
 
-        files = {
+        text_files = {
 
             f"{base}.txt":
                 result["post"],
 
             f"{base}_image_prompt.txt":
-                result["image_prompt"],
+                assets["image_prompt"],
 
             f"{base}_video.txt":
-                result["video_script"],
+                assets["video_script"],
 
             f"{base}_newsletter.txt":
-                result["newsletter"]
+                assets["newsletter"],
         }
 
-        for name, content in files.items():
+        for name, content in text_files.items():
 
             with open(
                 output_dir / name,
@@ -89,7 +98,22 @@ def main():
                 result["campaign"],
 
             f"{base}_carousel.json":
-                result["carousel"]
+                assets["carousel"],
+
+            f"{base}_thumbnail.json":
+                assets["thumbnail"],
+
+            f"{base}_repurpose.json":
+                assets["repurposed"],
+
+            f"{base}_podcast.json":
+                assets["podcast"],
+
+            f"{base}_youtube_title.json":
+                assets["youtube_title"],
+
+            f"{base}_youtube_description.json":
+                assets["youtube_description"],
         }
 
         for name, content in json_files.items():

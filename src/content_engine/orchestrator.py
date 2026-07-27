@@ -65,40 +65,30 @@ class ContentOrchestrator:
 
     ):
 
-        remove_phrases = [
+        remove_patterns = [
 
-            "Here is the content that meets the requirements:",
-
-            "Here is the final post:",
-
-            "Here's the post:",
-
-            "Here is your post:",
-
-            "Here is the finished content",
-
-            "Here is the completed post",
-
-            "Final Post:",
-
-            "Analysis:",
-
-            "Explanation:",
-
-            "This post meets all requirements:",
-
-            "The content above"
+            r"^Here is the.*?:\s*",
+            r"^Here'?s the.*?:\s*",
+            r"^Final Post:\s*",
+            r"^Analysis:\s*",
+            r"^Explanation:\s*",
+            r"^The following.*?:\s*",
+            r"^Below is.*?:\s*"
 
         ]
 
 
-        for phrase in remove_phrases:
+        for pattern in remove_patterns:
 
-            text = text.replace(
+            text = re.sub(
 
-                phrase,
+                pattern,
 
-                ""
+                "",
+
+                text,
+
+                flags=re.IGNORECASE | re.MULTILINE
 
             )
 
@@ -308,6 +298,90 @@ class ContentOrchestrator:
 
 
         ##################################################
+        # QUALITY ANALYSIS
+        ##################################################
+
+        hook = ""
+
+
+        for line in response.splitlines():
+
+            cleaned = line.strip()
+
+
+            if cleaned:
+
+                hook = cleaned
+
+                break
+
+
+
+        content_score = self.quality.score_content(
+
+            response
+
+        )
+
+
+        hook_score = self.quality.score_hook(
+
+            hook
+
+        )
+
+
+        viral = self.quality.optimize_virality(
+
+            response,
+
+            row["platform"]
+
+        )
+
+
+        viral_prediction = self.quality.predict_virality(
+
+            review,
+
+            viral,
+
+            row["platform"]
+
+        )
+
+
+        quality_report = {
+
+            "review_score":
+
+                review["score"],
+
+
+            "content_score":
+
+                content_score,
+
+
+            "hook_score":
+
+                hook_score,
+
+
+            "virality":
+
+                viral,
+
+
+            "prediction":
+
+                viral_prediction
+
+        }
+
+
+
+        ##################################################
         # OPTIMIZATION
         ##################################################
 
@@ -456,6 +530,11 @@ class ContentOrchestrator:
             "review":
 
                 review,
+
+
+            "quality":
+
+                quality_report,
 
 
             "campaign":

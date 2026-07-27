@@ -5,13 +5,6 @@ from content_engine.providers.ollama_provider import (
 
 class CopywriterAgent:
 
-    """
-    Specialist responsible only for writing content.
-
-    Receives completed prompts from the
-    PromptArchitectAgent.
-    """
-
 
     def __init__(self):
 
@@ -19,13 +12,12 @@ class CopywriterAgent:
 
 
 
-    ####################################################
-    # WRITE
-    ####################################################
-
     def write(
+
         self,
+
         prompt
+
     ):
 
         return self.provider.generate(
@@ -34,50 +26,57 @@ class CopywriterAgent:
 
 
 
-    ####################################################
-    # REWRITE
-    ####################################################
-
     def regenerate(
+
         self,
+
         prompt,
-        issues
+
+        issues=None
+
     ):
 
-        rewrite_prompt = (
 
-            prompt
+        if not issues:
 
-            +
+            issues = [
+                "Improve overall quality"
+            ]
 
-            f"""
+
+        feedback = "\n".join(
+            issues
+        )
+
+
+        rewrite_prompt = f"""
+
+{prompt}
+
 
 ━━━━━━━━━━━━━━━━━━
 
 QUALITY REVIEW FEEDBACK
 
-The previous draft needs improvement.
+Fix these issues:
 
-Issues:
-
-{chr(10).join(issues) if issues else "Improve overall quality."}
+{feedback}
 
 
-Rewrite requirements:
+Requirements:
 
-- Stronger hook
+- Stronger opening hook
 - Better storytelling
-- More emotional impact
+- More emotional depth
 - More practical value
-- Better brand alignment
-- Stronger engagement
+- Better audience connection
+- Stronger CTA
 
 Return ONLY the finished content.
 
 ━━━━━━━━━━━━━━━━━━
 
 """
-        )
 
 
         return self.provider.generate(

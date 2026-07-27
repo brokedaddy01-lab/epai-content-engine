@@ -7,19 +7,8 @@ from content_engine.agents.intelligence.content_memory_manager import (
 )
 
 
+
 class PromptArchitectAgent:
-
-    """
-    Builds specialized prompts for
-    content generation agents.
-
-    The Prompt Architect owns:
-
-    - prompt construction
-    - memory injection
-    - brand context
-    - story framework injection
-    """
 
 
     def __init__(self):
@@ -29,10 +18,6 @@ class PromptArchitectAgent:
         self.memory = ContentMemoryManager()
 
 
-
-    ####################################################
-    # BUILD COPYWRITER PROMPT
-    ####################################################
 
     def build_copywriter_prompt(
 
@@ -56,14 +41,10 @@ class PromptArchitectAgent:
         )
 
 
-
-        memory_context = (
-
+        memory = (
             self.memory
             .get_prompt_context()
-
         )
-
 
 
         memory_block = f"""
@@ -74,27 +55,26 @@ CONTENT MEMORY
 
 Avoid repeating:
 
-Recent Topics:
+Topics:
 
-{memory_context["recent_topics"]}
-
-
-Recent Hooks:
-
-{memory_context["recent_hooks"]}
+{memory.get("recent_topics", [])}
 
 
-Avoid These Phrases:
+Hooks:
 
-{memory_context["rejected_phrases"]}
+{memory.get("recent_hooks", [])}
 
 
-Create something original.
+Rejected:
+
+{memory.get("rejected_phrases", [])}
+
+
+Create original content.
 
 ━━━━━━━━━━━━━━━━━━
 
 """
-
 
 
         story_block = f"""
@@ -105,28 +85,26 @@ STORY FRAMEWORK
 
 Topic:
 
-{story_framework["topic"]}
+{story_framework.get("topic")}
 
 
 Audience:
 
-{story_framework["audience"]}
+{story_framework.get("audience")}
 
 
 Platform:
 
-{story_framework["platform"]}
+{story_framework.get("platform")}
 
 
 Instructions:
 
-{story_framework["instruction"]}
-
+{story_framework.get("instruction")}
 
 ━━━━━━━━━━━━━━━━━━
 
 """
-
 
 
         return (

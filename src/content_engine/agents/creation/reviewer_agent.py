@@ -2,11 +2,17 @@ class ReviewerAgent:
 
 
     def review(
+
         self,
+
         text
+
     ):
 
         issues = []
+
+
+        lower = text.lower()
 
 
         metrics = {
@@ -30,39 +36,27 @@ class ReviewerAgent:
         }
 
 
-        lower = text.lower()
+        score = 100
 
 
 
-        ####################################################
-        # HOOK EVALUATION
-        ####################################################
+        ##################################################
+        # HOOK
+        ##################################################
 
-        first_lines = (
+        first_lines = " ".join(
             text.splitlines()[:5]
-        )
-
-        hook_text = " ".join(
-            first_lines
         ).lower()
 
 
         hook_patterns = [
 
             "most people",
-
             "nobody",
-
             "stop",
-
-            "the truth",
-
+            "truth",
             "hard truth",
-
             "you think",
-
-            "your",
-
             "discipline"
 
         ]
@@ -70,10 +64,9 @@ class ReviewerAgent:
 
         for phrase in hook_patterns:
 
-            if phrase in hook_text:
+            if phrase in first_lines:
 
                 metrics["hook_score"] += 10
-
 
 
         if metrics["hook_score"] < 20:
@@ -84,206 +77,102 @@ class ReviewerAgent:
 
 
 
-        ####################################################
-        # BRAND ALIGNMENT
-        ####################################################
+        ##################################################
+        # BRAND SIGNALS
+        ##################################################
 
-        discipline_words = [
+        categories = {
 
-            "discipline",
+            "discipline_score":[
 
-            "consistency",
+                "discipline",
+                "consistency",
+                "execution",
+                "standards",
+                "protocol",
+                "habits"
 
-            "execution",
+            ],
 
-            "standards",
+            "operator_score":[
 
-            "protocol",
+                "operator",
+                "mission",
+                "ownership",
+                "systems",
+                "responsibility"
 
-            "habits",
+            ],
 
-            "self discipline"
+            "stoic_score":[
 
-        ]
+                "stoic",
+                "stoicism",
+                "control",
+                "virtue",
+                "character"
 
+            ],
 
-        operator_words = [
+            "tribe_score":[
 
-            "operator",
+                "brotherhood",
+                "family",
+                "tribe",
+                "legacy",
+                "community"
 
-            "mission",
+            ],
 
-            "responsibility",
+            "virality_score":[
 
-            "ownership",
+                "most people",
+                "nobody",
+                "truth",
+                "you"
 
-            "execute",
+            ],
 
-            "systems",
+            "cta_score":[
 
-            "protocols"
+                "comment",
+                "share",
+                "follow",
+                "subscribe",
+                "thoughts"
 
-        ]
+            ]
 
+        }
 
-        stoic_words = [
 
-            "stoic",
+        for metric, words in categories.items():
 
-            "stoicism",
+            for word in words:
 
-            "control",
+                if word in lower:
 
-            "virtue",
+                    metrics[metric] += 10
 
-            "character",
 
-            "actions",
 
-            "standards"
+        ##################################################
+        # AI / GENERIC DETECTION
+        ##################################################
 
-        ]
-
-
-        tribe_words = [
-
-            "brotherhood",
-
-            "family",
-
-            "tribe",
-
-            "legacy",
-
-            "pack",
-
-            "community"
-
-        ]
-
-
-        viral_words = [
-
-            "most people",
-
-            "nobody",
-
-            "you",
-
-            "stop",
-
-            "truth"
-
-        ]
-
-
-        cta_words = [
-
-            "comment",
-
-            "share",
-
-            "follow",
-
-            "subscribe",
-
-            "reflect",
-
-            "your thoughts"
-
-        ]
-
-
-
-        for word in discipline_words:
-
-            if word in lower:
-
-                metrics["discipline_score"] += 10
-
-
-
-        for word in operator_words:
-
-            if word in lower:
-
-                metrics["operator_score"] += 10
-
-
-
-        for word in stoic_words:
-
-            if word in lower:
-
-                metrics["stoic_score"] += 10
-
-
-
-        for word in tribe_words:
-
-            if word in lower:
-
-                metrics["tribe_score"] += 10
-
-
-
-        for word in viral_words:
-
-            if word in lower:
-
-                metrics["virality_score"] += 10
-
-
-
-        for word in cta_words:
-
-            if word in lower:
-
-                metrics["cta_score"] += 10
-
-
-
-        ####################################################
-        # GENERIC AI LANGUAGE PENALTIES
-        ####################################################
-
-        banned_phrases = [
+        banned = [
 
             "believe in yourself",
-
             "dream big",
-
-            "manifest",
-
             "you got this",
-
             "here's the thing",
-
             "as we all know",
-
-            "success isn't easy",
-
-            "my friends",
-
-            "newsflash",
-
-            "what if you're not motivated",
-
-            "fleeting feeling",
-
-            "foundation of success",
-
             "take action today"
 
         ]
 
 
-
-        score = 100
-
-
-
-        for phrase in banned_phrases:
+        for phrase in banned:
 
             if phrase in lower:
 
@@ -295,58 +184,18 @@ class ReviewerAgent:
 
 
 
-        ####################################################
-        # AI SELF EXPLANATION DETECTION
-        ####################################################
-
-        ai_leak_patterns = [
-
-            "this post meets",
-
-            "this content meets",
-
-            "the tone is",
-
-            "the language is",
-
-            "the requirements",
-
-            "the post also includes"
-
-        ]
-
-
-        for phrase in ai_leak_patterns:
-
-            if phrase in lower:
-
-                score -= 20
-
-                issues.append(
-                    "Remove AI explanation"
-                )
-
-
-
-        ####################################################
-        # PRACTICAL VALUE CHECK
-        ####################################################
+        ##################################################
+        # PRACTICAL VALUE
+        ##################################################
 
         action_words = [
 
             "step",
-
             "protocol",
-
             "system",
-
             "routine",
-
-            "create",
-
             "build",
-
-            "identify"
+            "create"
 
         ]
 
@@ -368,42 +217,39 @@ class ReviewerAgent:
 
 
 
-        ####################################################
-        # LENGTH CHECK
-        ####################################################
+        ##################################################
+        # LENGTH
+        ##################################################
 
-        word_count = len(
+        count = len(
             text.split()
         )
 
 
-        if word_count < 120:
+        if count < 120:
 
             score -= 5
 
             issues.append(
-                "Content is too short"
+                "Content too short"
             )
 
 
-        if word_count > 500:
+        if count > 500:
 
             score -= 5
 
             issues.append(
-                "Content is too long"
+                "Content too long"
             )
 
 
 
-        ####################################################
-        # CTA CHECK
-        ####################################################
+        ##################################################
+        # CTA
+        ##################################################
 
-        if not any(
-            word in lower
-            for word in cta_words
-        ):
+        if metrics["cta_score"] == 0:
 
             score -= 10
 
@@ -413,11 +259,11 @@ class ReviewerAgent:
 
 
 
-        ####################################################
+        ##################################################
         # FINAL SCORE
-        ####################################################
+        ##################################################
 
-        alignment_bonus = (
+        bonus = (
 
             metrics["hook_score"]
 
@@ -449,21 +295,22 @@ class ReviewerAgent:
 
 
 
-        final_score = score + alignment_bonus
-
-
-
         final_score = max(
+
             0,
+
             min(
-                final_score,
+
+                score + bonus,
+
                 100
+
             )
+
         )
 
 
         metrics["quality_score"] = final_score
-
 
 
         return {
