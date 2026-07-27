@@ -2,10 +2,6 @@ from content_engine.agents.strategy.audience_agent import (
     AudienceAgent
 )
 
-from content_engine.agents.strategy.content_planner_agent import (
-    ContentPlannerAgent
-)
-
 from content_engine.agents.strategy.content_strategist_agent import (
     ContentStrategistAgent
 )
@@ -26,10 +22,6 @@ from content_engine.agents.strategy.trend_agent import (
     TrendAgent
 )
 
-from content_engine.agents.strategy.trend_scraper_agent import (
-    TrendScraperAgent
-)
-
 
 
 class StrategyBrain:
@@ -38,8 +30,6 @@ class StrategyBrain:
     def __init__(self):
 
         self.audience = AudienceAgent()
-
-        self.planner = ContentPlannerAgent()
 
         self.strategist = ContentStrategistAgent()
 
@@ -51,18 +41,6 @@ class StrategyBrain:
 
         self.trends = TrendAgent()
 
-        self.trend_scraper = TrendScraperAgent()
-
-
-
-    ##################################################
-    # MONTHLY PLAN
-    ##################################################
-
-    def create_plan(self):
-
-        return self.planner.monthly_plan()
-
 
 
     ##################################################
@@ -70,11 +48,8 @@ class StrategyBrain:
     ##################################################
 
     def generate_hook(
-
         self,
-
         topic
-
     ):
 
         return self.hooks.generate(
@@ -88,21 +63,14 @@ class StrategyBrain:
     ##################################################
 
     def optimize_content(
-
         self,
-
         content,
-
         keyword
-
     ):
 
         return self.seo.optimize(
-
             content,
-
             keyword
-
         )
 
 
@@ -111,22 +79,24 @@ class StrategyBrain:
     # TREND INTELLIGENCE
     ##################################################
 
-    def discover_trends(self):
-
-        scraped = self.trend_scraper.fetch()
+    def discover_trends(
+        self,
+        source_data=None
+    ):
 
         return self.trends.analyze(
-            scraped
+            source_data
         )
 
 
 
-    def trend_summary(self):
-
-        scraped = self.trend_scraper.fetch()
+    def trend_summary(
+        self,
+        source_data=None
+    ):
 
         return self.trends.prioritize(
-            scraped
+            source_data
         )
 
 

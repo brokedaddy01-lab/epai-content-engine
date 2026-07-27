@@ -1,7 +1,3 @@
-from content_engine.agents.intelligence.learning_agent import (
-    LearningAgent
-)
-
 from content_engine.agents.intelligence.performance_agent import (
     PerformanceAgent
 )
@@ -22,22 +18,15 @@ from content_engine.agents.intelligence.knowledge_agent import (
     KnowledgeAgent
 )
 
-from content_engine.agents.intelligence.feedback_loop_agent import (
-    FeedbackLoopAgent
-)
-
 from content_engine.agents.strategy.topic_cluster_agent import (
     TopicClusterAgent
 )
-
 
 
 class IntelligenceBrain:
 
 
     def __init__(self):
-
-        self.learning = LearningAgent()
 
         self.performance = PerformanceAgent()
 
@@ -49,17 +38,16 @@ class IntelligenceBrain:
 
         self.feedback = FeedbackAgent()
 
-        self.feedback_loop = FeedbackLoopAgent()
+        # Compatibility alias.
+        # Previous architecture exposed feedback_loop.
+        # FeedbackLoopAgent was merged into FeedbackAgent.
+        self.feedback_loop = self.feedback
 
         self.knowledge = KnowledgeAgent()
 
         self.clusters = TopicClusterAgent()
 
 
-
-    ##################################################
-    # MEMORY CONTEXT
-    ##################################################
 
     def memory_context(self):
 
@@ -69,10 +57,6 @@ class IntelligenceBrain:
         )
 
 
-
-    ##################################################
-    # SAVE SUCCESSFUL CONTENT
-    ##################################################
 
     def remember_content(
         self,
@@ -102,33 +86,6 @@ class IntelligenceBrain:
 
 
 
-    ##################################################
-    # LEARNING
-    ##################################################
-
-    def remember(
-        self,
-        topic,
-        score,
-        platform
-    ):
-
-        self.learning.learn(
-
-            topic,
-
-            score,
-
-            platform
-
-        )
-
-
-
-    ##################################################
-    # PERFORMANCE
-    ##################################################
-
     def best_content(self):
 
         return (
@@ -137,10 +94,6 @@ class IntelligenceBrain:
         )
 
 
-
-    ##################################################
-    # PERFORMANCE ANALYSIS
-    ##################################################
 
     def analyze_performance(
         self,
@@ -156,39 +109,23 @@ class IntelligenceBrain:
 
 
 
-    ##################################################
-    # FEEDBACK
-    ##################################################
-
     def feedback_agent(self):
 
         return self.feedback
 
 
 
-    ##################################################
-    # KNOWLEDGE
-    ##################################################
+    def feedback_loop_agent(self):
+
+        return self.feedback
+
+
 
     def knowledge_agent(self):
 
         return self.knowledge
 
 
-
-    ##################################################
-    # FEEDBACK LOOP
-    ##################################################
-
-    def feedback_loop_agent(self):
-
-        return self.feedback_loop
-
-
-
-    ##################################################
-    # TOPIC CLUSTERS
-    ##################################################
 
     def topic_clusters(self):
 
