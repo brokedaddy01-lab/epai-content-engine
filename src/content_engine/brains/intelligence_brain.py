@@ -45,6 +45,7 @@ class IntelligenceBrain:
 
         self.knowledge = KnowledgeAgent()
 
+
         # Compatibility alias.
         # TopicClusterAgent ownership moved to StrategyBrain,
         # but older callers/tests still access IntelligenceBrain.clusters.
