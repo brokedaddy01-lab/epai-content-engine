@@ -1,12 +1,12 @@
-from content_engine.agents.optimization_services.growth_agent import (
+from content_engine.agents.optimization.growth_agent import (
     GrowthAgent
 )
 
-from content_engine.agents.optimization_services.cta_agent import (
+from content_engine.agents.optimization.cta_agent import (
     CTAAgent
 )
 
-from content_engine.agents.optimization_services.hashtag_agent import (
+from content_engine.agents.optimization.hashtag_agent import (
     HashtagAgent
 )
 

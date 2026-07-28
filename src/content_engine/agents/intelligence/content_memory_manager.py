@@ -2,20 +2,20 @@ from content_engine.agents.intelligence.memory_agent import (
     MemoryAgent
 )
 
-from content_engine.agents.quality_services.hook_similarity_agent import (
+from content_engine.agents.quality.hook_similarity_agent import (
     HookSimilarityAgent
 )
 
 
 class ContentMemoryManager:
 
+
     def __init__(self):
 
         self.memory = MemoryAgent()
 
-        self.similarity = (
-            HookSimilarityAgent()
-        )
+        self.similarity = HookSimilarityAgent()
+
 
 
     def store(
@@ -28,6 +28,7 @@ class ContentMemoryManager:
         )
 
 
+
     def retrieve(
         self
     ):
@@ -35,6 +36,7 @@ class ContentMemoryManager:
         return (
             self.memory.retrieve()
         )
+
 
 
     def remember_success(
@@ -50,6 +52,7 @@ class ContentMemoryManager:
         self.store(
 
             {
+
                 "hook": hook,
 
                 "topic": topic,
@@ -65,6 +68,7 @@ class ContentMemoryManager:
             }
 
         )
+
 
 
     def get_prompt_context(
@@ -87,6 +91,7 @@ class ContentMemoryManager:
                 item,
                 dict
             ):
+
                 continue
 
 

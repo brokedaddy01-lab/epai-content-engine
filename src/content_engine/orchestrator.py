@@ -200,7 +200,6 @@ class ContentOrchestrator:
 
         lines = text.splitlines()
 
-
         hook = ""
 
 
@@ -301,83 +300,15 @@ class ContentOrchestrator:
         # QUALITY ANALYSIS
         ##################################################
 
-        hook = ""
-
-
-        for line in response.splitlines():
-
-            cleaned = line.strip()
-
-
-            if cleaned:
-
-                hook = cleaned
-
-                break
-
-
-
-        content_score = self.quality.score_content(
-
-            response
-
-        )
-
-
-        hook_score = self.quality.score_hook(
-
-            hook
-
-        )
-
-
-        viral = self.quality.optimize_virality(
+        quality_report = self.quality.analyze(
 
             response,
 
-            row["platform"]
-
-        )
-
-
-        viral_prediction = self.quality.predict_virality(
-
             review,
 
-            viral,
-
             row["platform"]
 
         )
-
-
-        quality_report = {
-
-            "review_score":
-
-                review["score"],
-
-
-            "content_score":
-
-                content_score,
-
-
-            "hook_score":
-
-                hook_score,
-
-
-            "virality":
-
-                viral,
-
-
-            "prediction":
-
-                viral_prediction
-
-        }
 
 
 
