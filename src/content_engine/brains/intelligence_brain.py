@@ -1,21 +1,5 @@
-from content_engine.agents.intelligence.performance_agent import (
-    PerformanceAgent
-)
-
-from content_engine.agents.intelligence.performance_learning_agent import (
-    PerformanceLearningAgent
-)
-
-from content_engine.agents.intelligence.content_memory_manager import (
-    ContentMemoryManager
-)
-
-from content_engine.agents.intelligence.feedback_agent import (
-    FeedbackAgent
-)
-
-from content_engine.agents.intelligence.knowledge_agent import (
-    KnowledgeAgent
+from content_engine.agents.intelligence.intelligence_manager import (
+    IntelligenceManager
 )
 
 from content_engine.agents.strategy.topic_cluster_agent import (
@@ -23,27 +7,35 @@ from content_engine.agents.strategy.topic_cluster_agent import (
 )
 
 
+
 class IntelligenceBrain:
 
 
     def __init__(self):
 
-        self.performance = PerformanceAgent()
+        self.manager = IntelligenceManager()
+
+
+        # Compatibility aliases.
+        # Existing callers expect direct access.
+        self.performance = self.manager.performance
 
         self.performance_learning = (
-            PerformanceLearningAgent()
+            self.manager.learning
         )
 
-        self.memory = ContentMemoryManager()
+        self.memory = self.manager.content_memory
 
-        self.feedback = FeedbackAgent()
+        self.feedback = self.manager.feedback
+
 
         # Compatibility alias.
         # Previous architecture exposed feedback_loop.
         # FeedbackLoopAgent was merged into FeedbackAgent.
         self.feedback_loop = self.feedback
 
-        self.knowledge = KnowledgeAgent()
+
+        self.knowledge = self.manager.knowledge
 
 
         # Compatibility alias.
@@ -72,20 +64,16 @@ class IntelligenceBrain:
         score
     ):
 
-        self.memory.remember_success(
-
-            hook=hook,
-
-            topic=topic,
-
-            hashtags=hashtags,
-
-            cta=cta,
-
-            platform=platform,
-
-            score=score
-
+        return (
+            self.manager
+            .remember_content(
+                hook,
+                topic,
+                hashtags,
+                cta,
+                platform,
+                score
+            )
         )
 
 
