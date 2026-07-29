@@ -1,13 +1,5 @@
-from content_engine.agents.publishing.campaign_agent import (
-    CampaignAgent
-)
-
-from content_engine.agents.publishing.publishing_agent import (
-    PublishingAgent
-)
-
-from content_engine.agents.publishing.scheduler_agent import (
-    SchedulerAgent
+from content_engine.agents.publishing.publishing_manager import (
+    PublishingManager
 )
 
 
@@ -17,11 +9,16 @@ class PublishingBrain:
 
     def __init__(self):
 
-        self.campaign = CampaignAgent()
+        self.manager = PublishingManager()
 
-        self.publisher = PublishingAgent()
 
-        self.scheduler = SchedulerAgent()
+        # Compatibility aliases.
+        # Previous architecture exposed publishing agents directly.
+        self.campaign = self.manager.campaign
+
+        self.publisher = self.manager.publisher
+
+        self.scheduler = self.manager.scheduler
 
 
 
@@ -39,7 +36,7 @@ class PublishingBrain:
 
         return (
 
-            self.campaign
+            self.manager
             .create_campaign(
 
                 data
@@ -66,7 +63,7 @@ class PublishingBrain:
 
         return (
 
-            self.publisher
+            self.manager
             .publish(
 
                 content,
@@ -97,7 +94,7 @@ class PublishingBrain:
 
         return (
 
-            self.scheduler
+            self.manager
             .schedule(
 
                 content,
@@ -126,8 +123,8 @@ class PublishingBrain:
 
         return (
 
-            self.scheduler
-            .best_times(
+            self.manager
+            .best_time(
 
                 platform
 
