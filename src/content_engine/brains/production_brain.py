@@ -6,9 +6,24 @@ from content_engine.agents.asset_production.asset_production_manager import (
 class ProductionBrain:
 
 
-    def __init__(self):
+    def __init__(
 
-        self.assets = AssetProductionManager()
+        self,
+
+        manager=None
+
+    ):
+
+
+        self.assets = (
+
+            manager
+
+            if manager
+
+            else AssetProductionManager()
+
+        )
 
 
         # Compatibility aliases.

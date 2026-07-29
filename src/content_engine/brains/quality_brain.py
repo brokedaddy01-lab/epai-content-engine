@@ -7,9 +7,20 @@ from content_engine.agents.quality.quality_manager import (
 class QualityBrain:
 
 
-    def __init__(self):
+    def __init__(
+        self,
+        manager=None
+    ):
 
-        self.manager = QualityManager()
+
+        if manager is None:
+
+            self.manager = QualityManager()
+
+        else:
+
+            self.manager = manager
+
 
 
         # Compatibility aliases.
@@ -53,6 +64,7 @@ class QualityBrain:
     ):
 
         hook = ""
+
 
         for line in content.splitlines():
 

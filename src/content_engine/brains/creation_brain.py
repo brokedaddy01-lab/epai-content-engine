@@ -12,22 +12,31 @@ class CreationBrain:
 
         quality_threshold=90,
 
-        max_attempts=3
+        max_attempts=3,
+
+        manager=None
 
     ):
 
 
-        self.manager = CreationManager(
+        self.manager = (
 
-            quality_threshold,
+            manager
 
-            max_attempts
+            if manager is not None
+
+            else CreationManager(
+
+                quality_threshold,
+
+                max_attempts
+
+            )
 
         )
 
 
-        # Compatibility aliases.
-        # Keeps older tests/callers working.
+        # Compatibility aliases
 
         self.story_engine = (
             self.manager.story_engine
@@ -63,8 +72,7 @@ class CreationBrain:
 
         return (
 
-            self.manager
-            .create(
+            self.manager.create(
 
                 row,
 

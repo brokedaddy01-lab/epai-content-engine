@@ -11,36 +11,66 @@ from content_engine.agents.strategy.topic_cluster_agent import (
 class IntelligenceBrain:
 
 
-    def __init__(self):
+    def __init__(
+        self,
+        manager=None
+    ):
 
-        self.manager = IntelligenceManager()
+
+        if manager is None:
+
+            self.manager = IntelligenceManager()
+
+        else:
+
+            self.manager = manager
+
 
 
         # Compatibility aliases.
         # Existing callers expect direct access.
-        self.performance = self.manager.performance
+
+        self.performance = (
+            self.manager.performance
+        )
+
 
         self.performance_learning = (
             self.manager.learning
         )
 
-        self.memory = self.manager.content_memory
 
-        self.feedback = self.manager.feedback
+        self.memory = (
+            self.manager.content_memory
+        )
+
+
+        self.feedback = (
+            self.manager.feedback
+        )
+
 
 
         # Compatibility alias.
         # Previous architecture exposed feedback_loop.
         # FeedbackLoopAgent was merged into FeedbackAgent.
-        self.feedback_loop = self.feedback
+
+        self.feedback_loop = (
+            self.feedback
+        )
 
 
-        self.knowledge = self.manager.knowledge
+
+        self.knowledge = (
+            self.manager.knowledge
+        )
+
 
 
         # Compatibility alias.
         # TopicClusterAgent ownership moved to StrategyBrain,
         # but older callers/tests still access IntelligenceBrain.clusters.
+
         self.clusters = TopicClusterAgent()
 
 

@@ -6,10 +6,18 @@ from content_engine.agents.optimization.optimization_manager import (
 class OptimizationBrain:
 
 
-    def __init__(self):
+    def __init__(
+        self,
+        manager=None
+    ):
 
 
-        self.manager = OptimizationManager()
+        if manager is None:
+
+            manager = OptimizationManager()
+
+
+        self.manager = manager
 
 
 

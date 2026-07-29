@@ -3,17 +3,32 @@ from content_engine.agents.publishing.publishing_manager import (
 )
 
 
-
 class PublishingBrain:
 
 
-    def __init__(self):
+    def __init__(
 
-        self.manager = PublishingManager()
+        self,
+
+        manager=None
+
+    ):
+
+
+        self.manager = (
+
+            manager
+
+            if manager
+
+            else PublishingManager()
+
+        )
 
 
         # Compatibility aliases.
-        # Previous architecture exposed publishing agents directly.
+        # Keeps previous callers/tests working.
+
         self.campaign = self.manager.campaign
 
         self.publisher = self.manager.publisher
@@ -23,7 +38,7 @@ class PublishingBrain:
 
 
     ##################################################
-    # CREATE CAMPAIGN
+    # CAMPAIGN CREATION
     ##################################################
 
     def create_campaign(
@@ -48,7 +63,7 @@ class PublishingBrain:
 
 
     ##################################################
-    # PREPARE PUBLISHING
+    # PUBLISH CONTENT
     ##################################################
 
     def publish(
@@ -77,7 +92,7 @@ class PublishingBrain:
 
 
     ##################################################
-    # SCHEDULE CONTENT
+    # SCHEDULING
     ##################################################
 
     def schedule(
@@ -108,10 +123,6 @@ class PublishingBrain:
         )
 
 
-
-    ##################################################
-    # BEST PUBLISH TIME
-    ##################################################
 
     def best_time(
 

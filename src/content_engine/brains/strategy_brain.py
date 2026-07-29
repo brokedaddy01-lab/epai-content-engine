@@ -6,12 +6,24 @@ from content_engine.agents.strategy.strategy_manager import (
 class StrategyBrain:
 
 
-    def __init__(self):
+    def __init__(
+        self,
+        manager=None
+    ):
 
-        self.manager = StrategyManager()
+        self.manager = (
+
+            manager
+
+            if manager is not None
+
+            else StrategyManager()
+
+        )
 
 
         # Compatibility aliases
+
         self.audience = self.manager.audience
 
         self.strategist = self.manager.strategist

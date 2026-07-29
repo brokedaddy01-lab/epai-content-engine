@@ -30,6 +30,10 @@ from content_engine.brains.publishing_brain import (
     PublishingBrain
 )
 
+from content_engine.registry import (
+    ManagerRegistry
+)
+
 
 
 class ContentOrchestrator:
@@ -37,19 +41,84 @@ class ContentOrchestrator:
 
     def __init__(self):
 
-        self.strategy = StrategyBrain()
+        self.registry = ManagerRegistry()
 
-        self.creation = CreationBrain()
 
-        self.intelligence = IntelligenceBrain()
+        self.strategy = StrategyBrain(
 
-        self.quality = QualityBrain()
+            self.registry.get(
 
-        self.optimization = OptimizationBrain()
+                "strategy"
 
-        self.production = ProductionBrain()
+            )
 
-        self.publishing = PublishingBrain()
+        )
+
+
+        self.creation = CreationBrain(
+
+            manager=self.registry.get(
+
+                "creation"
+
+            )
+
+        )
+
+
+        self.intelligence = IntelligenceBrain(
+
+            manager=self.registry.get(
+
+                "intelligence"
+
+            )
+
+        )
+
+
+        self.quality = QualityBrain(
+
+            manager=self.registry.get(
+
+                "quality"
+
+            )
+
+        )
+
+
+        self.optimization = OptimizationBrain(
+
+            manager=self.registry.get(
+
+                "optimization"
+
+            )
+
+        )
+
+
+        self.production = ProductionBrain(
+
+            manager=self.registry.get(
+
+                "production"
+
+            )
+
+        )
+
+
+        self.publishing = PublishingBrain(
+
+            manager=self.registry.get(
+
+                "publishing"
+
+            )
+
+        )
 
 
 
