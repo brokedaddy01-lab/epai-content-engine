@@ -1,28 +1,44 @@
-from content_engine.agents.strategy.strategy_manager import (
-    StrategyManager
+from content_engine.agents.strategy.audience_agent import (
+    AudienceAgent
+)
+
+from content_engine.agents.strategy.content_strategist_agent import (
+    ContentStrategistAgent
+)
+
+from content_engine.agents.strategy.hook_agent import (
+    HookAgent
+)
+
+from content_engine.agents.strategy.seo_agent import (
+    SEOAgent
+)
+
+from content_engine.agents.strategy.topic_cluster_agent import (
+    TopicClusterAgent
+)
+
+from content_engine.agents.strategy.trend_agent import (
+    TrendAgent
 )
 
 
-class StrategyBrain:
+class StrategyManager:
 
 
     def __init__(self):
 
-        self.manager = StrategyManager()
+        self.audience = AudienceAgent()
 
+        self.strategist = ContentStrategistAgent()
 
-        # Compatibility aliases
-        self.audience = self.manager.audience
+        self.hooks = HookAgent()
 
-        self.strategist = self.manager.strategist
+        self.seo = SEOAgent()
 
-        self.hooks = self.manager.hooks
+        self.clusters = TopicClusterAgent()
 
-        self.seo = self.manager.seo
-
-        self.clusters = self.manager.clusters
-
-        self.trends = self.manager.trends
+        self.trends = TrendAgent()
 
 
 
@@ -35,7 +51,7 @@ class StrategyBrain:
         topic
     ):
 
-        return self.manager.generate_hook(
+        return self.hooks.generate(
             topic
         )
 
@@ -51,7 +67,7 @@ class StrategyBrain:
         keyword
     ):
 
-        return self.manager.optimize_content(
+        return self.seo.optimize(
             content,
             keyword
         )
@@ -67,7 +83,7 @@ class StrategyBrain:
         source_data=None
     ):
 
-        return self.manager.discover_trends(
+        return self.trends.analyze(
             source_data
         )
 
@@ -78,7 +94,7 @@ class StrategyBrain:
         source_data=None
     ):
 
-        return self.manager.trend_summary(
+        return self.trends.prioritize(
             source_data
         )
 
@@ -90,7 +106,7 @@ class StrategyBrain:
 
     def topic_clusters(self):
 
-        return self.manager.topic_clusters()
+        return self.clusters
 
 
 
@@ -100,7 +116,7 @@ class StrategyBrain:
 
     def strategy_agent(self):
 
-        return self.manager.strategy_agent()
+        return self.strategist
 
 
 
@@ -110,4 +126,4 @@ class StrategyBrain:
 
     def audience_agent(self):
 
-        return self.manager.audience_agent()
+        return self.audience
