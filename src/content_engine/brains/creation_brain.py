@@ -1,23 +1,6 @@
-from content_engine.agents.creation.story_engine_agent import (
-    StoryEngineAgent
+from content_engine.agents.creation.creation_manager import (
+    CreationManager
 )
-
-from content_engine.agents.creation.prompt_architect_agent import (
-    PromptArchitectAgent
-)
-
-from content_engine.agents.creation.copywriter_agent import (
-    CopywriterAgent
-)
-
-from content_engine.agents.creation.reviewer_agent import (
-    ReviewerAgent
-)
-
-from content_engine.agents.intelligence.content_memory_manager import (
-    ContentMemoryManager
-)
-
 
 
 class CreationBrain:
@@ -34,30 +17,39 @@ class CreationBrain:
     ):
 
 
-        self.story_engine = StoryEngineAgent()
+        self.manager = CreationManager(
 
-        self.prompt_architect = PromptArchitectAgent()
+            quality_threshold,
 
-        self.copywriter = CopywriterAgent()
-
-        self.reviewer = ReviewerAgent()
-
-        self.memory = ContentMemoryManager()
-
-
-        self.quality_threshold = (
-            quality_threshold
-        )
-
-        self.max_attempts = (
             max_attempts
+
         )
 
 
+        # Compatibility aliases.
+        # Keeps older tests/callers working.
 
-    ##################################################
-    # CREATE CONTENT
-    ##################################################
+        self.story_engine = (
+            self.manager.story_engine
+        )
+
+        self.prompt_architect = (
+            self.manager.prompt_architect
+        )
+
+        self.copywriter = (
+            self.manager.copywriter
+        )
+
+        self.reviewer = (
+            self.manager.reviewer
+        )
+
+        self.memory = (
+            self.manager.memory
+        )
+
+
 
     def create(
 
@@ -69,218 +61,15 @@ class CreationBrain:
 
     ):
 
+        return (
 
-        topic = row.get(
-            "topic",
-            ""
-        )
-
-
-        platform = row.get(
-            "platform",
-            "social"
-        )
-
-
-        audience = row.get(
-            "audience",
-            "target audience"
-        )
-
-
-
-        story = (
-
-            self.story_engine
-            .build_story(
-
-                topic,
-
-                audience,
-
-                platform
-
-            )
-
-        )
-
-
-
-        prompt = (
-
-            self.prompt_architect
-            .build_copywriter_prompt(
+            self.manager
+            .create(
 
                 row,
 
-                brand,
-
-                story
+                brand
 
             )
 
         )
-
-
-
-        response = (
-
-            self.copywriter
-            .write(
-
-                prompt
-
-            )
-
-        )
-
-
-        if not response:
-
-            return {
-
-                "content": "",
-
-                "review": {
-
-                    "score": 0,
-
-                    "issues": [
-                        "Generation failed"
-                    ]
-
-                },
-
-                "attempts": 0,
-
-                "story": story
-
-            }
-
-
-
-        review = (
-
-            self.reviewer
-            .review(
-
-                response
-
-            )
-
-        )
-
-
-
-        attempts = 1
-
-
-
-        while (
-
-            review["score"]
-
-            <
-
-            self.quality_threshold
-
-            and
-
-            attempts
-
-            <
-
-            self.max_attempts
-
-        ):
-
-
-            response = (
-
-                self.copywriter
-                .regenerate(
-
-                    prompt,
-
-                    review.get(
-                        "issues",
-                        []
-                    )
-
-                )
-
-            )
-
-
-            review = (
-
-                self.reviewer
-                .review(
-
-                    response
-
-                )
-
-            )
-
-
-            attempts += 1
-
-
-
-        ##################################################
-        # STORE LEARNING MEMORY
-        ##################################################
-
-        if review["score"] >= self.quality_threshold:
-
-
-            self.memory.remember_success(
-
-                hook=response.splitlines()[0]
-                if response
-                else "",
-
-                topic=topic,
-
-                hashtags=row.get(
-                    "hashtags",
-                    []
-                ),
-
-                cta=row.get(
-                    "cta",
-                    ""
-                ),
-
-                platform=platform,
-
-                score=review["score"]
-
-            )
-
-
-
-        return {
-
-
-            "content":
-
-                response,
-
-
-            "review":
-
-                review,
-
-
-            "attempts":
-
-                attempts,
-
-
-            "story":
-
-                story
-
-        }

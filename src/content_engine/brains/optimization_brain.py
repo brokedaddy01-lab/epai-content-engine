@@ -1,13 +1,5 @@
-from content_engine.agents.optimization.growth_agent import (
-    GrowthAgent
-)
-
-from content_engine.agents.optimization.cta_agent import (
-    CTAAgent
-)
-
-from content_engine.agents.optimization.hashtag_agent import (
-    HashtagAgent
+from content_engine.agents.optimization.optimization_manager import (
+    OptimizationManager
 )
 
 
@@ -16,11 +8,32 @@ class OptimizationBrain:
 
     def __init__(self):
 
-        self.growth = GrowthAgent()
 
-        self.cta = CTAAgent()
+        self.manager = OptimizationManager()
 
-        self.hashtags = HashtagAgent()
+
+
+        # Compatibility aliases
+
+        self.growth = (
+
+            self.manager.growth
+
+        )
+
+
+        self.cta = (
+
+            self.manager.cta
+
+        )
+
+
+        self.hashtags = (
+
+            self.manager.hashtags
+
+        )
 
 
 
@@ -40,65 +53,20 @@ class OptimizationBrain:
 
     ):
 
+        return (
 
-        growth = (
-
-            self.growth
+            self.manager
             .optimize(
 
                 content,
 
-                platform
+                platform,
+
+                topic
 
             )
 
         )
-
-
-        cta = (
-
-            self.cta
-            .generate(
-
-                platform
-
-            )
-
-        )
-
-
-        hashtags = (
-
-            self.hashtags
-            .generate(
-
-                topic or "",
-
-                platform
-
-            )
-
-        )
-
-
-        return {
-
-
-            "follow_cta":
-
-                cta,
-
-
-            "hashtags":
-
-                hashtags,
-
-
-            "growth":
-
-                growth
-
-        }
 
 
 
@@ -116,8 +84,8 @@ class OptimizationBrain:
 
         return (
 
-            self.cta
-            .generate(
+            self.manager
+            .generate_cta(
 
                 platform
 
@@ -143,8 +111,8 @@ class OptimizationBrain:
 
         return (
 
-            self.hashtags
-            .generate(
+            self.manager
+            .generate_hashtags(
 
                 topic,
 
