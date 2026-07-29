@@ -38,8 +38,9 @@ from content_engine.agents.asset_production.youtube_description_agent import (
     YouTubeDescriptionAgent
 )
 
+from content_engine.agents.base_manager import BaseManager
 
-class AssetProductionManager:
+class AssetProductionManager(BaseManager):
 
 
     def __init__(self):

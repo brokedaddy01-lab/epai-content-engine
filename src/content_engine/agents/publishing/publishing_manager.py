@@ -10,8 +10,9 @@ from content_engine.agents.publishing.scheduler_agent import (
     SchedulerAgent
 )
 
+from content_engine.agents.base_manager import BaseManager
 
-class PublishingManager:
+class PublishingManager(BaseManager):
 
 
     def __init__(self):

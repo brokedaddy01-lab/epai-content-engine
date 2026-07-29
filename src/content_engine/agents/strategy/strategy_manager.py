@@ -22,8 +22,9 @@ from content_engine.agents.strategy.trend_agent import (
     TrendAgent
 )
 
+from content_engine.agents.base_manager import BaseManager
 
-class StrategyManager:
+class StrategyManager(BaseManager):
 
 
     def __init__(self):

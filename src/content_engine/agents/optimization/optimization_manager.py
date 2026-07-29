@@ -10,8 +10,9 @@ from content_engine.agents.optimization.hashtag_agent import (
     HashtagAgent
 )
 
+from content_engine.agents.base_manager import BaseManager
 
-class OptimizationManager:
+class OptimizationManager(BaseManager):
 
 
     def __init__(self):

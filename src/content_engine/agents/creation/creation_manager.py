@@ -18,8 +18,10 @@ from content_engine.agents.intelligence.content_memory_manager import (
     ContentMemoryManager
 )
 
+from content_engine.agents.base_manager import BaseManager
 
-class CreationManager:
+
+class CreationManager(BaseManager):
 
 
     def __init__(

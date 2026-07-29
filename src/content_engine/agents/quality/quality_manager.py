@@ -22,9 +22,9 @@ from content_engine.agents.quality.virality_prediction_agent import (
     ViralityPredictionAgent
 )
 
+from content_engine.agents.base_manager import BaseManager
 
-
-class QualityManager:
+class QualityManager(BaseManager):
 
 
     def __init__(self):
