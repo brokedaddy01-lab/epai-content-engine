@@ -1,41 +1,5 @@
-from content_engine.agents.asset_production.formatter_agent import (
-    FormatterAgent
-)
-
-from content_engine.agents.asset_production.image_agent import (
-    ImageAgent
-)
-
-from content_engine.agents.asset_production.video_script_agent import (
-    VideoScriptAgent
-)
-
-from content_engine.agents.asset_production.carousel_agent import (
-    CarouselAgent
-)
-
-from content_engine.agents.asset_production.newsletter_agent import (
-    NewsletterAgent
-)
-
-from content_engine.agents.asset_production.thumbnail_agent import (
-    ThumbnailAgent
-)
-
-from content_engine.agents.asset_production.repurpose_agent import (
-    RepurposeAgent
-)
-
-from content_engine.agents.asset_production.podcast_agent import (
-    PodcastAgent
-)
-
-from content_engine.agents.asset_production.youtube_title_agent import (
-    YouTubeTitleAgent
-)
-
-from content_engine.agents.asset_production.youtube_description_agent import (
-    YouTubeDescriptionAgent
+from content_engine.agents.asset_production.asset_production_manager import (
+    AssetProductionManager
 )
 
 
@@ -44,170 +8,38 @@ class ProductionBrain:
 
     def __init__(self):
 
-        self.formatter = FormatterAgent()
+        self.assets = AssetProductionManager()
 
-        self.image = ImageAgent()
 
-        self.video = VideoScriptAgent()
+        # Compatibility aliases.
+        # Asset ownership moved to AssetProductionManager,
+        # but older callers/tests still access ProductionBrain agents directly.
 
-        self.carousel = CarouselAgent()
+        self.formatter = self.assets.formatter
 
-        self.newsletter = NewsletterAgent()
+        self.image = self.assets.image
 
-        self.thumbnail = ThumbnailAgent()
+        self.video = self.assets.video
 
-        self.repurpose = RepurposeAgent()
+        self.carousel = self.assets.carousel
 
-        self.podcast = PodcastAgent()
+        self.newsletter = self.assets.newsletter
 
-        self.youtube_title = YouTubeTitleAgent()
+        self.thumbnail = self.assets.thumbnail
 
-        self.youtube_description = YouTubeDescriptionAgent()
+        self.repurpose = self.assets.repurpose
 
+        self.podcast = self.assets.podcast
 
+        self.youtube_title = self.assets.youtube_title
 
-    def format(
+        self.youtube_description = self.assets.youtube_description
 
-        self,
 
-        content,
 
-        platform
-
-    ):
-
-        return self.formatter.format(
-            content,
-            platform
-        )
-
-
-
-    def image_prompt(
-
-        self,
-
-        content
-
-    ):
-
-        return self.image.generate_prompt(
-            content
-        )
-
-
-
-    def video_script(
-
-        self,
-
-        content
-
-    ):
-
-        return self.video.generate(
-            content
-        )
-
-
-
-    def carousel_content(
-
-        self,
-
-        topic
-
-    ):
-
-        return self.carousel.generate(
-            topic
-        )
-
-
-
-    def newsletter_content(
-
-        self,
-
-        content
-
-    ):
-
-        return self.newsletter.generate(
-            content
-        )
-
-
-
-    def thumbnail_content(
-
-        self,
-
-        content
-
-    ):
-
-        return self.thumbnail.generate(
-            content
-        )
-
-
-
-    def repurpose_content(
-
-        self,
-
-        content
-
-    ):
-
-        return self.repurpose.generate(
-            content
-        )
-
-
-
-    def podcast_content(
-
-        self,
-
-        content
-
-    ):
-
-        return self.podcast.generate(
-            content
-        )
-
-
-
-    def youtube_title_content(
-
-        self,
-
-        content
-
-    ):
-
-        return self.youtube_title.generate(
-            content
-        )
-
-
-
-    def youtube_description_content(
-
-        self,
-
-        content
-
-    ):
-
-        return self.youtube_description.generate(
-            content
-        )
-
-
+    ##################################################
+    # ASSET GENERATION
+    ##################################################
 
     def generate_assets(
 
@@ -221,76 +53,12 @@ class ProductionBrain:
 
     ):
 
-        return {
+        return self.assets.generate_assets(
 
-            "formatted":
+            content,
 
-                self.format(
-                    content,
-                    platform
-                ),
+            platform,
 
+            topic
 
-            "image_prompt":
-
-                self.image_prompt(
-                    content
-                ),
-
-
-            "video_script":
-
-                self.video_script(
-                    content
-                ),
-
-
-            "newsletter":
-
-                self.newsletter_content(
-                    content
-                ),
-
-
-            "carousel":
-
-                self.carousel_content(
-                    topic
-                ),
-
-
-            "thumbnail":
-
-                self.thumbnail_content(
-                    content
-                ),
-
-
-            "repurposed":
-
-                self.repurpose_content(
-                    content
-                ),
-
-
-            "podcast":
-
-                self.podcast_content(
-                    content
-                ),
-
-
-            "youtube_title":
-
-                self.youtube_title_content(
-                    content
-                ),
-
-
-            "youtube_description":
-
-                self.youtube_description_content(
-                    content
-                )
-
-        }
+        )
