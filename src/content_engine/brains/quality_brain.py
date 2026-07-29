@@ -1,26 +1,7 @@
-from content_engine.agents.quality.hook_quality_agent import (
-    HookQualityAgent
+from content_engine.agents.quality.quality_manager import (
+    QualityManager
 )
 
-from content_engine.agents.quality.hook_similarity_agent import (
-    HookSimilarityAgent
-)
-
-from content_engine.agents.quality.memory_filter_agent import (
-    MemoryFilterAgent
-)
-
-from content_engine.agents.quality.performance_scoring_agent import (
-    PerformanceScoringAgent
-)
-
-from content_engine.agents.quality.virality_agent import (
-    ViralityAgent
-)
-
-from content_engine.agents.quality.virality_prediction_agent import (
-    ViralityPredictionAgent
-)
 
 
 class QualityBrain:
@@ -28,17 +9,35 @@ class QualityBrain:
 
     def __init__(self):
 
-        self.hook_quality = HookQualityAgent()
+        self.manager = QualityManager()
 
-        self.hook_similarity = HookSimilarityAgent()
 
-        self.memory_filter = MemoryFilterAgent()
+        # Compatibility aliases.
+        # Previous architecture exposed agents directly.
 
-        self.performance = PerformanceScoringAgent()
+        self.hook_quality = (
+            self.manager.hook_quality
+        )
 
-        self.virality = ViralityAgent()
+        self.hook_similarity = (
+            self.manager.hook_similarity
+        )
 
-        self.virality_prediction = ViralityPredictionAgent()
+        self.memory_filter = (
+            self.manager.memory_filter
+        )
+
+        self.performance = (
+            self.manager.performance
+        )
+
+        self.virality = (
+            self.manager.virality
+        )
+
+        self.virality_prediction = (
+            self.manager.virality_prediction
+        )
 
 
 
@@ -64,6 +63,7 @@ class QualityBrain:
                 hook = cleaned
 
                 break
+
 
 
         content_score = self.score_content(
@@ -110,24 +110,16 @@ class QualityBrain:
 
 
 
-    ##################################################
-    # HOOK QUALITY
-    ##################################################
-
     def score_hook(
         self,
         hook
     ):
 
-        return self.hook_quality.score(
+        return self.manager.score_hook(
             hook
         )
 
 
-
-    ##################################################
-    # HOOK SIMILARITY
-    ##################################################
 
     def compare_hooks(
         self,
@@ -135,7 +127,7 @@ class QualityBrain:
         second
     ):
 
-        return self.hook_similarity.similarity(
+        return self.manager.compare_hooks(
             first,
             second
         )
@@ -149,7 +141,7 @@ class QualityBrain:
         threshold=55
     ):
 
-        return self.hook_similarity.is_similar(
+        return self.manager.is_duplicate_hook(
             new_hook,
             existing_hook,
             threshold
@@ -157,16 +149,12 @@ class QualityBrain:
 
 
 
-    ##################################################
-    # MEMORY CLEANING
-    ##################################################
-
     def clean_hook(
         self,
         hook
     ):
 
-        return self.memory_filter.clean_hook(
+        return self.manager.clean_hook(
             hook
         )
 
@@ -177,7 +165,7 @@ class QualityBrain:
         topic
     ):
 
-        return self.memory_filter.clean_topic(
+        return self.manager.clean_topic(
             topic
         )
 
@@ -188,30 +176,22 @@ class QualityBrain:
         cta
     ):
 
-        return self.memory_filter.clean_cta(
+        return self.manager.clean_cta(
             cta
         )
 
 
-
-    ##################################################
-    # PERFORMANCE
-    ##################################################
 
     def score_content(
         self,
         content
     ):
 
-        return self.performance.score(
+        return self.manager.score_content(
             content
         )
 
 
-
-    ##################################################
-    # VIRALITY
-    ##################################################
 
     def optimize_virality(
         self,
@@ -219,7 +199,7 @@ class QualityBrain:
         platform
     ):
 
-        return self.virality.optimize(
+        return self.manager.optimize_virality(
             content,
             platform
         )
@@ -233,7 +213,7 @@ class QualityBrain:
         platform
     ):
 
-        return self.virality_prediction.predict(
+        return self.manager.predict_virality(
             review,
             viral,
             platform
