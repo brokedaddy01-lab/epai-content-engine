@@ -1,12 +1,17 @@
 class BaseManager:
     """
-    Base class for all managers.
+    Base class for all manager classes.
 
-    Provides a common parent so every manager shares the
-    same interface and can grow consistently.
+    Provides a common interface for diagnostics,
+    versioning, health checks, and runtime
+    introspection.
     """
 
     VERSION = "1.0"
+
+    ##################################################
+    # IDENTIFICATION
+    ##################################################
 
     def name(self):
 
@@ -15,6 +20,10 @@ class BaseManager:
     def version(self):
 
         return self.VERSION
+
+    ##################################################
+    # HEALTH
+    ##################################################
 
     def health(self):
 
@@ -25,5 +34,41 @@ class BaseManager:
             "status": "healthy",
 
             "version": self.version()
+
+        }
+
+    ##################################################
+    # INTROSPECTION
+    ##################################################
+
+    def capabilities(self):
+
+        return [
+
+            name
+
+            for name in dir(self)
+
+            if (
+
+                callable(getattr(self, name))
+
+                and not name.startswith("_")
+
+            )
+
+        ]
+
+    def info(self):
+
+        return {
+
+            "manager": self.name(),
+
+            "version": self.version(),
+
+            "status": "healthy",
+
+            "capabilities": self.capabilities()
 
         }
