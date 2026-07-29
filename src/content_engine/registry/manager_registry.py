@@ -31,7 +31,29 @@ from content_engine.agents.quality.quality_manager import (
 class ManagerRegistry:
 
 
-    def __init__(self):
+    _instance = None
+
+
+
+    def __new__(cls):
+
+        if cls._instance is None:
+
+            cls._instance = super(
+                ManagerRegistry,
+                cls
+            ).__new__(
+                cls
+            )
+
+            cls._instance._initialize()
+
+
+        return cls._instance
+
+
+
+    def _initialize(self):
 
         self.managers = {
 
@@ -65,12 +87,17 @@ class ManagerRegistry:
     ##################################################
 
     def get(
+
         self,
+
         name
+
     ):
 
         return self.managers.get(
+
             name
+
         )
 
 
@@ -80,11 +107,15 @@ class ManagerRegistry:
     ##################################################
 
     def list_managers(
+
         self
+
     ):
 
         return list(
+
             self.managers.keys()
+
         )
 
 
@@ -94,15 +125,19 @@ class ManagerRegistry:
     ##################################################
 
     def health(
+
         self
+
     ):
 
         return {
 
             name:
+
                 manager.health()
 
             for name, manager
+
             in self.managers.items()
 
         }
@@ -114,15 +149,19 @@ class ManagerRegistry:
     ##################################################
 
     def info(
+
         self
+
     ):
 
         return {
 
             name:
+
                 manager.info()
 
             for name, manager
+
             in self.managers.items()
 
         }
