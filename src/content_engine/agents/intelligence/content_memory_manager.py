@@ -1,3 +1,7 @@
+from content_engine.agents.base_manager import (
+    BaseManager
+)
+
 from content_engine.agents.intelligence.memory_agent import (
     MemoryAgent
 )
@@ -7,7 +11,7 @@ from content_engine.agents.quality.hook_similarity_agent import (
 )
 
 
-class ContentMemoryManager:
+class ContentMemoryManager(BaseManager):
 
 
     def __init__(self):
