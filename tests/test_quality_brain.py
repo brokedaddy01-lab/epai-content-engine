@@ -7,11 +7,11 @@ def test_quality_brain_initializes():
 
     assert brain is not None
 
+    assert brain.manager is not None
 
-def test_quality_agents_exist():
+
+def test_quality_manager_exists():
 
     brain = QualityBrain()
 
-    assert brain.hook_quality is not None
-    assert brain.performance is not None
-    assert brain.virality is not None
+    assert brain.manager is not None

@@ -23,35 +23,6 @@ class QualityBrain:
 
 
 
-        # Compatibility aliases.
-        # Previous architecture exposed agents directly.
-
-        self.hook_quality = (
-            self.manager.hook_quality
-        )
-
-        self.hook_similarity = (
-            self.manager.hook_similarity
-        )
-
-        self.memory_filter = (
-            self.manager.memory_filter
-        )
-
-        self.performance = (
-            self.manager.performance
-        )
-
-        self.virality = (
-            self.manager.virality
-        )
-
-        self.virality_prediction = (
-            self.manager.virality_prediction
-        )
-
-
-
     ##################################################
     # FULL QUALITY ANALYSIS
     ##################################################
