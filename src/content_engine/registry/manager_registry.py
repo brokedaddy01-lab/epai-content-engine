@@ -27,6 +27,35 @@ from content_engine.agents.quality.quality_manager import (
 )
 
 
+from content_engine.brains.strategy_brain import (
+    StrategyBrain
+)
+
+from content_engine.brains.intelligence_brain import (
+    IntelligenceBrain
+)
+
+from content_engine.brains.creation_brain import (
+    CreationBrain
+)
+
+from content_engine.brains.optimization_brain import (
+    OptimizationBrain
+)
+
+from content_engine.brains.production_brain import (
+    ProductionBrain
+)
+
+from content_engine.brains.publishing_brain import (
+    PublishingBrain
+)
+
+from content_engine.brains.quality_brain import (
+    QualityBrain
+)
+
+
 
 class ManagerRegistry:
 
@@ -83,7 +112,7 @@ class ManagerRegistry:
 
 
     ##################################################
-    # ACCESS
+    # MANAGER ACCESS
     ##################################################
 
     def get(
@@ -97,6 +126,72 @@ class ManagerRegistry:
         return self.managers.get(
 
             name
+
+        )
+
+
+
+    ##################################################
+    # BRAIN FACTORY
+    ##################################################
+
+    def brain(
+
+        self,
+
+        name
+
+    ):
+
+        brains = {
+
+            "strategy":
+                StrategyBrain,
+
+            "intelligence":
+                IntelligenceBrain,
+
+            "creation":
+                CreationBrain,
+
+            "optimization":
+                OptimizationBrain,
+
+            "production":
+                ProductionBrain,
+
+            "publishing":
+                PublishingBrain,
+
+            "quality":
+                QualityBrain
+
+        }
+
+
+        brain_class = brains.get(
+
+            name
+
+        )
+
+
+        if brain_class is None:
+
+            raise ValueError(
+
+                f"Unknown brain: {name}"
+
+            )
+
+
+        return brain_class(
+
+            self.get(
+
+                name
+
+            )
 
         )
 
@@ -130,23 +225,17 @@ class ManagerRegistry:
 
     ):
 
-        results = {}
+        return {
 
+            name:
 
-        for name, manager in self.managers.items():
+                manager.health()
 
-            results[name] = {
+            for name, manager
 
-                "status":
-                    "healthy",
+            in self.managers.items()
 
-                "manager":
-                    manager.__class__.__name__
-
-            }
-
-
-        return results
+        }
 
 
 
@@ -162,12 +251,9 @@ class ManagerRegistry:
 
         return {
 
-            name: {
+            name:
 
-                "class":
-                    manager.__class__.__name__
-
-            }
+                manager.info()
 
             for name, manager
 
