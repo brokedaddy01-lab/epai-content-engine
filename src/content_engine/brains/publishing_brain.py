@@ -1,9 +1,17 @@
+from content_engine.brains.base_brain import (
+    BaseBrain
+)
+
 from content_engine.agents.publishing.publishing_manager import (
     PublishingManager
 )
 
 
-class PublishingBrain:
+class PublishingBrain(BaseBrain):
+
+
+    manager_class = PublishingManager
+
 
 
     def __init__(
@@ -14,14 +22,9 @@ class PublishingBrain:
 
     ):
 
-
-        self.manager = (
+        super().__init__(
 
             manager
-
-            if manager
-
-            else PublishingManager()
 
         )
 
