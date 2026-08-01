@@ -1,3 +1,7 @@
+from content_engine.brains.base_brain import (
+    BaseBrain
+)
+
 from content_engine.agents.intelligence.intelligence_manager import (
     IntelligenceManager
 )
@@ -8,23 +12,26 @@ from content_engine.agents.strategy.topic_cluster_agent import (
 
 
 
-class IntelligenceBrain:
+class IntelligenceBrain(BaseBrain):
+
+
+    manager_class = IntelligenceManager
+
 
 
     def __init__(
+
         self,
+
         manager=None
+
     ):
 
+        super().__init__(
 
-        if manager is None:
+            manager
 
-            self.manager = IntelligenceManager()
-
-        else:
-
-            self.manager = manager
-
+        )
 
 
         # Compatibility aliases.
@@ -75,7 +82,11 @@ class IntelligenceBrain:
 
 
 
-    def memory_context(self):
+    def memory_context(
+
+        self
+
+    ):
 
         return (
             self.memory
@@ -85,30 +96,49 @@ class IntelligenceBrain:
 
 
     def remember_content(
+
         self,
+
         hook,
+
         topic,
+
         hashtags,
+
         cta,
+
         platform,
+
         score
+
     ):
 
         return (
             self.manager
             .remember_content(
+
                 hook,
+
                 topic,
+
                 hashtags,
+
                 cta,
+
                 platform,
+
                 score
+
             )
         )
 
 
 
-    def best_content(self):
+    def best_content(
+
+        self
+
+    ):
 
         return (
             self.performance
@@ -118,37 +148,58 @@ class IntelligenceBrain:
 
 
     def analyze_performance(
+
         self,
+
         memory_data
+
     ):
 
         return (
             self.performance_learning
             .learn(
+
                 memory_data
+
             )
         )
 
 
 
-    def feedback_agent(self):
+    def feedback_agent(
+
+        self
+
+    ):
 
         return self.feedback
 
 
 
-    def feedback_loop_agent(self):
+    def feedback_loop_agent(
+
+        self
+
+    ):
 
         return self.feedback
 
 
 
-    def knowledge_agent(self):
+    def knowledge_agent(
+
+        self
+
+    ):
 
         return self.knowledge
 
 
 
-    def topic_clusters(self):
+    def topic_clusters(
+
+        self
+
+    ):
 
         return self.clusters
