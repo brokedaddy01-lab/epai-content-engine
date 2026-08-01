@@ -1,9 +1,17 @@
+from content_engine.brains.base_brain import (
+    BaseBrain
+)
+
 from content_engine.agents.creation.creation_manager import (
     CreationManager
 )
 
 
-class CreationBrain:
+class CreationBrain(BaseBrain):
+
+
+    manager_class = CreationManager
+
 
 
     def __init__(
@@ -19,13 +27,13 @@ class CreationBrain:
     ):
 
 
-        self.manager = (
+        if manager is not None:
 
-            manager
+            self.manager = manager
 
-            if manager is not None
+        else:
 
-            else CreationManager(
+            self.manager = CreationManager(
 
                 quality_threshold,
 
@@ -33,32 +41,57 @@ class CreationBrain:
 
             )
 
+
+        # Initialize future BaseBrain lifecycle support
+
+        super().__init__(
+
+            self.manager
+
         )
 
 
         # Compatibility aliases
 
         self.story_engine = (
+
             self.manager.story_engine
+
         )
+
 
         self.prompt_architect = (
+
             self.manager.prompt_architect
+
         )
+
 
         self.copywriter = (
+
             self.manager.copywriter
+
         )
+
 
         self.reviewer = (
+
             self.manager.reviewer
+
         )
+
 
         self.memory = (
+
             self.manager.memory
+
         )
 
 
+
+    ##################################################
+    # CONTENT CREATION
+    ##################################################
 
     def create(
 
@@ -69,6 +102,7 @@ class CreationBrain:
         brand
 
     ):
+
 
         return (
 
