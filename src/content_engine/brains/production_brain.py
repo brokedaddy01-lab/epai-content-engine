@@ -1,9 +1,17 @@
+from content_engine.brains.base_brain import (
+    BaseBrain
+)
+
 from content_engine.agents.asset_production.asset_production_manager import (
     AssetProductionManager
 )
 
 
-class ProductionBrain:
+class ProductionBrain(BaseBrain):
+
+
+    manager_class = AssetProductionManager
+
 
 
     def __init__(
@@ -14,16 +22,18 @@ class ProductionBrain:
 
     ):
 
-
-        self.assets = (
+        super().__init__(
 
             manager
 
-            if manager
-
-            else AssetProductionManager()
-
         )
+
+
+        # Compatibility alias.
+        # Previous architecture exposed assets directly.
+
+        self.assets = self.manager
+
 
 
         # Compatibility aliases.
