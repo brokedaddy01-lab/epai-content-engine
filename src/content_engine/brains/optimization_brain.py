@@ -1,24 +1,32 @@
+from content_engine.brains.base_brain import (
+    BaseBrain
+)
+
 from content_engine.agents.optimization.optimization_manager import (
     OptimizationManager
 )
 
 
-class OptimizationBrain:
+class OptimizationBrain(BaseBrain):
+
+
+    manager_class = OptimizationManager
+
 
 
     def __init__(
+
         self,
+
         manager=None
+
     ):
 
+        super().__init__(
 
-        if manager is None:
+            manager
 
-            manager = OptimizationManager()
-
-
-        self.manager = manager
-
+        )
 
 
         # Compatibility aliases
