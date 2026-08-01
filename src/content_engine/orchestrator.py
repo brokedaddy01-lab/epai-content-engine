@@ -2,34 +2,6 @@ import datetime
 import re
 
 
-from content_engine.brains.strategy_brain import (
-    StrategyBrain
-)
-
-from content_engine.brains.creation_brain import (
-    CreationBrain
-)
-
-from content_engine.brains.intelligence_brain import (
-    IntelligenceBrain
-)
-
-from content_engine.brains.quality_brain import (
-    QualityBrain
-)
-
-from content_engine.brains.optimization_brain import (
-    OptimizationBrain
-)
-
-from content_engine.brains.production_brain import (
-    ProductionBrain
-)
-
-from content_engine.brains.publishing_brain import (
-    PublishingBrain
-)
-
 from content_engine.registry import (
     ManagerRegistry
 )
@@ -44,79 +16,51 @@ class ContentOrchestrator:
         self.registry = ManagerRegistry()
 
 
-        self.strategy = StrategyBrain(
+        self.strategy = self.registry.brain(
 
-            self.registry.get(
-
-                "strategy"
-
-            )
+            "strategy"
 
         )
 
 
-        self.creation = CreationBrain(
+        self.creation = self.registry.brain(
 
-            manager=self.registry.get(
-
-                "creation"
-
-            )
+            "creation"
 
         )
 
 
-        self.intelligence = IntelligenceBrain(
+        self.intelligence = self.registry.brain(
 
-            manager=self.registry.get(
-
-                "intelligence"
-
-            )
+            "intelligence"
 
         )
 
 
-        self.quality = QualityBrain(
+        self.quality = self.registry.brain(
 
-            manager=self.registry.get(
-
-                "quality"
-
-            )
+            "quality"
 
         )
 
 
-        self.optimization = OptimizationBrain(
+        self.optimization = self.registry.brain(
 
-            manager=self.registry.get(
-
-                "optimization"
-
-            )
+            "optimization"
 
         )
 
 
-        self.production = ProductionBrain(
+        self.production = self.registry.brain(
 
-            manager=self.registry.get(
-
-                "production"
-
-            )
+            "production"
 
         )
 
 
-        self.publishing = PublishingBrain(
+        self.publishing = self.registry.brain(
 
-            manager=self.registry.get(
-
-                "publishing"
-
-            )
+            "publishing"
 
         )
 

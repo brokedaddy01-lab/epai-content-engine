@@ -7,6 +7,7 @@ from content_engine.agents.creation.creation_manager import (
 )
 
 
+
 class CreationBrain(BaseBrain):
 
 
@@ -18,35 +19,17 @@ class CreationBrain(BaseBrain):
 
         self,
 
+        manager=None,
+
         quality_threshold=90,
 
-        max_attempts=3,
-
-        manager=None
+        max_attempts=3
 
     ):
 
-
-        if manager is not None:
-
-            self.manager = manager
-
-        else:
-
-            self.manager = CreationManager(
-
-                quality_threshold,
-
-                max_attempts
-
-            )
-
-
-        # Initialize future BaseBrain lifecycle support
-
         super().__init__(
 
-            self.manager
+            manager
 
         )
 
@@ -90,7 +73,7 @@ class CreationBrain(BaseBrain):
 
 
     ##################################################
-    # CONTENT CREATION
+    # CREATION
     ##################################################
 
     def create(
@@ -102,7 +85,6 @@ class CreationBrain(BaseBrain):
         brand
 
     ):
-
 
         return (
 
