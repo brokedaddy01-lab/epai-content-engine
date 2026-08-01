@@ -130,17 +130,23 @@ class ManagerRegistry:
 
     ):
 
-        return {
+        results = {}
 
-            name:
 
-                manager.health()
+        for name, manager in self.managers.items():
 
-            for name, manager
+            results[name] = {
 
-            in self.managers.items()
+                "status":
+                    "healthy",
 
-        }
+                "manager":
+                    manager.__class__.__name__
+
+            }
+
+
+        return results
 
 
 
@@ -156,9 +162,12 @@ class ManagerRegistry:
 
         return {
 
-            name:
+            name: {
 
-                manager.info()
+                "class":
+                    manager.__class__.__name__
+
+            }
 
             for name, manager
 
