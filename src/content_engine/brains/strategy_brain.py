@@ -1,23 +1,30 @@
+from content_engine.brains.base_brain import (
+    BaseBrain
+)
+
 from content_engine.agents.strategy.strategy_manager import (
     StrategyManager
 )
 
 
-class StrategyBrain:
+class StrategyBrain(BaseBrain):
+
+
+    manager_class = StrategyManager
+
 
 
     def __init__(
+
         self,
+
         manager=None
+
     ):
 
-        self.manager = (
+        super().__init__(
 
             manager
-
-            if manager is not None
-
-            else StrategyManager()
 
         )
 
@@ -43,12 +50,17 @@ class StrategyBrain:
     ##################################################
 
     def generate_hook(
+
         self,
+
         topic
+
     ):
 
         return self.manager.generate_hook(
+
             topic
+
         )
 
 
@@ -58,14 +70,21 @@ class StrategyBrain:
     ##################################################
 
     def optimize_content(
+
         self,
+
         content,
+
         keyword
+
     ):
 
         return self.manager.optimize_content(
+
             content,
+
             keyword
+
         )
 
 
@@ -75,23 +94,33 @@ class StrategyBrain:
     ##################################################
 
     def discover_trends(
+
         self,
+
         source_data=None
+
     ):
 
         return self.manager.discover_trends(
+
             source_data
+
         )
 
 
 
     def trend_summary(
+
         self,
+
         source_data=None
+
     ):
 
         return self.manager.trend_summary(
+
             source_data
+
         )
 
 
@@ -100,7 +129,11 @@ class StrategyBrain:
     # TOPIC CLUSTERS
     ##################################################
 
-    def topic_clusters(self):
+    def topic_clusters(
+
+        self
+
+    ):
 
         return self.manager.topic_clusters()
 
@@ -110,7 +143,11 @@ class StrategyBrain:
     # STRATEGY ACCESS
     ##################################################
 
-    def strategy_agent(self):
+    def strategy_agent(
+
+        self
+
+    ):
 
         return self.manager.strategy_agent()
 
@@ -120,6 +157,10 @@ class StrategyBrain:
     # AUDIENCE ACCESS
     ##################################################
 
-    def audience_agent(self):
+    def audience_agent(
+
+        self
+
+    ):
 
         return self.manager.audience_agent()
