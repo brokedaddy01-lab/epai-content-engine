@@ -5,12 +5,13 @@ class BaseBrain:
     Base class for all EPAI Content Engine brains.
 
     Provides shared foundation for:
+
     - manager lifecycle
-    - future logging
-    - metrics
-    - tracing
-    - configuration injection
+    - dependency injection
+    - health checks
+    - metadata
     """
+
 
 
     manager_class = None
@@ -25,21 +26,25 @@ class BaseBrain:
 
     ):
 
+
         if manager is not None:
 
             self.manager = manager
 
+
+        elif self.manager_class is not None:
+
+            self.manager = self.manager_class()
+
+
         else:
 
-            if self.manager_class is None:
+            raise ValueError(
 
-                raise ValueError(
-                    "Brain must define manager_class"
-                )
+                f"{self.__class__.__name__} "
 
+                "must define manager_class"
 
-            self.manager = (
-                self.manager_class()
             )
 
 
@@ -54,12 +59,47 @@ class BaseBrain:
 
     ):
 
+
         return {
 
             "status":
+
                 "healthy",
 
+
             "brain":
-                self.__class__.__name__
+
+                self.__class__.__name__,
+
+
+            "manager":
+
+                self.manager.__class__.__name__
+
+        }
+
+
+
+    ##################################################
+    # METADATA
+    ##################################################
+
+    def info(
+
+        self
+
+    ):
+
+
+        return {
+
+            "brain":
+
+                self.__class__.__name__,
+
+
+            "manager":
+
+                self.manager.__class__.__name__
 
         }
