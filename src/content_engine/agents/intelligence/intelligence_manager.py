@@ -43,6 +43,7 @@ class IntelligenceManager(BaseManager):
 
         #
         # Compatibility alias
+        #
         # Existing brains/tests still expect
         # manager.memory
         #
