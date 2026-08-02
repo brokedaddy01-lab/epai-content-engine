@@ -14,32 +14,6 @@ class PublishingBrain(BaseBrain):
 
 
 
-    def __init__(
-
-        self,
-
-        manager=None
-
-    ):
-
-        super().__init__(
-
-            manager
-
-        )
-
-
-        # Compatibility aliases.
-        # Keeps previous callers/tests working.
-
-        self.campaign = self.manager.campaign
-
-        self.publisher = self.manager.publisher
-
-        self.scheduler = self.manager.scheduler
-
-
-
     ##################################################
     # CAMPAIGN CREATION
     ##################################################
