@@ -18,8 +18,9 @@ from content_engine.agents.intelligence.knowledge_agent import (
     KnowledgeAgent
 )
 
-from content_engine.agents.base_manager import BaseManager
-
+from content_engine.agents.base_manager import (
+    BaseManager
+)
 
 
 class IntelligenceManager(BaseManager):
@@ -33,9 +34,18 @@ class IntelligenceManager(BaseManager):
 
     ):
 
+        #
+        # Primary shared memory system
+        #
 
         self.content_memory = memory
 
+
+        #
+        # Compatibility alias
+        # Existing brains/tests still expect
+        # manager.memory
+        #
 
         self.memory = MemoryAgent()
 
