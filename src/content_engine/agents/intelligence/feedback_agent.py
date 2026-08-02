@@ -6,9 +6,15 @@ from content_engine.agents.intelligence.content_memory_manager import (
 class FeedbackAgent:
 
 
-    def __init__(self):
+    def __init__(
 
-        self.memory = ContentMemoryManager()
+        self,
+
+        memory
+
+    ):
+
+        self.memory = memory
 
 
 
