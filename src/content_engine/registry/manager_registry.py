@@ -26,6 +26,10 @@ from content_engine.agents.quality.quality_manager import (
     QualityManager
 )
 
+from content_engine.agents.intelligence.content_memory_manager import (
+    ContentMemoryManager
+)
+
 
 from content_engine.brains.strategy_brain import (
     StrategyBrain
@@ -69,10 +73,15 @@ class ManagerRegistry:
         if cls._instance is None:
 
             cls._instance = super(
+
                 ManagerRegistry,
+
                 cls
+
             ).__new__(
+
                 cls
+
             )
 
             cls._instance._initialize()
@@ -84,36 +93,53 @@ class ManagerRegistry:
 
     def _initialize(self):
 
+        self.content_memory = ContentMemoryManager()
+
+
         self.managers = {
 
+
             "strategy":
+
                 StrategyManager(),
 
+
             "intelligence":
+
                 IntelligenceManager(),
 
+
             "creation":
-                CreationManager(),
+
+                CreationManager(
+
+                    self.content_memory
+
+                ),
+
 
             "optimization":
+
                 OptimizationManager(),
 
+
             "production":
+
                 AssetProductionManager(),
 
+
             "publishing":
+
                 PublishingManager(),
 
+
             "quality":
+
                 QualityManager()
 
         }
 
 
-
-    ##################################################
-    # MANAGER ACCESS
-    ##################################################
 
     def get(
 
@@ -131,10 +157,6 @@ class ManagerRegistry:
 
 
 
-    ##################################################
-    # BRAIN FACTORY
-    ##################################################
-
     def brain(
 
         self,
@@ -143,30 +165,46 @@ class ManagerRegistry:
 
     ):
 
+
         brains = {
 
+
             "strategy":
+
                 StrategyBrain,
 
+
             "intelligence":
+
                 IntelligenceBrain,
 
+
             "creation":
+
                 CreationBrain,
 
+
             "optimization":
+
                 OptimizationBrain,
 
+
             "production":
+
                 ProductionBrain,
 
+
             "publishing":
+
                 PublishingBrain,
 
+
             "quality":
+
                 QualityBrain
 
         }
+
 
 
         brain_class = brains.get(
@@ -176,6 +214,7 @@ class ManagerRegistry:
         )
 
 
+
         if brain_class is None:
 
             raise ValueError(
@@ -183,6 +222,7 @@ class ManagerRegistry:
                 f"Unknown brain: {name}"
 
             )
+
 
 
         return brain_class(
@@ -197,10 +237,6 @@ class ManagerRegistry:
 
 
 
-    ##################################################
-    # DISCOVERY
-    ##################################################
-
     def list_managers(
 
         self
@@ -214,10 +250,6 @@ class ManagerRegistry:
         )
 
 
-
-    ##################################################
-    # HEALTH
-    ##################################################
 
     def health(
 
@@ -238,10 +270,6 @@ class ManagerRegistry:
         }
 
 
-
-    ##################################################
-    # INFO
-    ##################################################
 
     def info(
 

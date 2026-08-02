@@ -21,12 +21,15 @@ from content_engine.agents.intelligence.content_memory_manager import (
 from content_engine.agents.base_manager import BaseManager
 
 
+
 class CreationManager(BaseManager):
 
 
     def __init__(
 
         self,
+
+        memory=None,
 
         quality_threshold=90,
 
@@ -35,9 +38,16 @@ class CreationManager(BaseManager):
     ):
 
 
+        if memory is None:
+
+            memory = ContentMemoryManager()
+
+
         self.story_engine = StoryEngineAgent()
 
-        self.memory = ContentMemoryManager()
+
+        self.memory = memory
+
 
         self.prompt_architect = PromptArchitectAgent(
 
@@ -45,17 +55,24 @@ class CreationManager(BaseManager):
 
         )
 
+
         self.copywriter = CopywriterAgent()
+
 
         self.reviewer = ReviewerAgent()
 
 
         self.quality_threshold = (
+
             quality_threshold
+
         )
 
+
         self.max_attempts = (
+
             max_attempts
+
         )
 
 
@@ -72,20 +89,29 @@ class CreationManager(BaseManager):
 
 
         topic = row.get(
+
             "topic",
+
             ""
+
         )
 
 
         platform = row.get(
+
             "platform",
+
             "social"
+
         )
 
 
         audience = row.get(
+
             "audience",
+
             "target audience"
+
         )
 
 
@@ -93,6 +119,7 @@ class CreationManager(BaseManager):
         story = (
 
             self.story_engine
+
             .build_story(
 
                 topic,
@@ -110,6 +137,7 @@ class CreationManager(BaseManager):
         prompt = (
 
             self.prompt_architect
+
             .build_copywriter_prompt(
 
                 row,
@@ -127,6 +155,7 @@ class CreationManager(BaseManager):
         response = (
 
             self.copywriter
+
             .write(
 
                 prompt
@@ -134,6 +163,7 @@ class CreationManager(BaseManager):
             )
 
         )
+
 
 
         if not response:
@@ -147,7 +177,9 @@ class CreationManager(BaseManager):
                     "score": 0,
 
                     "issues": [
+
                         "Generation failed"
+
                     ]
 
                 },
@@ -163,6 +195,7 @@ class CreationManager(BaseManager):
         review = (
 
             self.reviewer
+
             .review(
 
                 response
@@ -198,6 +231,7 @@ class CreationManager(BaseManager):
             response = (
 
                 self.copywriter
+
                 .regenerate(
 
                     prompt,
@@ -218,6 +252,7 @@ class CreationManager(BaseManager):
             review = (
 
                 self.reviewer
+
                 .review(
 
                     response
@@ -236,20 +271,32 @@ class CreationManager(BaseManager):
 
             self.memory.remember_success(
 
-                hook=response.splitlines()[0]
-                if response
-                else "",
+                hook=(
+
+                    response.splitlines()[0]
+
+                    if response
+
+                    else ""
+
+                ),
 
                 topic=topic,
 
                 hashtags=row.get(
+
                     "hashtags",
+
                     []
+
                 ),
 
                 cta=row.get(
+
                     "cta",
+
                     ""
+
                 ),
 
                 platform=platform,
