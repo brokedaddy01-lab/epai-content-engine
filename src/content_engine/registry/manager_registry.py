@@ -31,36 +31,6 @@ from content_engine.agents.intelligence.content_memory_manager import (
 )
 
 
-from content_engine.brains.strategy_brain import (
-    StrategyBrain
-)
-
-from content_engine.brains.intelligence_brain import (
-    IntelligenceBrain
-)
-
-from content_engine.brains.creation_brain import (
-    CreationBrain
-)
-
-from content_engine.brains.optimization_brain import (
-    OptimizationBrain
-)
-
-from content_engine.brains.production_brain import (
-    ProductionBrain
-)
-
-from content_engine.brains.publishing_brain import (
-    PublishingBrain
-)
-
-from content_engine.brains.quality_brain import (
-    QualityBrain
-)
-
-
-
 class ManagerRegistry:
 
 
@@ -161,7 +131,7 @@ class ManagerRegistry:
 
 
     ##################################################
-    # BRAIN FACTORY
+    # BRAIN SUPPORT
     ##################################################
 
     def brain(
@@ -171,6 +141,34 @@ class ManagerRegistry:
         name
 
     ):
+
+        from content_engine.brains.strategy_brain import (
+            StrategyBrain
+        )
+
+        from content_engine.brains.intelligence_brain import (
+            IntelligenceBrain
+        )
+
+        from content_engine.brains.creation_brain import (
+            CreationBrain
+        )
+
+        from content_engine.brains.optimization_brain import (
+            OptimizationBrain
+        )
+
+        from content_engine.brains.production_brain import (
+            ProductionBrain
+        )
+
+        from content_engine.brains.publishing_brain import (
+            PublishingBrain
+        )
+
+        from content_engine.brains.quality_brain import (
+            QualityBrain
+        )
 
 
         brains = {
@@ -221,7 +219,6 @@ class ManagerRegistry:
         )
 
 
-
         if brain_class is None:
 
             raise ValueError(
@@ -229,7 +226,6 @@ class ManagerRegistry:
                 f"Unknown brain: {name}"
 
             )
-
 
 
         return brain_class(
