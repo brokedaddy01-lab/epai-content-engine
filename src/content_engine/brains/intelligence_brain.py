@@ -11,7 +11,6 @@ from content_engine.agents.intelligence.content_memory_manager import (
 )
 
 
-
 class IntelligenceBrain(BaseBrain):
 
 
@@ -37,7 +36,6 @@ class IntelligenceBrain(BaseBrain):
 
     ):
 
-
         super().__init__(
 
             manager
@@ -45,7 +43,13 @@ class IntelligenceBrain(BaseBrain):
         )
 
 
+        #
         # Compatibility aliases
+        #
+        # These remain temporarily because tests,
+        # orchestrator, and existing integrations
+        # still reference these names.
+        #
 
         self.content_memory = (
 
@@ -82,14 +86,14 @@ class IntelligenceBrain(BaseBrain):
         )
 
 
-        self.learning = (
+        self.performance_learning = (
 
             self.manager.learning
 
         )
 
 
-        self.performance_learning = (
+        self.learning = (
 
             self.manager.learning
 
