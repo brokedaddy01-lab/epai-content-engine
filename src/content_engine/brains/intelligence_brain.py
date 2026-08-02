@@ -44,11 +44,10 @@ class IntelligenceBrain(BaseBrain):
 
 
         #
-        # Compatibility aliases.
+        # Compatibility aliases
         #
-        # These remain because existing tests,
-        # orchestrator, and integrations still
-        # reference these names.
+        # Temporary bridge while managers become
+        # the single source of truth.
         #
 
         self.content_memory = (
@@ -106,6 +105,13 @@ class IntelligenceBrain(BaseBrain):
 
         )
 
+
+        #
+        # Legacy alias
+        #
+        # No cluster agent exists in Intelligence.
+        # Keep pointing at knowledge until callers migrate.
+        #
 
         self.clusters = (
 
