@@ -26,14 +26,9 @@ class PublishingBrain(BaseBrain):
 
     ):
 
-        return (
+        return self.manager.create_campaign(
 
-            self.manager
-            .create_campaign(
-
-                data
-
-            )
+            data
 
         )
 
@@ -53,16 +48,11 @@ class PublishingBrain(BaseBrain):
 
     ):
 
-        return (
+        return self.manager.publish(
 
-            self.manager
-            .publish(
+            content,
 
-                content,
-
-                platform
-
-            )
+            platform
 
         )
 
@@ -84,18 +74,13 @@ class PublishingBrain(BaseBrain):
 
     ):
 
-        return (
+        return self.manager.schedule(
 
-            self.manager
-            .schedule(
+            content,
 
-                content,
+            platform,
 
-                platform,
-
-                date
-
-            )
+            date
 
         )
 
@@ -109,13 +94,8 @@ class PublishingBrain(BaseBrain):
 
     ):
 
-        return (
+        return self.manager.best_time(
 
-            self.manager
-            .best_time(
-
-                platform
-
-            )
+            platform
 
         )
