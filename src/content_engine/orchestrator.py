@@ -1,11 +1,10 @@
-import datetime
-import re
-
-
 from content_engine.registry import (
     ManagerRegistry
 )
 
+from content_engine.content_director import (
+    ContentDirector
+)
 
 
 class ContentOrchestrator:
@@ -15,6 +14,17 @@ class ContentOrchestrator:
 
         self.registry = ManagerRegistry()
 
+
+        self.director = ContentDirector(
+
+            self.registry
+
+        )
+
+
+        # Backwards compatibility
+        # Existing tests and callers can still
+        # access brain references.
 
         self.strategy = self.registry.brain(
 
@@ -66,10 +76,6 @@ class ContentOrchestrator:
 
 
 
-    ##################################################
-    # CLEAN AI OUTPUT
-    ##################################################
-
     def clean_output(
 
         self,
@@ -78,78 +84,13 @@ class ContentOrchestrator:
 
     ):
 
-        remove_patterns = [
-
-            r"^Here is the.*?:\s*",
-            r"^Here'?s the.*?:\s*",
-            r"^Final Post:\s*",
-            r"^Analysis:\s*",
-            r"^Explanation:\s*",
-            r"^The following.*?:\s*",
-            r"^Below is.*?:\s*"
-
-        ]
-
-
-        for pattern in remove_patterns:
-
-            text = re.sub(
-
-                pattern,
-
-                "",
-
-                text,
-
-                flags=re.IGNORECASE | re.MULTILINE
-
-            )
-
-
-        banned_phrases = [
-
-            "Newsflash:",
-
-            "Here's the thing:",
-
-            "Here's the hard truth:",
-
-            "As we all know,",
-
-            "My friends,"
-
-        ]
-
-
-        for phrase in banned_phrases:
-
-            text = text.replace(
-
-                phrase,
-
-                ""
-
-            )
-
-
-        text = re.sub(
-
-            r"\n{3,}",
-
-            "\n\n",
+        return self.director.clean_output(
 
             text
 
         )
 
 
-        return text.strip()
-
-
-
-    ##################################################
-    # CTA CLEANER
-    ##################################################
 
     def clean_cta(
 
@@ -159,120 +100,13 @@ class ContentOrchestrator:
 
     ):
 
-        lines = text.splitlines()
+        return self.director.clean_cta(
 
-        seen = False
-
-        cleaned = []
-
-
-        for line in lines:
-
-            if "follow protocol x" in line.lower():
-
-                if seen:
-
-                    continue
-
-                seen = True
-
-
-            cleaned.append(line)
-
-
-        return "\n".join(
-
-            cleaned
-
-        ).strip()
-
-
-
-    ##################################################
-    # MEMORY SAVE
-    ##################################################
-
-    def save_memory(
-
-        self,
-
-        row,
-
-        text,
-
-        optimization,
-
-        review
-
-    ):
-
-        if review["score"] < 90:
-
-            return
-
-
-        lines = text.splitlines()
-
-        hook = ""
-
-
-        for line in lines:
-
-            cleaned = line.strip()
-
-
-            if len(cleaned) < 30:
-
-                continue
-
-
-            hook = cleaned
-
-            break
-
-
-
-        hook = self.quality.clean_hook(
-
-            hook
+            text
 
         )
 
 
-        hook_score = self.quality.score_hook(
-
-            hook
-
-        )
-
-
-        if hook_score < 50:
-
-            return
-
-
-
-        self.intelligence.remember_content(
-
-            hook=hook,
-
-            topic=row["topic"],
-
-            hashtags=optimization["hashtags"],
-
-            cta=optimization["follow_cta"],
-
-            platform=row["platform"],
-
-            score=review["score"]
-
-        )
-
-
-
-    ##################################################
-    # MAIN PIPELINE
-    ##################################################
 
     def run(
 
@@ -284,210 +118,10 @@ class ContentOrchestrator:
 
     ):
 
-
-        ##################################################
-        # CREATION
-        ##################################################
-
-        result = self.creation.create(
+        return self.director.run(
 
             row,
 
             brand
 
         )
-
-
-        response = self.clean_output(
-
-            result["content"]
-
-        )
-
-
-        review = result["review"]
-
-
-
-        ##################################################
-        # QUALITY ANALYSIS
-        ##################################################
-
-        quality_report = self.quality.analyze(
-
-            response,
-
-            review,
-
-            row["platform"]
-
-        )
-
-
-
-        ##################################################
-        # OPTIMIZATION
-        ##################################################
-
-        optimization = self.optimization.optimize(
-
-            response,
-
-            row["platform"],
-
-            row.get(
-
-                "topic",
-
-                ""
-
-            )
-
-        )
-
-
-        response += (
-
-            "\n\n"
-
-            +
-
-            optimization["follow_cta"]
-
-        )
-
-
-        response += (
-
-            "\n\n"
-
-            +
-
-            " ".join(
-
-                optimization["hashtags"]
-
-            )
-
-        )
-
-
-
-        response = self.clean_output(
-
-            response
-
-        )
-
-
-        response = self.clean_cta(
-
-            response
-
-        )
-
-
-
-        ##################################################
-        # INTELLIGENCE
-        ##################################################
-
-        self.save_memory(
-
-            row,
-
-            response,
-
-            optimization,
-
-            review
-
-        )
-
-
-
-        ##################################################
-        # PRODUCTION
-        ##################################################
-
-        assets = self.production.generate_assets(
-
-            response,
-
-            row["platform"],
-
-            row["topic"]
-
-        )
-
-
-
-        ##################################################
-        # CAMPAIGN
-        ##################################################
-
-        campaign = {
-
-            "brand":
-
-                brand["brand_name"],
-
-
-            "platform":
-
-                row["platform"],
-
-
-            "topic":
-
-                row["topic"],
-
-
-            "created":
-
-                str(
-
-                    datetime.datetime.now()
-
-                ),
-
-
-            "review_score":
-
-                review["score"]
-
-        }
-
-
-
-        ##################################################
-        # RETURN
-        ##################################################
-
-        return {
-
-            "post":
-
-                assets["formatted"],
-
-
-            "review":
-
-                review,
-
-
-            "quality":
-
-                quality_report,
-
-
-            "campaign":
-
-                campaign,
-
-
-            "assets":
-
-                assets
-
-        }
