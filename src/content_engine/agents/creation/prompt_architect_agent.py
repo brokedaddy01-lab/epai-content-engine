@@ -2,20 +2,21 @@ from content_engine.prompts.prompt_engine import (
     PromptEngine
 )
 
-from content_engine.agents.intelligence.content_memory_manager import (
-    ContentMemoryManager
-)
-
-
 
 class PromptArchitectAgent:
 
 
-    def __init__(self):
+    def __init__(
+
+        self,
+
+        memory
+
+    ):
 
         self.engine = PromptEngine()
 
-        self.memory = ContentMemoryManager()
+        self.memory = memory
 
 
 
@@ -42,8 +43,10 @@ class PromptArchitectAgent:
 
 
         memory = (
+
             self.memory
             .get_prompt_context()
+
         )
 
 

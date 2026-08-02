@@ -37,13 +37,17 @@ class CreationManager(BaseManager):
 
         self.story_engine = StoryEngineAgent()
 
-        self.prompt_architect = PromptArchitectAgent()
+        self.memory = ContentMemoryManager()
+
+        self.prompt_architect = PromptArchitectAgent(
+
+            self.memory
+
+        )
 
         self.copywriter = CopywriterAgent()
 
         self.reviewer = ReviewerAgent()
-
-        self.memory = ContentMemoryManager()
 
 
         self.quality_threshold = (
