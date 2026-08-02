@@ -1,9 +1,16 @@
 class BaseBrain:
 
-
     manager_class = None
 
+    def create_manager(self):
 
+        if self.manager_class is None:
+
+            raise NotImplementedError(
+                "manager_class must be defined."
+            )
+
+        return self.manager_class()
 
     def __init__(
 
@@ -13,40 +20,42 @@ class BaseBrain:
 
     ):
 
+        self.manager = (
 
-        if manager is not None:
+            manager
 
-            self.manager = manager
+            if manager is not None
 
-            return
+            else self.create_manager()
 
+        )
 
-        self.manager = self.create_manager()
+    def __getattr__(
 
+        self,
 
+        name
 
-    def create_manager(self):
+    ):
 
+        if hasattr(
 
-        if self.manager_class is None:
+            self.manager,
 
-            raise ValueError(
+            name
 
-                "manager_class must be defined"
+        ):
+
+            return getattr(
+
+                self.manager,
+
+                name
 
             )
 
+        raise AttributeError(
 
-        try:
+            f"{self.__class__.__name__} has no attribute '{name}'"
 
-            return self.manager_class()
-
-        except TypeError as error:
-
-            raise TypeError(
-
-                f"{self.manager_class.__name__} requires dependency injection. "
-
-                "Provide a manager instance."
-
-            ) from error
+        )
