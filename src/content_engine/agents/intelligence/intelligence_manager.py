@@ -25,14 +25,29 @@ from content_engine.agents.intelligence.content_memory_manager import (
 from content_engine.agents.base_manager import BaseManager
 
 
+
 class IntelligenceManager(BaseManager):
 
 
-    def __init__(self):
+    def __init__(
 
-        self.content_memory = ContentMemoryManager()
+        self,
+
+        memory=None
+
+    ):
+
+
+        if memory is None:
+
+            memory = ContentMemoryManager()
+
+
+        self.content_memory = memory
+
 
         self.memory = MemoryAgent()
+
 
         self.feedback = FeedbackAgent(
 
@@ -40,9 +55,12 @@ class IntelligenceManager(BaseManager):
 
         )
 
+
         self.performance = PerformanceAgent()
 
+
         self.learning = PerformanceLearningAgent()
+
 
         self.knowledge = KnowledgeAgent()
 
