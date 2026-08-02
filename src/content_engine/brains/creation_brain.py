@@ -28,68 +28,6 @@ class CreationBrain(BaseBrain):
 
 
 
-    def __init__(
-
-        self,
-
-        manager=None,
-
-        quality_threshold=90,
-
-        max_attempts=3
-
-    ):
-
-
-        super().__init__(
-
-            manager
-
-        )
-
-
-        # Compatibility aliases
-
-        self.story_engine = (
-
-            self.manager.story_engine
-
-        )
-
-
-        self.prompt_architect = (
-
-            self.manager.prompt_architect
-
-        )
-
-
-        self.copywriter = (
-
-            self.manager.copywriter
-
-        )
-
-
-        self.reviewer = (
-
-            self.manager.reviewer
-
-        )
-
-
-        self.memory = (
-
-            self.manager.memory
-
-        )
-
-
-
-    ##################################################
-    # CREATION
-    ##################################################
-
     def create(
 
         self,
@@ -100,14 +38,10 @@ class CreationBrain(BaseBrain):
 
     ):
 
-        return (
+        return self.manager.create(
 
-            self.manager.create(
+            row,
 
-                row,
-
-                brand
-
-            )
+            brand
 
         )
