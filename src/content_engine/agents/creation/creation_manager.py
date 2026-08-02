@@ -14,8 +14,12 @@ from content_engine.agents.creation.reviewer_agent import (
     ReviewerAgent
 )
 
+from content_engine.agents.base_manager import (
+    BaseManager
+)
 
-class CreationManager:
+
+class CreationManager(BaseManager):
 
 
     def __init__(
