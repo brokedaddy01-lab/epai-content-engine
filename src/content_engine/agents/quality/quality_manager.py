@@ -22,7 +22,10 @@ from content_engine.agents.quality.virality_prediction_agent import (
     ViralityPredictionAgent
 )
 
-from content_engine.agents.base_manager import BaseManager
+from content_engine.agents.base_manager import (
+    BaseManager
+)
+
 
 class QualityManager(BaseManager):
 
@@ -40,6 +43,49 @@ class QualityManager(BaseManager):
         self.virality = ViralityAgent()
 
         self.virality_prediction = ViralityPredictionAgent()
+
+
+
+    def analyze(
+        self,
+        content,
+        review,
+        platform
+    ):
+
+        virality_report = self.virality.optimize(
+            content,
+            platform
+        )
+
+
+        if not isinstance(
+            virality_report,
+            dict
+        ):
+
+            virality_report = {
+                "viral": virality_report,
+                "virality_score": 0
+            }
+
+
+        prediction = self.virality_prediction.predict(
+            review,
+            virality_report,
+            platform
+        )
+
+
+        return {
+
+            "review": review,
+
+            "virality": virality_report,
+
+            "prediction": prediction
+
+        }
 
 
 
