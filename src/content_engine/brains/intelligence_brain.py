@@ -117,17 +117,17 @@ class IntelligenceBrain(BaseBrain):
             self.manager
             .remember_content(
 
-                hook,
+                hook=hook,
 
-                topic,
+                topic=topic,
 
-                hashtags,
+                hashtags=hashtags,
 
-                cta,
+                cta=cta,
 
-                platform,
+                platform=platform,
 
-                score
+                score=score
 
             )
         )
