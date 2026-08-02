@@ -6,6 +6,10 @@ from content_engine.agents.creation.creation_manager import (
     CreationManager
 )
 
+from content_engine.agents.intelligence.content_memory_manager import (
+    ContentMemoryManager
+)
+
 
 
 class CreationBrain(BaseBrain):
@@ -26,6 +30,16 @@ class CreationBrain(BaseBrain):
         max_attempts=3
 
     ):
+
+
+        if manager is None:
+
+            manager = CreationManager(
+
+                ContentMemoryManager()
+
+            )
+
 
         super().__init__(
 

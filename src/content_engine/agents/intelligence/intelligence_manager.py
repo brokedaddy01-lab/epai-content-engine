@@ -18,10 +18,6 @@ from content_engine.agents.intelligence.knowledge_agent import (
     KnowledgeAgent
 )
 
-from content_engine.agents.intelligence.content_memory_manager import (
-    ContentMemoryManager
-)
-
 from content_engine.agents.base_manager import BaseManager
 
 
@@ -33,14 +29,9 @@ class IntelligenceManager(BaseManager):
 
         self,
 
-        memory=None
+        memory
 
     ):
-
-
-        if memory is None:
-
-            memory = ContentMemoryManager()
 
 
         self.content_memory = memory

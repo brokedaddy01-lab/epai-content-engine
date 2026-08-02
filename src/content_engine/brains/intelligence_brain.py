@@ -6,8 +6,8 @@ from content_engine.agents.intelligence.intelligence_manager import (
     IntelligenceManager
 )
 
-from content_engine.agents.strategy.topic_cluster_agent import (
-    TopicClusterAgent
+from content_engine.agents.intelligence.content_memory_manager import (
+    ContentMemoryManager
 )
 
 
@@ -27,6 +27,16 @@ class IntelligenceBrain(BaseBrain):
 
     ):
 
+
+        if manager is None:
+
+            manager = IntelligenceManager(
+
+                ContentMemoryManager()
+
+            )
+
+
         super().__init__(
 
             manager
@@ -34,66 +44,75 @@ class IntelligenceBrain(BaseBrain):
         )
 
 
-        # Compatibility aliases.
-        # Existing callers expect direct access.
+        # Compatibility aliases
 
-        self.performance = (
-            self.manager.performance
-        )
+        self.content_memory = (
 
+            self.manager.content_memory
 
-        self.performance_learning = (
-            self.manager.learning
         )
 
 
         self.memory = (
-            self.manager.content_memory
+
+            self.manager.memory
+
         )
 
 
         self.feedback = (
+
             self.manager.feedback
+
         )
 
-
-
-        # Compatibility alias.
-        # Previous architecture exposed feedback_loop.
-        # FeedbackLoopAgent was merged into FeedbackAgent.
 
         self.feedback_loop = (
-            self.feedback
+
+            self.manager.feedback
+
         )
 
+
+        self.performance = (
+
+            self.manager.performance
+
+        )
+
+
+        self.learning = (
+
+            self.manager.learning
+
+        )
+
+
+        self.performance_learning = (
+
+            self.manager.learning
+
+        )
 
 
         self.knowledge = (
+
             self.manager.knowledge
+
+        )
+
+
+        self.clusters = (
+
+            self.manager.knowledge
+
         )
 
 
 
-        # Compatibility alias.
-        # TopicClusterAgent ownership moved to StrategyBrain,
-        # but older callers/tests still access IntelligenceBrain.clusters.
-
-        self.clusters = TopicClusterAgent()
-
-
-
-    def memory_context(
-
-        self
-
-    ):
-
-        return (
-            self.memory
-            .get_prompt_context()
-        )
-
-
+    ##################################################
+    # MEMORY
+    ##################################################
 
     def remember_content(
 
@@ -113,93 +132,118 @@ class IntelligenceBrain(BaseBrain):
 
     ):
 
-        return (
-            self.manager
-            .remember_content(
+        return self.manager.remember_content(
 
-                hook=hook,
+            hook,
 
-                topic=topic,
+            topic,
 
-                hashtags=hashtags,
+            hashtags,
 
-                cta=cta,
+            cta,
 
-                platform=platform,
+            platform,
 
-                score=score
+            score
 
-            )
         )
 
 
 
-    def best_content(
-
-        self
-
-    ):
-
-        return (
-            self.performance
-            .best_posts()
-        )
-
-
-
-    def analyze_performance(
+    def remember_failure(
 
         self,
 
-        memory_data
+        hook
 
     ):
 
-        return (
-            self.performance_learning
-            .learn(
+        return self.manager.remember_failure(
 
-                memory_data
+            hook
 
-            )
         )
 
 
 
-    def feedback_agent(
+    def prompt_context(
 
         self
 
     ):
 
-        return self.feedback
+        return self.manager.prompt_context()
 
 
 
-    def feedback_loop_agent(
+    ##################################################
+    # FEEDBACK
+    ##################################################
+
+    def learn(
+
+        self,
+
+        review,
+
+        row
+
+    ):
+
+        return self.manager.learn(
+
+            review,
+
+            row
+
+        )
+
+
+
+    ##################################################
+    # KNOWLEDGE
+    ##################################################
+
+    def search(
+
+        self,
+
+        query
+
+    ):
+
+        return self.manager.search(
+
+            query
+
+        )
+
+
+
+    ##################################################
+    # PERFORMANCE
+    ##################################################
+
+    def performance_summary(
 
         self
 
     ):
 
-        return self.feedback
+        return self.manager.performance_summary()
 
 
 
-    def knowledge_agent(
+    def learn_from_performance(
 
-        self
+        self,
 
-    ):
-
-        return self.knowledge
-
-
-
-    def topic_clusters(
-
-        self
+        data
 
     ):
 
-        return self.clusters
+        return self.manager.learn_from_performance(
+
+            data
+
+        )

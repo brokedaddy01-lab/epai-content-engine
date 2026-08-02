@@ -29,18 +29,13 @@ class CreationManager(BaseManager):
 
         self,
 
-        memory=None,
+        memory,
 
         quality_threshold=90,
 
         max_attempts=3
 
     ):
-
-
-        if memory is None:
-
-            memory = ContentMemoryManager()
 
 
         self.story_engine = StoryEngineAgent()

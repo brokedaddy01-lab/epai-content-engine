@@ -73,15 +73,10 @@ class ManagerRegistry:
         if cls._instance is None:
 
             cls._instance = super(
-
                 ManagerRegistry,
-
                 cls
-
             ).__new__(
-
                 cls
-
             )
 
             cls._instance._initialize()
@@ -145,6 +140,10 @@ class ManagerRegistry:
 
 
 
+    ##################################################
+    # MANAGER ACCESS
+    ##################################################
+
     def get(
 
         self,
@@ -160,6 +159,10 @@ class ManagerRegistry:
         )
 
 
+
+    ##################################################
+    # BRAIN FACTORY
+    ##################################################
 
     def brain(
 
@@ -241,6 +244,10 @@ class ManagerRegistry:
 
 
 
+    ##################################################
+    # DISCOVERY
+    ##################################################
+
     def list_managers(
 
         self
@@ -254,6 +261,10 @@ class ManagerRegistry:
         )
 
 
+
+    ##################################################
+    # HEALTH
+    ##################################################
 
     def health(
 
@@ -274,6 +285,10 @@ class ManagerRegistry:
         }
 
 
+
+    ##################################################
+    # INFO
+    ##################################################
 
     def info(
 
