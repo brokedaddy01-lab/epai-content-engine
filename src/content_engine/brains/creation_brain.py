@@ -6,12 +6,25 @@ from content_engine.agents.creation.creation_manager import (
     CreationManager
 )
 
+from content_engine.agents.intelligence.content_memory_manager import (
+    ContentMemoryManager
+)
 
 
 class CreationBrain(BaseBrain):
 
 
     manager_class = CreationManager
+
+
+
+    def create_manager(self):
+
+        return self.manager_class(
+
+            ContentMemoryManager()
+
+        )
 
 
 

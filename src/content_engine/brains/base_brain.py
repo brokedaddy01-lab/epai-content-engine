@@ -1,8 +1,3 @@
-from content_engine.agents.intelligence.content_memory_manager import (
-    ContentMemoryManager
-)
-
-
 class BaseBrain:
 
 
@@ -23,10 +18,10 @@ class BaseBrain:
 
             self.manager = manager
 
+            return
 
-        else:
 
-            self.manager = self.create_manager()
+        self.manager = self.create_manager()
 
 
 
@@ -44,13 +39,14 @@ class BaseBrain:
 
         try:
 
-            return self.manager_class(
-
-                ContentMemoryManager()
-
-            )
-
-
-        except TypeError:
-
             return self.manager_class()
+
+        except TypeError as error:
+
+            raise TypeError(
+
+                f"{self.manager_class.__name__} requires dependency injection. "
+
+                "Provide a manager instance."
+
+            ) from error

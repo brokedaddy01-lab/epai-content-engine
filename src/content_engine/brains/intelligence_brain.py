@@ -6,12 +6,26 @@ from content_engine.agents.intelligence.intelligence_manager import (
     IntelligenceManager
 )
 
+from content_engine.agents.intelligence.content_memory_manager import (
+    ContentMemoryManager
+)
+
 
 
 class IntelligenceBrain(BaseBrain):
 
 
     manager_class = IntelligenceManager
+
+
+
+    def create_manager(self):
+
+        return self.manager_class(
+
+            ContentMemoryManager()
+
+        )
 
 
 
