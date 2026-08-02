@@ -14,54 +14,6 @@ class ProductionBrain(BaseBrain):
 
 
 
-    def __init__(
-
-        self,
-
-        manager=None
-
-    ):
-
-        super().__init__(
-
-            manager
-
-        )
-
-
-        # Compatibility alias.
-        # Previous architecture exposed assets directly.
-
-        self.assets = self.manager
-
-
-
-        # Compatibility aliases.
-        # Asset ownership moved to AssetProductionManager,
-        # but older callers/tests still access ProductionBrain agents directly.
-
-        self.formatter = self.assets.formatter
-
-        self.image = self.assets.image
-
-        self.video = self.assets.video
-
-        self.carousel = self.assets.carousel
-
-        self.newsletter = self.assets.newsletter
-
-        self.thumbnail = self.assets.thumbnail
-
-        self.repurpose = self.assets.repurpose
-
-        self.podcast = self.assets.podcast
-
-        self.youtube_title = self.assets.youtube_title
-
-        self.youtube_description = self.assets.youtube_description
-
-
-
     ##################################################
     # ASSET GENERATION
     ##################################################
@@ -78,7 +30,7 @@ class ProductionBrain(BaseBrain):
 
     ):
 
-        return self.assets.generate_assets(
+        return self.manager.generate_assets(
 
             content,
 
