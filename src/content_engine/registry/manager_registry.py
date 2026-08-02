@@ -106,7 +106,11 @@ class ManagerRegistry:
 
             "intelligence":
 
-                IntelligenceManager(),
+                IntelligenceManager(
+
+                    self.content_memory
+
+                ),
 
 
             "creation":
