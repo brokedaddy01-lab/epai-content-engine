@@ -44,11 +44,11 @@ class IntelligenceBrain(BaseBrain):
 
 
         #
-        # Compatibility aliases
+        # Compatibility aliases.
         #
-        # These remain temporarily because tests,
-        # orchestrator, and existing integrations
-        # still reference these names.
+        # These remain because existing tests,
+        # orchestrator, and integrations still
+        # reference these names.
         #
 
         self.content_memory = (
