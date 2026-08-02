@@ -46,8 +46,9 @@ class IntelligenceBrain(BaseBrain):
         #
         # Compatibility aliases
         #
-        # Temporary bridge while managers become
-        # the single source of truth.
+        # Managers are now the source of truth.
+        # These remain temporarily for existing
+        # callers/tests during migration.
         #
 
         self.content_memory = (
@@ -105,13 +106,6 @@ class IntelligenceBrain(BaseBrain):
 
         )
 
-
-        #
-        # Legacy alias
-        #
-        # No cluster agent exists in Intelligence.
-        # Keep pointing at knowledge until callers migrate.
-        #
 
         self.clusters = (
 
