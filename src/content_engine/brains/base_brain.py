@@ -1,17 +1,9 @@
+from content_engine.agents.intelligence.content_memory_manager import (
+    ContentMemoryManager
+)
+
+
 class BaseBrain:
-
-
-    """
-    Base class for all EPAI Content Engine brains.
-
-    Provides shared foundation for:
-
-    - manager lifecycle
-    - dependency injection
-    - health checks
-    - metadata
-    """
-
 
 
     manager_class = None
@@ -32,74 +24,33 @@ class BaseBrain:
             self.manager = manager
 
 
-        elif self.manager_class is not None:
-
-            self.manager = self.manager_class()
-
-
         else:
+
+            self.manager = self.create_manager()
+
+
+
+    def create_manager(self):
+
+
+        if self.manager_class is None:
 
             raise ValueError(
 
-                f"{self.__class__.__name__} "
-
-                "must define manager_class"
+                "manager_class must be defined"
 
             )
 
 
+        try:
 
-    ##################################################
-    # HEALTH CHECK
-    ##################################################
+            return self.manager_class(
 
-    def health_check(
+                ContentMemoryManager()
 
-        self
-
-    ):
+            )
 
 
-        return {
+        except TypeError:
 
-            "status":
-
-                "healthy",
-
-
-            "brain":
-
-                self.__class__.__name__,
-
-
-            "manager":
-
-                self.manager.__class__.__name__
-
-        }
-
-
-
-    ##################################################
-    # METADATA
-    ##################################################
-
-    def info(
-
-        self
-
-    ):
-
-
-        return {
-
-            "brain":
-
-                self.__class__.__name__,
-
-
-            "manager":
-
-                self.manager.__class__.__name__
-
-        }
+            return self.manager_class()

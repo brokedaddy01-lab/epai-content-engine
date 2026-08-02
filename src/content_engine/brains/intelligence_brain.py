@@ -6,10 +6,6 @@ from content_engine.agents.intelligence.intelligence_manager import (
     IntelligenceManager
 )
 
-from content_engine.agents.intelligence.content_memory_manager import (
-    ContentMemoryManager
-)
-
 
 
 class IntelligenceBrain(BaseBrain):
@@ -26,15 +22,6 @@ class IntelligenceBrain(BaseBrain):
         manager=None
 
     ):
-
-
-        if manager is None:
-
-            manager = IntelligenceManager(
-
-                ContentMemoryManager()
-
-            )
 
 
         super().__init__(
