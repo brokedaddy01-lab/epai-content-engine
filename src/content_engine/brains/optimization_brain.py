@@ -14,45 +14,6 @@ class OptimizationBrain(BaseBrain):
 
 
 
-    def __init__(
-
-        self,
-
-        manager=None
-
-    ):
-
-        super().__init__(
-
-            manager
-
-        )
-
-
-        # Compatibility aliases
-
-        self.growth = (
-
-            self.manager.growth
-
-        )
-
-
-        self.cta = (
-
-            self.manager.cta
-
-        )
-
-
-        self.hashtags = (
-
-            self.manager.hashtags
-
-        )
-
-
-
     ##################################################
     # FULL OPTIMIZATION
     ##################################################
@@ -69,18 +30,13 @@ class OptimizationBrain(BaseBrain):
 
     ):
 
-        return (
+        return self.manager.optimize(
 
-            self.manager
-            .optimize(
+            content,
 
-                content,
+            platform,
 
-                platform,
-
-                topic
-
-            )
+            topic
 
         )
 
@@ -98,14 +54,9 @@ class OptimizationBrain(BaseBrain):
 
     ):
 
-        return (
+        return self.manager.generate_cta(
 
-            self.manager
-            .generate_cta(
-
-                platform
-
-            )
+            platform
 
         )
 
@@ -125,15 +76,10 @@ class OptimizationBrain(BaseBrain):
 
     ):
 
-        return (
+        return self.manager.generate_hashtags(
 
-            self.manager
-            .generate_hashtags(
+            topic,
 
-                topic,
-
-                platform
-
-            )
+            platform
 
         )
