@@ -108,23 +108,3 @@ class StrategyManager(BaseManager):
     def topic_clusters(self):
 
         return self.clusters
-
-
-
-    ##################################################
-    # STRATEGY ACCESS
-    ##################################################
-
-    def strategy_agent(self):
-
-        return self.strategist
-
-
-
-    ##################################################
-    # AUDIENCE ACCESS
-    ##################################################
-
-    def audience_agent(self):
-
-        return self.audience
