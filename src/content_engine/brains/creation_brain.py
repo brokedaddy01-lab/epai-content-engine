@@ -2,6 +2,10 @@ from content_engine.brains.base_brain import (
     BaseBrain
 )
 
+from content_engine.models.content_context import (
+    ContentContext
+)
+
 from content_engine.agents.creation.creation_manager import (
     CreationManager
 )
@@ -34,9 +38,31 @@ class CreationBrain(BaseBrain):
 
         row,
 
-        brand
+        brand=None
 
     ):
+
+        if isinstance(
+
+            row,
+
+            ContentContext
+
+        ):
+
+            context = row
+
+            return self.manager.create(
+
+                {
+                    "topic": context.topic,
+                    "platform": context.platform
+                },
+
+                context.brand
+
+            )
+
 
         return self.manager.create(
 
