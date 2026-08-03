@@ -2,6 +2,10 @@ from content_engine.brains.base_brain import (
     BaseBrain
 )
 
+from content_engine.models.content_context import (
+    ContentContext
+)
+
 from content_engine.agents.quality.quality_manager import (
     QualityManager
 )
@@ -20,11 +24,35 @@ class QualityBrain(BaseBrain):
 
         content,
 
-        review,
+        review=None,
 
-        platform
+        platform=None
 
     ):
+
+        if isinstance(
+
+            content,
+
+            ContentContext
+
+        ):
+
+            context = content
+
+            return self.manager.analyze(
+
+                context.content,
+
+                context.metadata.get(
+                    "review",
+                    {}
+                ),
+
+                context.platform
+
+            )
+
 
         return self.manager.analyze(
 
