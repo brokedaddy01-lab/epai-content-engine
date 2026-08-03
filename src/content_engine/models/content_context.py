@@ -1,40 +1,28 @@
+from dataclasses import dataclass, field
+
+
+@dataclass
 class ContentContext:
 
 
-    def __init__(
+    topic: str = ""
 
-        self,
+    platform: str = ""
 
-        topic="",
+    brand: dict = field(
+        default_factory=dict
+    )
 
-        platform="",
+    content: str = ""
 
-        brand=None,
-
-        content="",
-
-        metadata=None
-
-    ):
-
-        self.topic = topic
-
-        self.platform = platform
-
-        self.brand = brand or {}
-
-        self.content = content
-
-        self.metadata = metadata or {}
-
+    metadata: dict = field(
+        default_factory=dict
+    )
 
 
     def update_content(
-
         self,
-
         content
-
     ):
 
         self.content = content
@@ -42,13 +30,9 @@ class ContentContext:
 
 
     def add_metadata(
-
         self,
-
         key,
-
         value
-
     ):
 
         self.metadata[key] = value
@@ -56,35 +40,24 @@ class ContentContext:
 
 
     def to_dict(
-
         self
-
     ):
 
         return {
 
             "topic":
-
                 self.topic,
 
-
             "platform":
-
                 self.platform,
 
-
             "brand":
-
                 self.brand,
 
-
             "content":
-
                 self.content,
 
-
             "metadata":
-
                 self.metadata
 
         }
