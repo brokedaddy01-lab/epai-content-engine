@@ -1,6 +1,10 @@
 import datetime
 import re
 
+from content_engine.models.content_context import (
+    ContentContext
+)
+
 
 class ContentDirector:
 
@@ -22,6 +26,8 @@ class ContentDirector:
         self.production = registry.brain("production")
 
         self.publishing = registry.brain("publishing")
+
+        self.context = None
 
 
     def clean_output(self, text):
@@ -144,6 +150,12 @@ class ContentDirector:
         brand
     ):
 
+        self.context = ContentContext(
+            topic=row["topic"],
+            platform=row["platform"],
+            brand=brand
+        )
+
         result = self.creation.create(
             row,
             brand
@@ -189,6 +201,10 @@ class ContentDirector:
         )
 
         response = self.clean_cta(
+            response
+        )
+
+        self.context.update_content(
             response
         )
 
