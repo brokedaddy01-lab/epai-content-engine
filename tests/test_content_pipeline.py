@@ -1,7 +1,6 @@
 from content_engine.orchestrator import ContentOrchestrator
 
 
-
 def get_brand():
 
     return {
@@ -46,7 +45,6 @@ def get_brand():
     }
 
 
-
 def get_row(topic, platform):
 
     return {
@@ -67,7 +65,6 @@ def get_row(topic, platform):
             "Follow Protocol X for disciplined execution."
 
     }
-
 
 
 def test_content_pipeline_returns_complete_package():
@@ -94,7 +91,6 @@ def test_content_pipeline_returns_complete_package():
     assert "campaign" in result
 
     assert "assets" in result
-
 
 
 def test_campaign_metadata_created():
@@ -126,7 +122,6 @@ def test_campaign_metadata_created():
     assert "created" in campaign
 
 
-
 def test_assets_package_exists():
 
     orchestrator = ContentOrchestrator()
@@ -150,7 +145,6 @@ def test_assets_package_exists():
     assert assets is not None
 
     assert "formatted" in assets
-
 
 
 def test_clean_output_removes_ai_phrases():
@@ -177,3 +171,95 @@ def test_clean_output_removes_ai_phrases():
     assert "Here is the final post:" not in cleaned
 
     assert "Discipline creates freedom." in cleaned
+
+
+def test_clean_output_removes_banned_phrases():
+
+    orchestrator = ContentOrchestrator()
+
+
+    text = (
+
+        "Newsflash: Discipline creates freedom.\n\n"
+
+        "Here's the hard truth: systems create consistency."
+
+    )
+
+
+    cleaned = orchestrator.clean_output(
+
+        text
+
+    )
+
+
+    assert "Newsflash:" not in cleaned
+
+    assert "Here's the hard truth:" not in cleaned
+
+    assert "Discipline creates freedom." in cleaned
+
+    assert "systems create consistency." in cleaned
+
+
+def test_clean_output_collapses_excessive_blank_lines():
+
+    orchestrator = ContentOrchestrator()
+
+
+    text = (
+
+        "Discipline creates freedom.\n\n\n\n"
+
+        "Systems create consistency."
+
+    )
+
+
+    cleaned = orchestrator.clean_output(
+
+        text
+
+    )
+
+
+    assert cleaned == (
+
+        "Discipline creates freedom.\n\n"
+
+        "Systems create consistency."
+
+    )
+
+
+def test_clean_cta_keeps_only_first_protocol_x_cta():
+
+    orchestrator = ContentOrchestrator()
+
+
+    text = (
+
+        "Discipline creates freedom.\n\n"
+
+        "Follow Protocol X for disciplined execution.\n\n"
+
+        "More content.\n\n"
+
+        "Follow Protocol X for disciplined execution."
+
+    )
+
+
+    cleaned = orchestrator.clean_cta(
+
+        text
+
+    )
+
+
+    assert cleaned.count("Follow Protocol X") == 1
+
+    assert "Discipline creates freedom." in cleaned
+
+    assert "More content." in cleaned
