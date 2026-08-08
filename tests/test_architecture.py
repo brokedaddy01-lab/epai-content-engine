@@ -16,7 +16,6 @@ def test_all_managers_registered():
     assert "publishing" in managers
 
 
-
 def test_all_managers_have_health():
 
     registry = ManagerRegistry()
@@ -26,3 +25,22 @@ def test_all_managers_have_health():
     for manager in health.values():
 
         assert manager["status"] == "healthy"
+
+
+def test_registry_is_singleton():
+
+    first = ManagerRegistry()
+
+    second = ManagerRegistry()
+
+    assert first is second
+
+
+def test_intelligence_uses_registry_content_memory():
+
+    registry = ManagerRegistry()
+
+    assert (
+        registry.managers["intelligence"].content_memory
+        is registry.content_memory
+    )
