@@ -55,3 +55,17 @@ def test_brain_forwards_manager_capabilities():
     assert strategy.topic_clusters() == (
         strategy.manager.topic_clusters()
     )
+
+
+def test_direct_creation_and_intelligence_brains_have_independent_memory():
+
+    from content_engine.brains.creation_brain import CreationBrain
+    from content_engine.brains.intelligence_brain import IntelligenceBrain
+
+    creation = CreationBrain()
+    intelligence = IntelligenceBrain()
+
+    assert (
+        creation.manager.memory
+        is not intelligence.manager.content_memory
+    )
