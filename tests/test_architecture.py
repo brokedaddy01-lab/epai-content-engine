@@ -44,3 +44,14 @@ def test_intelligence_uses_registry_content_memory():
         registry.managers["intelligence"].content_memory
         is registry.content_memory
     )
+
+
+def test_brain_forwards_manager_capabilities():
+
+    registry = ManagerRegistry()
+
+    strategy = registry.brain("strategy")
+
+    assert strategy.topic_clusters() == (
+        strategy.manager.topic_clusters()
+    )
