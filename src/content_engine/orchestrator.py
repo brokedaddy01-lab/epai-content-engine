@@ -22,58 +22,24 @@ class ContentOrchestrator:
         )
 
 
-        # Backwards compatibility
-        # Existing tests and callers can still
-        # access brain references.
+        # Backwards compatibility.
+        #
+        # Expose the same Brain instances used
+        # internally by ContentDirector.
 
-        self.strategy = self.registry.brain(
+        self.strategy = self.director.strategy
 
-            "strategy"
+        self.creation = self.director.creation
 
-        )
+        self.intelligence = self.director.intelligence
 
+        self.quality = self.director.quality
 
-        self.creation = self.registry.brain(
+        self.optimization = self.director.optimization
 
-            "creation"
+        self.production = self.director.production
 
-        )
-
-
-        self.intelligence = self.registry.brain(
-
-            "intelligence"
-
-        )
-
-
-        self.quality = self.registry.brain(
-
-            "quality"
-
-        )
-
-
-        self.optimization = self.registry.brain(
-
-            "optimization"
-
-        )
-
-
-        self.production = self.registry.brain(
-
-            "production"
-
-        )
-
-
-        self.publishing = self.registry.brain(
-
-            "publishing"
-
-        )
-
+        self.publishing = self.director.publishing
 
 
     def clean_output(
@@ -91,7 +57,6 @@ class ContentOrchestrator:
         )
 
 
-
     def clean_cta(
 
         self,
@@ -105,7 +70,6 @@ class ContentOrchestrator:
             text
 
         )
-
 
 
     def run(
