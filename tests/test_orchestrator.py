@@ -19,3 +19,16 @@ def test_orchestrator_has_all_brains():
     assert orchestrator.optimization is not None
     assert orchestrator.production is not None
     assert orchestrator.publishing is not None
+
+
+def test_orchestrator_reuses_director_brains():
+
+    orchestrator = ContentOrchestrator()
+
+    assert orchestrator.strategy is orchestrator.director.strategy
+    assert orchestrator.creation is orchestrator.director.creation
+    assert orchestrator.intelligence is orchestrator.director.intelligence
+    assert orchestrator.quality is orchestrator.director.quality
+    assert orchestrator.optimization is orchestrator.director.optimization
+    assert orchestrator.production is orchestrator.director.production
+    assert orchestrator.publishing is orchestrator.director.publishing
