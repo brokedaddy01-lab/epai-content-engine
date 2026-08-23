@@ -13,13 +13,11 @@ from content_engine.agents.quality.hook_similarity_agent import (
 
 class ContentMemoryManager(BaseManager):
 
-
     def __init__(self):
 
         self.memory = MemoryAgent()
 
         self.similarity = HookSimilarityAgent()
-
 
 
     def store(
@@ -32,7 +30,6 @@ class ContentMemoryManager(BaseManager):
         )
 
 
-
     def retrieve(
         self
     ):
@@ -40,7 +37,6 @@ class ContentMemoryManager(BaseManager):
         return (
             self.memory.retrieve()
         )
-
 
 
     def remember_success(
@@ -73,6 +69,86 @@ class ContentMemoryManager(BaseManager):
 
         )
 
+
+    def remember_failure(
+        self,
+        hook
+    ):
+
+        self.store(
+
+            {
+
+                "hook": hook,
+
+                "rejected": True
+
+            }
+
+        )
+
+
+    def save_successful_content(
+        self,
+        row,
+        text,
+        optimization,
+        review,
+        quality
+    ):
+
+        if review["score"] < 90:
+
+            return
+
+
+        lines = text.splitlines()
+
+        hook = ""
+
+
+        for line in lines:
+
+            cleaned = line.strip()
+
+            if len(cleaned) < 30:
+
+                continue
+
+            hook = cleaned
+
+            break
+
+
+        hook = quality.clean_hook(
+            hook
+        )
+
+        hook_score = quality.score_hook(
+            hook
+        )
+
+
+        if hook_score < 50:
+
+            return
+
+
+        self.remember_success(
+
+            hook=hook,
+
+            topic=row["topic"],
+
+            hashtags=optimization["hashtags"],
+
+            cta=optimization["follow_cta"],
+
+            platform=row["platform"],
+
+            score=review["score"]
+
+        )
 
 
     def get_prompt_context(

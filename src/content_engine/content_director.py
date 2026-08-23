@@ -56,41 +56,18 @@ class ContentDirector:
         review
     ):
 
-        if review["score"] < 90:
+        self.intelligence.manager.content_memory.save_successful_content(
 
-            return
+            row=row,
 
-        lines = text.splitlines()
+            text=text,
 
-        hook = ""
+            optimization=optimization,
 
-        for line in lines:
+            review=review,
 
-            cleaned = line.strip()
+            quality=self.quality
 
-            if len(cleaned) < 30:
-
-                continue
-
-            hook = cleaned
-
-            break
-
-        hook = self.quality.clean_hook(hook)
-
-        hook_score = self.quality.score_hook(hook)
-
-        if hook_score < 50:
-
-            return
-
-        self.intelligence.remember_content(
-            hook=hook,
-            topic=row["topic"],
-            hashtags=optimization["hashtags"],
-            cta=optimization["follow_cta"],
-            platform=row["platform"],
-            score=review["score"]
         )
 
 
