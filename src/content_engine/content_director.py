@@ -8,6 +8,10 @@ from content_engine.content_cleaner import (
     ContentCleaner
 )
 
+from content_engine.content_assembler import (
+    ContentAssembler
+)
+
 
 class ContentDirector:
 
@@ -16,6 +20,10 @@ class ContentDirector:
         self.registry = registry
 
         self.cleaner = ContentCleaner()
+
+        self.assembler = ContentAssembler(
+            self.cleaner
+        )
 
         self.strategy = registry.brain("strategy")
 
@@ -115,26 +123,9 @@ class ContentDirector:
             )
         )
 
-        response += (
-            "\n\n"
-            +
-            optimization["follow_cta"]
-        )
-
-        response += (
-            "\n\n"
-            +
-            " ".join(
-                optimization["hashtags"]
-            )
-        )
-
-        response = self.clean_output(
-            response
-        )
-
-        response = self.clean_cta(
-            response
+        response = self.assembler.assemble(
+            response,
+            optimization
         )
 
         self.context.update_content(
