@@ -70,7 +70,7 @@ class ContentDirector:
         review
     ):
 
-        self.intelligence.manager.content_memory.save_successful_content(
+        self.intelligence.save_successful_content(
 
             row=row,
 

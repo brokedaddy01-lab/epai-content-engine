@@ -134,6 +134,38 @@ class IntelligenceManager(BaseManager):
 
 
 
+    def save_successful_content(
+
+        self,
+
+        row,
+
+        text,
+
+        optimization,
+
+        review,
+
+        quality
+
+    ):
+
+        return self.content_memory.save_successful_content(
+
+            row=row,
+
+            text=text,
+
+            optimization=optimization,
+
+            review=review,
+
+            quality=quality
+
+        )
+
+
+
     ##################################################
     # FEEDBACK
     ##################################################

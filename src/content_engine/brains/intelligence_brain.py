@@ -73,3 +73,34 @@ class IntelligenceBrain(BaseBrain):
         self.clusters = (
             self.manager.knowledge
         )
+
+
+    def save_successful_content(
+
+        self,
+
+        row,
+
+        text,
+
+        optimization,
+
+        review,
+
+        quality
+
+    ):
+
+        return self.manager.save_successful_content(
+
+            row=row,
+
+            text=text,
+
+            optimization=optimization,
+
+            review=review,
+
+            quality=quality
+
+        )
