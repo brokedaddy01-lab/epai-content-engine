@@ -34,14 +34,20 @@ class ContentDirector:
         self.context = None
 
 
-    def clean_output(self, text):
+    def clean_output(
+        self,
+        text
+    ):
 
         return self.cleaner.clean_output(
             text
         )
 
 
-    def clean_cta(self, text):
+    def clean_cta(
+        self,
+        text
+    ):
 
         return self.cleaner.clean_cta(
             text
